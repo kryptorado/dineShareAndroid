@@ -6,7 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthUserAttributeKey
+import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.auth.AuthUserAttributeKey.familyName
+import com.amplifyframework.auth.AuthUserAttributeKey.givenName
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
@@ -19,13 +21,16 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
+
         signup_button.setOnClickListener {
+            val attributes: ArrayList<AuthUserAttribute> = ArrayList()
+            attributes.add(AuthUserAttribute(familyName(), "familyName"))
+            attributes.add(AuthUserAttribute(givenName(), "givenName"))
+
             Amplify.Auth.signUp(
                 signup_edit_text_email.text.toString(),
                 signup_edit_text_password.text.toString(),
-                AuthSignUpOptions.builder().userAttribute(
-                    AuthUserAttributeKey.email(), signup_edit_text_email.text.toString()
-                ).build(),
+                AuthSignUpOptions.builder().userAttributes(attributes).build(),
                 this::onSignupSuccess,
                 this::onSignupError
             )

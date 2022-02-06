@@ -1,10 +1,10 @@
 package com.example.dineshareandroid
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.core.Amplify
 import kotlinx.android.synthetic.main.activity_logged_in.*
@@ -20,19 +20,15 @@ class LoggedInActivity : AppCompatActivity() {
         logged_in_text_userid.text = authUser.userId
 
 
-//        Amplify.Auth.fetchUserAttributes(
-//            { attributes ->
-//
-//                Log.i("AuthDemo", "User attributes = ${attributes}")
-//            },
-//            { Log.e("AuthDemo", "Failed to fetch user attributes", it) }
-//        )
-
         logged_in_button_logout.setOnClickListener {
             Amplify.Auth.signOut(
                 this::onLogoutSuccess,
                 this::onLoginError
             )
+        }
+
+        logged_in_button_interests.setOnClickListener {
+            startActivity(Intent(this, InterestsActivity::class.java))
         }
     }
 

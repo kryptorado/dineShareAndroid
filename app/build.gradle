@@ -40,9 +40,18 @@ dependencies {
     // Cognito
     implementation 'com.amplifyframework:aws-auth-cognito:1.31.1'
 
+    // AWS API
+    implementation 'com.amplifyframework:aws-api:1.31.3'
+
+    // API Gateway
+    implementation 'com.amazonaws:aws-android-sdk-apigateway-core:2.40.0'
+
     // Support for Java 8 features
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
+    // Coroutine
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha01"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'

@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.User
 import kotlinx.android.synthetic.main.activity_email_confirmation.*
 
 
 class EmailConfirmationActivity : AppCompatActivity() {
+    private val TAG = "EmailConfActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_email_confirmation)
@@ -45,29 +49,43 @@ class EmailConfirmationActivity : AppCompatActivity() {
 
     private fun onSuccess(result: AuthSignUpResult) {
         relogin()
-        Log.d("EmailConfActivity", "onSuccess: auth result $result")
+        Log.d(TAG, "onSuccess: auth result $result")
     }
 
     private fun onLoginSuccess(result: AuthSignInResult) {
-        startActivity(Intent(this, LoggedInActivity::class.java))
-        Log.d("EmailConfActivity", "onLoginSuccess: auth result $result")
+        writeUserToDB()
+        startActivity(Intent(this, InterestsActivity::class.java))
+        Log.d(TAG, "onLoginSuccess: auth result $result")
     }
 
     private fun onLoginError(error: AuthException) {
         runOnUiThread {
             Toast.makeText(applicationContext, error.message, Toast.LENGTH_LONG).show()
         }
-        Log.e("EmailConfActivity", "onLoginError: auth exception $error")
+        Log.e(TAG, "onLoginError: auth exception $error")
+    }
+
+    private fun writeUserToDB() {
+        val user = User.builder()
+            .id(Amplify.Auth.currentUser.userId)
+            .firstName("sampleFirstName") // TODO: Replace with values from form
+            .lastName("sampleLastName") // TODO: Replace with values from form
+            .email(getEmail())
+            .build()
+
+        Amplify.API.mutate(
+            ModelMutation.create(user),
+            { Log.i(TAG, "CREATE user succeeded: $it") },
+            { Log.e(TAG, "CREATE user failed", it) }
+        )
     }
 
     private fun relogin() {
-
         Amplify.Auth.signIn(
             getEmail(),
             getPassword(),
             this::onLoginSuccess,
             this::onLoginError
         )
-
     }
 }
