@@ -30,6 +30,10 @@ class LoggedInActivity : AppCompatActivity() {
         logged_in_button_interests.setOnClickListener {
             startActivity(Intent(this, InterestsActivity::class.java))
         }
+
+        logged_in_button_video_call.setOnClickListener{
+            startActivity(Intent(this, VideoChatActivity::class.java))
+        }
     }
 
     private fun onLoginError(error: AuthException) {

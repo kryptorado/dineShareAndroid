@@ -66,10 +66,14 @@ class EmailConfirmationActivity : AppCompatActivity() {
     }
 
     private fun writeUserToDB() {
+        val interests = mutableListOf<Int>()
+        interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
+
         val user = User.builder()
             .id(Amplify.Auth.currentUser.userId)
             .firstName("sampleFirstName") // TODO: Replace with values from form
             .lastName("sampleLastName") // TODO: Replace with values from form
+            .interests(interests)
             .email(getEmail())
             .build()
 
