@@ -253,6 +253,8 @@ class VideoChatActivity : AppCompatActivity() {
         // when matching done, node backend will
         // generate a channel name and an access token using the agora token server
         // the created channel name and token created and sent back here will be set for the pair matched
+        // the person the user was matched with will be added to the call log using graphQL
+        // a chat session will become available
         mRtcEngine!!.joinChannel(token, "test", "Extra Optional Data", 0) // if you do not specify the uid, we will generate the uid for you
     }
 
