@@ -54,8 +54,9 @@ class EmailConfirmationActivity : AppCompatActivity() {
 
     private fun onLoginSuccess(result: AuthSignInResult) {
         writeUserToDB()
-        startActivity(Intent(this, InterestsActivity::class.java))
         Log.d(TAG, "onLoginSuccess: auth result $result")
+        startActivity(Intent(this, InterestsActivity::class.java))
+        finish()
     }
 
     private fun onLoginError(error: AuthException) {

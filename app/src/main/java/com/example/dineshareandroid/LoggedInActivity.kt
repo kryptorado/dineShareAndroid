@@ -5,22 +5,26 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.User
 import kotlinx.android.synthetic.main.activity_logged_in.*
 
 
 class LoggedInActivity : AppCompatActivity() {
+    private val TAG = "LoggedInActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logged_in)
 
-       Amplify.Auth.fetchUserAttributes(
-            this::onSuccess,
-            this::onLoginError
-        )
+//       Amplify.Auth.fetchUserAttributes(
+//            this::onFetchSuccess,
+//            this::onError
+//        )
 
         val authUser = Amplify.Auth.currentUser
         logged_in_text_username.text = authUser.username
@@ -30,7 +34,7 @@ class LoggedInActivity : AppCompatActivity() {
         logged_in_button_logout.setOnClickListener {
             Amplify.Auth.signOut(
                 this::onLogoutSuccess,
-                this::onLoginError
+                this::onError
             )
         }
 
@@ -43,22 +47,33 @@ class LoggedInActivity : AppCompatActivity() {
         }
     }
 
-    private fun onSuccess(users: List<AuthUserAttribute>) {
-        val attrMap = users.map { it.key to it.value }.toMap()
-        // TODO: add user to db
-        Log.d("attrMap", "user value ${attrMap}")
+    private fun onFetchSuccess(attrs: List<AuthUserAttribute>) {
+        val attrMap = attrs.map { it.key to it.value }.toMap()
+        val firstName = attrMap[AuthUserAttributeKey.givenName()]
+        val lastName = attrMap[AuthUserAttributeKey.familyName()]
+        val email = attrMap[AuthUserAttributeKey.email()]
 
-        for (user in users) {
-            Log.d("LoggedInActivity", "user value ${user.key.equals("family_name")}")
+        // TODO: check if login for first time
 
-            Log.d("LoggedInActivity", "user value ${user.value}")
+        val interests = mutableListOf<Int>()
+        interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
 
-            Log.d("LoggedInActivity", "auth exception $user")
+        val user = User.builder()
+            .id(Amplify.Auth.currentUser.userId)
+            .firstName(firstName)
+            .lastName(lastName)
+            .interests(interests)
+            .email(email)
+            .build()
 
-        }
+        Amplify.API.mutate(
+            ModelMutation.create(user),
+            { Log.i(TAG, "CREATE user succeeded: $it") },
+            { Log.e(TAG, "CREATE user failed", it) }
+        )
     }
 
-    private fun onLoginError(error: AuthException) {
+    private fun onError(error: AuthException) {
         runOnUiThread {
             Toast.makeText(applicationContext, error.message, Toast.LENGTH_LONG).show()
         }
@@ -67,5 +82,6 @@ class LoggedInActivity : AppCompatActivity() {
 
     private fun onLogoutSuccess() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

@@ -30,22 +30,63 @@ object Validation {
         }
     }
 
-    fun validPassword(textInputLayout: TextInputLayout): Boolean {
+    fun validPassword(passwordInputLayout: TextInputLayout): Boolean {
+        if (emptyField(passwordInputLayout)) {
+            passwordInputLayout.error =
+                passwordInputLayout.context.resources.getString(R.string.empty_field)
+            return false
+        } else {
+            val passwordPattern = "^[A-Za-z0-9]{8,20}$"
+            val textContent = passwordInputLayout.editText?.text.toString()
+            val matcher: Matcher = Pattern.compile(passwordPattern).matcher(textContent)
+
+            if (matcher.matches()) {
+                passwordInputLayout.error = null
+                return true
+            } else {
+                passwordInputLayout.error =
+                    passwordInputLayout.context.resources.getString(R.string.invalid_password)
+                passwordInputLayout.editText?.requestFocus()
+                return false
+            }
+        }
+    }
+
+    fun passwordMatches(password1: TextInputLayout, password2: TextInputLayout): Boolean {
+        if (emptyField(password2)) {
+            password2.error =
+                password2.context.resources.getString(R.string.empty_field)
+            return false
+        } else {
+            val password1Content = password1.editText?.text.toString()
+            val password2Content = password2.editText?.text.toString()
+
+            return if (password1Content != password2Content) {
+                password2.error = password2.context.resources.getString(R.string.not_matching_password)
+                false
+            } else {
+                password2.error = null
+                return true
+            }
+        }
+    }
+
+    fun validFirstLastname(textInputLayout: TextInputLayout): Boolean {
         if (emptyField(textInputLayout)) {
             textInputLayout.error =
                 textInputLayout.context.resources.getString(R.string.empty_field)
             return false
         } else {
-            val passwordPattern = "^[A-Za-z0-9]{8,20}$"
+            val firstNamePattern = "^(?=.{1,30}\$)[a-zA-Z]+(?:'[a-zA-Z]+)*(?:[- ][a-zA-Z]+(?:'[a-zA-Z])*)*\$"
             val textContent = textInputLayout.editText?.text.toString()
-            val matcher: Matcher = Pattern.compile(passwordPattern).matcher(textContent)
+            val matcher: Matcher = Pattern.compile(firstNamePattern).matcher(textContent)
 
             if (matcher.matches()) {
                 textInputLayout.error = null
                 return true
             } else {
                 textInputLayout.error =
-                    textInputLayout.context.resources.getString(R.string.invalid_password)
+                    textInputLayout.context.resources.getString(R.string.invalid_first_last_name)
                 textInputLayout.editText?.requestFocus()
                 return false
             }
