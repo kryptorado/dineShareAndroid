@@ -47,6 +47,22 @@ class EmailConfirmationActivity : AppCompatActivity() {
         return password
     }
 
+    private fun getFirstName(): String {
+        var firstName = ""
+        if (intent.hasExtra("firstName")) {
+            firstName = intent.getStringExtra("firstName").toString()
+        }
+        return firstName
+    }
+
+    private fun getLastName(): String {
+        var lastName = ""
+        if (intent.hasExtra("lastName")) {
+            lastName = intent.getStringExtra("lastName").toString()
+        }
+        return lastName
+    }
+
     private fun onSuccess(result: AuthSignUpResult) {
         relogin()
         Log.d(TAG, "onSuccess: auth result $result")
@@ -72,8 +88,8 @@ class EmailConfirmationActivity : AppCompatActivity() {
 
         val user = User.builder()
             .id(Amplify.Auth.currentUser.userId)
-            .firstName("sampleFirstName") // TODO: Replace with values from form
-            .lastName("sampleLastName") // TODO: Replace with values from form
+            .firstName(getFirstName())
+            .lastName(getLastName())
             .interests(interests)
             .email(getEmail())
             .build()

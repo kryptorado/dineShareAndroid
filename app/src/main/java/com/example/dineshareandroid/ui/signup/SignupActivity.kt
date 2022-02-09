@@ -18,12 +18,11 @@ import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity() {
     private val TAG = "SignupActivity"
+    private val model: SignupViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-
-        val model: SignupViewModel by viewModels()
 
         setupFormListeners()
 
@@ -43,7 +42,7 @@ class SignupActivity : AppCompatActivity() {
             }
         }
 
-        model.loginSuccess.observe(this, { success ->
+        model.signupSuccess.observe(this, { success ->
             if(success) {
                 val intent = Intent(this, EmailConfirmationActivity::class.java)
 
@@ -54,12 +53,12 @@ class SignupActivity : AppCompatActivity() {
 
                 startActivity(intent)
 
-                Log.d(TAG, "Auth result")
+                Log.d(TAG, "Signup success")
                 finish()
             }
         })
 
-        model.loginFailedMessage.observe(this, { error ->
+        model.signupFailedMessage.observe(this, { error ->
             Toast.makeText(applicationContext, error, Toast.LENGTH_LONG).show()
         })
     }

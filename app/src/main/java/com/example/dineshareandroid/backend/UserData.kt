@@ -24,37 +24,37 @@ object UserData {
     var firstName = ""
 
 
-    fun getUserProfile () {
-        Amplify.API.query(
-            ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
-            { user ->
-                val dynamoUserExists = user.data != null
-                if (dynamoUserExists) {
-
-                    // check if first time signing in
-                    Log.i(TAG, "Query results = ${(user.data as User)}")
-                } else {
-                    Amplify.Auth.fetchUserAttributes(
-                        this::onFetchSuccess,
-                        this::onFetchError
-                    )
-                }
-            },
-            { Log.e(TAG, "Query failed", it) }
-        )
-    }
+//    fun getUserProfile () {
+//        Amplify.API.query(
+//            ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
+//            { user ->
+//                val dynamoUserExists = user.data != null
+//                if (dynamoUserExists) {
+//
+//                    // check if first time signing in
+//                    Log.i(TAG, "Query results = ${(user.data as User)}")
+//                } else {
+//                    Amplify.Auth.fetchUserAttributes(
+//                        this::onFetchSuccess,
+//                        this::onFetchError
+//                    )
+//                }
+//            },
+//            { Log.e(TAG, "Query failed", it) }
+//        )
+//    }
 
     /*
     * Populate dynamoDB user table with data from Cognito
     * */
-    private fun onFetchSuccess(attrs: List<AuthUserAttribute>) {
-        val attrMap = attrs.map { it.key to it.value }.toMap()
-        val firstName = attrMap[AuthUserAttributeKey.givenName()]
-        val lastName = attrMap[AuthUserAttributeKey.familyName()]
-        val email = attrMap[AuthUserAttributeKey.email()]
-
-        createDynamoUser(firstName, lastName, email)
-    }
+//    private fun onFetchSuccess(attrs: List<AuthUserAttribute>) {
+//        val attrMap = attrs.map { it.key to it.value }.toMap()
+//        val firstName = attrMap[AuthUserAttributeKey.givenName()]
+//        val lastName = attrMap[AuthUserAttributeKey.familyName()]
+//        val email = attrMap[AuthUserAttributeKey.email()]
+//
+//        createDynamoUser(firstName, lastName, email)
+//    }
 
     private fun createDynamoUser(firstName: String?, lastName: String?, email:String?): User {
         val interests = mutableListOf<Int>()

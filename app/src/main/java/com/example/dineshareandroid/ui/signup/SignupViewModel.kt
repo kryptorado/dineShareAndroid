@@ -14,8 +14,8 @@ class SignupViewModel: ViewModel() {
     private val TAG = "SignupViewModel"
     private val EMAIL_EXISTS_ERROR = "This email is already registered"
 
-    val loginSuccess = MutableLiveData<Boolean>()
-    val loginFailedMessage = MutableLiveData<String?>()
+    val signupSuccess = MutableLiveData<Boolean>()
+    val signupFailedMessage = MutableLiveData<String?>()
 
     fun signup(email: String, password: String, attributes: ArrayList<AuthUserAttribute>) {
         Amplify.Auth.signUp(
@@ -29,17 +29,17 @@ class SignupViewModel: ViewModel() {
 
     private fun onSignupError(error: AuthException) {
         if ((error.cause as UsernameExistsException).errorCode == "UsernameExistsException") {
-            loginFailedMessage.postValue(EMAIL_EXISTS_ERROR)
+            signupFailedMessage.postValue(EMAIL_EXISTS_ERROR)
         } else {
-            loginFailedMessage.postValue(error.message)
+            signupFailedMessage.postValue(error.message)
         }
 
-        loginSuccess.postValue(false)
+        signupSuccess.postValue(false)
         Log.e(TAG, "Signup error: $error")
     }
 
     private fun onSignupSuccess(result: AuthSignUpResult) {
-        loginSuccess.postValue(true)
+        signupSuccess.postValue(true)
         Log.d(TAG, "Signup success: $result")
     }
 }

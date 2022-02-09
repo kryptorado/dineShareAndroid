@@ -71,16 +71,16 @@ class InterestsActivity : AppCompatActivity() {
         }
 
         interests_save_button.setOnClickListener {
-            val user = User.builder()
-                .id(Amplify.Auth.currentUser.userId)
-                .interests(list)
-                .build()
-
-            Amplify.API.mutate(
-                ModelMutation.update(user),
-                { Log.i(TAG, "UPDATE succeeded: $it") },
-                { Log.e(TAG, "UPDATE failed", it) }
-            )
+//            val user = User.builder()
+//                .id(Amplify.Auth.currentUser.userId)
+//                .interests(list)
+//                .build()
+//
+//            Amplify.API.mutate(
+//                ModelMutation.update(user),
+//                { Log.i(TAG, "UPDATE succeeded: $it") },
+//                { Log.e(TAG, "UPDATE failed", it) }
+//            )
 
             startActivity(Intent(this, LoggedInActivity::class.java))
         }

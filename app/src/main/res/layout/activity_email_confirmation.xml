@@ -6,41 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".EmailConfirmationActivity">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/email_confirm_button"
+        style="@style/RoundedButton"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#000000"
+        android:text="Confirm"
+        android:textColor="#FFFFFF"
+        app:iconTint="#FFFEFE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_email_edit_text_code_layout"
+        app:rippleColor="#C8C8C8"
+        app:strokeColor="#FFFFFF" />
+
     <TextView
         android:id="@+id/email_confirm_text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:fontFamily="@font/comfortaa"
         android:text="Confirm Email"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/confirm_email_edit_text_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="Confirmation Code"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_confirm_text_title" />
-
-    <Button
-        android:id="@+id/email_confirm_button"
-        android:layout_width="130dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="28dp"
-        android:text="Confirm"
+        android:textColor="#000000"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.219"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm_email_edit_text_code"
-        app:layout_constraintVertical_bias="0.014" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirm_email_edit_text_code_layout"
+        style="@style/MyTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        app:errorEnabled="true"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_confirm_text_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirm_email_edit_text_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Code" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
