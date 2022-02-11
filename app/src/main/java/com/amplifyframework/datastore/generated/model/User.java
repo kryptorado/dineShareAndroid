@@ -8,7 +8,10 @@ import java.util.Objects;
 
 import androidx.core.util.ObjectsCompat;
 
+import com.amplifyframework.core.model.AuthStrategy;
 import com.amplifyframework.core.model.Model;
+import com.amplifyframework.core.model.ModelOperation;
+import com.amplifyframework.core.model.annotations.AuthRule;
 import com.amplifyframework.core.model.annotations.Index;
 import com.amplifyframework.core.model.annotations.ModelConfig;
 import com.amplifyframework.core.model.annotations.ModelField;
@@ -18,7 +21,9 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Users")
+@ModelConfig(pluralName = "Users", authRules = {
+  @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE })
+})
 public final class User implements Model {
   public static final QueryField ID = field("User", "id");
   public static final QueryField FIRST_NAME = field("User", "firstName");
@@ -210,10 +215,15 @@ public final class User implements Model {
   public final class CopyOfBuilder extends Builder {
     private CopyOfBuilder(String id, String firstName, String lastName, String email, List<Integer> interests) {
       super.id(id);
-      super.firstName(firstName)
+      super.interests(interests)
+        .firstName(firstName)
         .lastName(lastName)
-        .email(email)
-        .interests(interests);
+        .email(email);
+    }
+    
+    @Override
+     public CopyOfBuilder interests(List<Integer> interests) {
+      return (CopyOfBuilder) super.interests(interests);
     }
     
     @Override
@@ -229,11 +239,6 @@ public final class User implements Model {
     @Override
      public CopyOfBuilder email(String email) {
       return (CopyOfBuilder) super.email(email);
-    }
-    
-    @Override
-     public CopyOfBuilder interests(List<Integer> interests) {
-      return (CopyOfBuilder) super.interests(interests);
     }
   }
   
