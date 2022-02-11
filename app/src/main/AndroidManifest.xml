@@ -52,7 +52,7 @@
             android:name=".LoggedInActivity"
             android:exported="false" />
         <activity
-            android:name=".EmailConfirmationActivity"
+            android:name=".ui.confirmEmail.EmailConfirmationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.signup.SignupActivity"

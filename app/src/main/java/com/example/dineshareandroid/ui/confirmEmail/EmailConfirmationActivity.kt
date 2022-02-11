@@ -1,4 +1,4 @@
-package com.example.dineshareandroid
+package com.example.dineshareandroid.ui.confirmEmail
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,8 @@ import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.generated.model.User
+import com.example.dineshareandroid.InterestsActivity
+import com.example.dineshareandroid.R
 import kotlinx.android.synthetic.main.activity_email_confirmation.*
 
 
@@ -69,7 +71,7 @@ class EmailConfirmationActivity : AppCompatActivity() {
     }
 
     private fun onLoginSuccess(result: AuthSignInResult) {
-        writeUserToDB()
+        writeUserToDB() // TODO: move to view model, this is buggy and causes a force quit sometimes
         Log.d(TAG, "onLoginSuccess: auth result $result")
         startActivity(Intent(this, InterestsActivity::class.java))
         finish()

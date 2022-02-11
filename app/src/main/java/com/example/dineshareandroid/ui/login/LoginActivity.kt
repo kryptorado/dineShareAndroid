@@ -3,11 +3,11 @@ package com.example.dineshareandroid.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.core.Amplify
 import com.example.dineshareandroid.InterestsActivity
@@ -15,20 +15,37 @@ import com.example.dineshareandroid.LoggedInActivity
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.signup.SignupActivity
 import com.example.dineshareandroid.utils.CheckField
+import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
     private val model: LoginViewModel by viewModels()
+    lateinit var loader: LoadingDialog
+
+
+    // workaround for catching UserCancelledException
+    // https://github.com/aws-amplify/amplify-android/issues/1536
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (data == null) {
+            loader.dismiss()
+            Amplify.Auth.handleWebUISignInResponse(data);
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setupFormListeners()
 
+        loader = LoadingDialog(this)
+
         login_button_login.setOnClickListener {
             if (isFormValid()) {
+                loader.show()
                 model.login(
                     login_edit_text_email.text.toString(),
                     login_edit_text_password.text.toString()
@@ -37,12 +54,25 @@ class LoginActivity : AppCompatActivity() {
         }
 
         google_login_button.setOnClickListener {
-//            model.loginWithGoogle()
-            loginWithGoogle()
+            loader.show()
+            Amplify.Auth.signInWithSocialWebUI(
+                AuthProvider.google(), this,
+                {
+                    model.ssoLogin()
+                    Log.i(TAG, "Sign in with Google OK: $it")
+                },
+                {
+                    runOnUiThread{
+                        loader.dismiss()
+                    }
+                    Log.e(TAG, "Sign in with Google failed", it)
+                }
+            )
         }
 
         model.loginSuccess.observe(this, { success ->
             if(success) {
+                loader.dismiss()
                 Log.d(TAG, "Login success")
                 startActivity(Intent(this, LoggedInActivity::class.java))
                 finish()
@@ -50,14 +80,29 @@ class LoginActivity : AppCompatActivity() {
         })
 
         model.loginFailedMessage.observe(this, { error ->
+            loader.dismiss()
             Toast.makeText(applicationContext, error, Toast.LENGTH_LONG).show()
         })
 
         model.isNewUser.observe(this, {isNewUser ->
             if (isNewUser) {
-                startActivity(Intent(this, InterestsActivity::class.java))
-                finish()
+
+                model.isUniqueEmail.observe(this, {isUniqueEmail ->
+                    if (isUniqueEmail) {
+                        loader.dismiss()
+                        startActivity(Intent(this, InterestsActivity::class.java))
+                        finish()
+                    } else {
+                        Amplify.Auth.signOut(
+                            this::onLogoutSuccess,
+                            this::onError
+                        )
+                        loader.dismiss()
+                        Toast.makeText(applicationContext, "User with this email already exists", Toast.LENGTH_LONG).show()
+                    }
+                })
             } else {
+                loader.dismiss()
                 startActivity(Intent(this, LoggedInActivity::class.java))
                 finish()
             }
@@ -84,18 +129,15 @@ class LoginActivity : AppCompatActivity() {
         return isEmailValid && isPasswordValid
     }
 
-    private fun loginWithGoogle() {
-        Amplify.Auth.signInWithSocialWebUI(
-            AuthProvider.google(), this,
-            {
-                Log.i(TAG, "Sign in with Google OK: $it")
-                runOnUiThread {
-                    progress_bar.visibility = View.VISIBLE
-                }
-                model.isNewUser()
-            },
-            { Log.e(TAG, "Sign in with Google failed", it) }
-        )
+    private fun onError(error: AuthException) {
+        runOnUiThread {
+            Toast.makeText(applicationContext, error.message, Toast.LENGTH_LONG).show()
+        }
+        Log.e("LoggedInActivity", "auth exception $error")
     }
 
+    private fun onLogoutSuccess() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
 }

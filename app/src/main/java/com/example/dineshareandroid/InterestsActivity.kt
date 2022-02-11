@@ -21,6 +21,7 @@ class InterestsActivity : AppCompatActivity() {
         // TODO: fix code..
 
         Amplify.API.query(
+            "dineshareandroid",
             ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
             { user ->
                 val interests = (user.data as User).interests

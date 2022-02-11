@@ -10,19 +10,22 @@ import androidx.core.widget.doOnTextChanged
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey.familyName
 import com.amplifyframework.auth.AuthUserAttributeKey.givenName
-import com.example.dineshareandroid.EmailConfirmationActivity
+import com.example.dineshareandroid.ui.confirmEmail.EmailConfirmationActivity
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.utils.CheckField
+import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_signup.*
 
 
 class SignupActivity : AppCompatActivity() {
     private val TAG = "SignupActivity"
     private val model: SignupViewModel by viewModels()
+    lateinit var loader: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+        loader = LoadingDialog(this)
 
         setupFormListeners()
 
@@ -30,6 +33,8 @@ class SignupActivity : AppCompatActivity() {
             val isFormValidated = validateForm()
 
             if (isFormValidated) {
+                loader.show()
+
                 val attributes: ArrayList<AuthUserAttribute> = ArrayList()
                 attributes.add(AuthUserAttribute(familyName(), signup_edit_text_first_name.text.toString()))
                 attributes.add(AuthUserAttribute(givenName(), signup_edit_text_last_name.text.toString()))
@@ -44,6 +49,7 @@ class SignupActivity : AppCompatActivity() {
 
         model.signupSuccess.observe(this, { success ->
             if(success) {
+                loader.dismiss()
                 val intent = Intent(this, EmailConfirmationActivity::class.java)
 
                 intent.putExtra("firstName", signup_edit_text_first_name.text.toString())
@@ -59,6 +65,7 @@ class SignupActivity : AppCompatActivity() {
         })
 
         model.signupFailedMessage.observe(this, { error ->
+            loader.dismiss()
             Toast.makeText(applicationContext, error, Toast.LENGTH_LONG).show()
         })
     }

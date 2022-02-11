@@ -17,4 +17,11 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">6dp</item>
     </style>
+
+    <style name="LoadingDialogTheme" parent="Widget.AppCompat.ProgressBar">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
 </resources>
