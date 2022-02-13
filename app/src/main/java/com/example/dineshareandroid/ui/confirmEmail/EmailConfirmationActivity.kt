@@ -4,33 +4,44 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.amplifyframework.api.graphql.model.ModelMutation
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.result.AuthSignInResult
-import com.amplifyframework.auth.result.AuthSignUpResult
-import com.amplifyframework.core.Amplify
-import com.amplifyframework.datastore.generated.model.User
 import com.example.dineshareandroid.InterestsActivity
 import com.example.dineshareandroid.R
+import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_email_confirmation.*
 
 
 class EmailConfirmationActivity : AppCompatActivity() {
     private val TAG = "EmailConfActivity"
+    private val model: EmailConfViewModel by viewModels()
+    lateinit var loader: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_email_confirmation)
+        loader = LoadingDialog(this)
 
         email_confirm_button.setOnClickListener {
-            Amplify.Auth.confirmSignUp(
-                getEmail(),
-                confirm_email_edit_text_code.text.toString(),
-                this::onSuccess,
-                this::onLoginError
-            )
+            val code = confirm_email_edit_text_code.text.toString()
+            loader.show()
+            model.confirmEmail(code, getEmail(), getPassword(), getFirstName(), getLastName())
         }
+
+        model.confirmSuccess.observe(this, { success ->
+            if(success) {
+                loader.dismiss()
+                Log.d(TAG, "Confirm success")
+                startActivity(Intent(this, InterestsActivity::class.java))
+                finish()
+            }
+        })
+
+        model.confirmFailedMessage.observe(this, { error ->
+            loader.dismiss()
+            Log.d(TAG, "Confirm failure")
+            Toast.makeText(applicationContext, error, Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun getEmail(): String {
@@ -63,52 +74,5 @@ class EmailConfirmationActivity : AppCompatActivity() {
             lastName = intent.getStringExtra("lastName").toString()
         }
         return lastName
-    }
-
-    private fun onSuccess(result: AuthSignUpResult) {
-        relogin()
-        Log.d(TAG, "onSuccess: auth result $result")
-    }
-
-    private fun onLoginSuccess(result: AuthSignInResult) {
-        writeUserToDB() // TODO: move to view model, this is buggy and causes a force quit sometimes
-        Log.d(TAG, "onLoginSuccess: auth result $result")
-        startActivity(Intent(this, InterestsActivity::class.java))
-        finish()
-    }
-
-    private fun onLoginError(error: AuthException) {
-        runOnUiThread {
-            Toast.makeText(applicationContext, error.message, Toast.LENGTH_LONG).show()
-        }
-        Log.e(TAG, "onLoginError: auth exception $error")
-    }
-
-    private fun writeUserToDB() {
-        val interests = mutableListOf<Int>()
-        interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
-
-        val user = User.builder()
-            .id(Amplify.Auth.currentUser.userId)
-            .firstName(getFirstName())
-            .lastName(getLastName())
-            .interests(interests)
-            .email(getEmail())
-            .build()
-
-        Amplify.API.mutate(
-            ModelMutation.create(user),
-            { Log.i(TAG, "CREATE user succeeded: $it") },
-            { Log.e(TAG, "CREATE user failed", it) }
-        )
-    }
-
-    private fun relogin() {
-        Amplify.Auth.signIn(
-            getEmail(),
-            getPassword(),
-            this::onLoginSuccess,
-            this::onLoginError
-        )
     }
 }
