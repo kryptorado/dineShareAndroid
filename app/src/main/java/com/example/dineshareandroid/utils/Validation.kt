@@ -2,6 +2,7 @@ package com.example.dineshareandroid.utils
 
 import com.example.dineshareandroid.R
 import com.google.android.material.textfield.TextInputLayout
+import java.lang.Double.parseDouble
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -88,6 +89,31 @@ object Validation {
                 textInputLayout.error =
                     textInputLayout.context.resources.getString(R.string.invalid_first_last_name)
                 textInputLayout.editText?.requestFocus()
+                return false
+            }
+        }
+    }
+
+    fun validCode(code: TextInputLayout): Boolean {
+        val codeString = code.editText?.text.toString()
+        var isNumeric: Boolean = true
+
+        if (emptyField(code)) {
+            code.error =
+                code.context.resources.getString(R.string.empty_field)
+            return false
+        } else {
+            try {
+                val num = parseDouble(codeString)
+            } catch (e: NumberFormatException) {
+                isNumeric = false
+            }
+
+            if (isNumeric) {
+                code.error = null
+                return true
+            } else {
+                code.error = code.context.resources.getString(R.string.number_required)
                 return false
             }
         }

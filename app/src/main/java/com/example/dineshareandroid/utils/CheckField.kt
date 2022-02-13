@@ -18,4 +18,8 @@ object CheckField {
     fun checkFirstLastName(inputLayout: TextInputLayout): Boolean {
         return Validation.validFirstLastname(inputLayout)
     }
+
+    fun checkCode(code: TextInputLayout): Boolean {
+        return Validation.validCode(code)
+    }
 }

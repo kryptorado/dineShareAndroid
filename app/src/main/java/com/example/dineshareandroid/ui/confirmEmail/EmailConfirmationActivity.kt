@@ -6,8 +6,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import com.example.dineshareandroid.InterestsActivity
 import com.example.dineshareandroid.R
+import com.example.dineshareandroid.utils.CheckField
 import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_email_confirmation.*
 
@@ -22,10 +24,16 @@ class EmailConfirmationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_email_confirmation)
         loader = LoadingDialog(this)
 
+        confirm_email_edit_text_code_layout?.editText?.doOnTextChanged { _, _, _, _ ->
+            CheckField.checkCode(confirm_email_edit_text_code_layout!!)
+        }
+
         email_confirm_button.setOnClickListener {
-            val code = confirm_email_edit_text_code.text.toString()
-            loader.show()
-            model.confirmEmail(code, getEmail(), getPassword(), getFirstName(), getLastName())
+            if(CheckField.checkCode(confirm_email_edit_text_code_layout)) {
+                val code = confirm_email_edit_text_code.text.toString()
+                loader.show()
+                model.confirmEmail(code, getEmail(), getPassword(), getFirstName(), getLastName())
+            }
         }
 
         model.confirmSuccess.observe(this, { success ->
