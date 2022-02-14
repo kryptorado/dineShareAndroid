@@ -49,7 +49,7 @@
             android:name=".InterestsActivity"
             android:exported="false" />
         <activity
-            android:name=".LoggedInActivity"
+            android:name=".ui.loggedIn.LoggedInActivity"
             android:exported="false" />
         <activity
             android:name=".ui.confirmEmail.EmailConfirmationActivity"

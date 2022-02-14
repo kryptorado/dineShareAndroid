@@ -11,7 +11,7 @@ import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.core.Amplify
 import com.example.dineshareandroid.InterestsActivity
-import com.example.dineshareandroid.LoggedInActivity
+import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.signup.SignupActivity
 import com.example.dineshareandroid.utils.CheckField

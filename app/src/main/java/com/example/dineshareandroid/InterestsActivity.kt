@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.generated.model.User
+import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
 import kotlinx.android.synthetic.main.activity_interests.*
 
 
