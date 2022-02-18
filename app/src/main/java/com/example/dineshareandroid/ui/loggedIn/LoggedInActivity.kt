@@ -16,7 +16,7 @@ import com.example.dineshareandroid.MainActivity
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.callLog.CallLogFragment
 import com.example.dineshareandroid.ui.conversations.ConversationsFragment
-import com.example.dineshareandroid.ui.profile.MatchingFragment
+import com.example.dineshareandroid.ui.matching.MatchingFragment
 import com.example.dineshareandroid.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView

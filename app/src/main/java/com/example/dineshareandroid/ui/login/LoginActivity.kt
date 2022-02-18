@@ -13,10 +13,12 @@ import com.amplifyframework.core.Amplify
 import com.example.dineshareandroid.InterestsActivity
 import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
 import com.example.dineshareandroid.R
+import com.example.dineshareandroid.ui.confirmEmail.EmailConfirmationActivity
 import com.example.dineshareandroid.ui.signup.SignupActivity
 import com.example.dineshareandroid.utils.CheckField
 import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_signup.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -76,6 +78,9 @@ class LoginActivity : AppCompatActivity() {
                 Log.d(TAG, "Login success")
                 startActivity(Intent(this, LoggedInActivity::class.java))
                 finish()
+            } else {
+                // TODO: check if user unverified error was thrown and if yes,
+                // go through flow to verify user
             }
         })
 

@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.core.Amplify
 import com.example.dineshareandroid.MainActivity
@@ -18,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val TAG = "ProfileFragment"
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

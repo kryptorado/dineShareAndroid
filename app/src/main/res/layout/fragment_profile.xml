@@ -8,41 +8,39 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_button_logout"
         style="@style/RoundedButton"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="#000000"
         android:text="Logout"
         android:textColor="#FFFFFF"
         app:iconTint="#FFFEFE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_button_edit_profile"
-        app:layout_constraintVertical_bias="0.0"
         app:rippleColor="#C8C8C8"
         app:strokeColor="#FFFFFF" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_button_edit_profile"
         style="@style/RoundedButton"
-        android:layout_width="363dp"
+        android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="#FFFFFF"
         android:text="Edit Profile"
         android:textColor="#000000"
         app:iconTint="#FFFEFE"
+        app:layout_constraintBottom_toTopOf="@+id/profile_button_logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_text_email_text"
+        app:layout_constraintVertical_chainStyle="packed"
         app:rippleColor="#C8C8C8"
         app:strokeColor="#000000" />
 
@@ -51,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/comfortaa"
         android:text="Hello"
@@ -61,13 +59,13 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <TextView
         android:id="@+id/profile_text_greeting_name"
         android:layout_width="274dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/comfortaa"
         android:textAlignment="textStart"
@@ -76,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/profile_text_greeting"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <TextView
         android:id="@+id/profile_text_first_name_label"
@@ -161,21 +159,10 @@
 
     <View
         android:id="@+id/view2"
-        android:layout_width="416dp"
+        android:layout_width="match_parent"
         android:layout_height="84dp"
         android:background="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginTop="84dp"
-        android:background="@drawable/ic_wave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

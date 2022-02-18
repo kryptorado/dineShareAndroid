@@ -24,8 +24,6 @@ class LoginViewModel: ViewModel()  {
     val isNewUser = MutableLiveData<Boolean>()
     val isUniqueEmail = MutableLiveData<Boolean>()
 
-    // TODO: check if their email is confirmed before returning loginSuccess(true)
-    // if false, the activity should direct them to the email confirmation acitivity
     fun login(email: String, password: String) {
         Amplify.Auth.signIn(
             email,
@@ -148,5 +146,4 @@ class LoginViewModel: ViewModel()  {
         loginSuccess.postValue(true)
         Log.d(TAG, "Login success $result")
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.dineshareandroid
+package com.example.dineshareandroid.ui.videoChat
 
 import androidx.appcompat.app.AppCompatActivity
 
@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.dineshareandroid.R
 
 import io.agora.rtc.IRtcEngineEventHandler
 import io.agora.rtc.RtcEngine

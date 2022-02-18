@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".VideoChatActivity"
+            android:name=".ui.videoChat.VideoChatActivity"
             android:exported="false" />
         <activity
             android:name=".InterestsActivity"
