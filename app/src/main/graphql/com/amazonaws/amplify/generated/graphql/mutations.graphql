@@ -8,7 +8,6 @@ mutation CreateUser(
     firstName
     lastName
     email
-    interests
     createdAt
     updatedAt
     owner
@@ -23,7 +22,6 @@ mutation UpdateUser(
     firstName
     lastName
     email
-    interests
     createdAt
     updatedAt
     owner
@@ -38,7 +36,6 @@ mutation DeleteUser(
     firstName
     lastName
     email
-    interests
     createdAt
     updatedAt
     owner

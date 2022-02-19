@@ -1,11 +1,6 @@
 package com.example.dineshareandroid.backend
 
-import android.content.Intent
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.MutableLiveData
-import com.amplifyframework.api.ApiException
 import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.auth.AuthException
@@ -13,50 +8,38 @@ import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.generated.model.User
-import com.example.dineshareandroid.InterestsActivity
-import kotlinx.android.synthetic.main.activity_interests.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 object UserData {
     private val TAG = "UserData"
 
-//    lateinit var currentUser: UserData
-    private val _userData = MutableLiveData<User>()
-    var firstName = ""
+    suspend fun getProfile() : User? {
+        return suspendCoroutine { continuation ->
+            Amplify.API.query(
+                "dineshareandroid",
+                ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
+                { user ->
+                    continuation.resume(user.data)
+                    Log.i(TAG, "Queried")
+                    Log.i(TAG, "response.data: ${user.data}")
+                },
+                { error ->
+                    Log.e("UserDataBackend", "Query failure:", error)
+                    continuation.resume(null)
+                }
+            )
+        }
+    }
 
 
-//    fun getUserProfile () {
-//        Amplify.API.query(
-//            ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
-//            { user ->
-//                val dynamoUserExists = user.data != null
-//                if (dynamoUserExists) {
+    fun createDynamoUser(attrs: List<AuthUserAttribute>) {
+        val attrMap = attrs.map { it.key to it.value }.toMap()
+        val firstName = attrMap[AuthUserAttributeKey.givenName()]
+        val lastName = attrMap[AuthUserAttributeKey.familyName()]
+        val email = attrMap[AuthUserAttributeKey.email()]
 //
-//                    // check if first time signing in
-//                    Log.i(TAG, "Query results = ${(user.data as User)}")
-//                } else {
-//                    Amplify.Auth.fetchUserAttributes(
-//                        this::onFetchSuccess,
-//                        this::onFetchError
-//                    )
-//                }
-//            },
-//            { Log.e(TAG, "Query failed", it) }
-//        )
-//    }
 
-    /*
-    * Populate dynamoDB user table with data from Cognito
-    * */
-//    private fun onFetchSuccess(attrs: List<AuthUserAttribute>) {
-//        val attrMap = attrs.map { it.key to it.value }.toMap()
-//        val firstName = attrMap[AuthUserAttributeKey.givenName()]
-//        val lastName = attrMap[AuthUserAttributeKey.familyName()]
-//        val email = attrMap[AuthUserAttributeKey.email()]
-//
-//        createDynamoUser(firstName, lastName, email)
-//    }
-
-    private fun createDynamoUser(firstName: String?, lastName: String?, email:String?): User {
         val interests = mutableListOf<Int>()
         interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
 
@@ -64,17 +47,18 @@ object UserData {
             .id(Amplify.Auth.currentUser.userId)
             .firstName(firstName)
             .lastName(lastName)
-            .interests(interests)
+//            .interests(interests)
             .email(email)
             .build()
 
         Amplify.API.mutate(
+            "dineshareandroid",
             ModelMutation.create(user),
-            { Log.i(TAG, "CREATE user succeeded: $it") },
+            {
+                Log.i(TAG, "CREATE user succeeded: $it")
+            },
             { Log.e(TAG, "CREATE user failed", it) }
         )
-
-        return user
     }
 
     private fun onFetchError(error: AuthException) {

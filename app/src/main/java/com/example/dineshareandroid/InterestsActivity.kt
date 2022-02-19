@@ -20,30 +20,30 @@ class InterestsActivity : AppCompatActivity() {
 
         // TODO: fix code..
 
-        Amplify.API.query(
-            "dineshareandroid",
-            ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
-            { user ->
-                val interests = (user.data as User).interests
-                runOnUiThread {
-                    if (interests != null) {
-                        if (interests.contains(1)) {
-                            interests_checkbox_1.isChecked = true
-                        }
-
-                        if (interests.contains(2)) {
-                            interests_checkbox_2.isChecked = true
-                        }
-
-                        if (interests.contains(3)) {
-                            interests_checkbox_3.isChecked = true
-                        }
-                    }
-                }
-                Log.i(TAG, "Query results = ${(user.data as User).interests}")
-            },
-            { Log.e(TAG, "Query failed", it) }
-        )
+//        Amplify.API.query(
+//            "dineshareandroid",
+//            ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
+//            { user ->
+//                val interests = (user.data as User).interests
+//                runOnUiThread {
+//                    if (interests != null) {
+//                        if (interests.contains(1)) {
+//                            interests_checkbox_1.isChecked = true
+//                        }
+//
+//                        if (interests.contains(2)) {
+//                            interests_checkbox_2.isChecked = true
+//                        }
+//
+//                        if (interests.contains(3)) {
+//                            interests_checkbox_3.isChecked = true
+//                        }
+//                    }
+//                }
+//                Log.i(TAG, "Query results = ${(user.data as User).interests}")
+//            },
+//            { Log.e(TAG, "Query failed", it) }
+//        )
 
 
         val list = mutableListOf<Int>()

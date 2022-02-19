@@ -79,31 +79,31 @@ class LoggedInActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun onFetchSuccess(attrs: List<AuthUserAttribute>) {
-        val attrMap = attrs.map { it.key to it.value }.toMap()
-        val firstName = attrMap[AuthUserAttributeKey.givenName()]
-        val lastName = attrMap[AuthUserAttributeKey.familyName()]
-        val email = attrMap[AuthUserAttributeKey.email()]
-
-        // TODO: check if login for first time
-
-        val interests = mutableListOf<Int>()
-        interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
-
-        val user = User.builder()
-            .id(Amplify.Auth.currentUser.userId)
-            .firstName(firstName)
-            .lastName(lastName)
-            .interests(interests)
-            .email(email)
-            .build()
-
-        Amplify.API.mutate(
-            ModelMutation.create(user),
-            { Log.i(TAG, "CREATE user succeeded: $it") },
-            { Log.e(TAG, "CREATE user failed", it) }
-        )
-    }
+//    private fun onFetchSuccess(attrs: List<AuthUserAttribute>) {
+//        val attrMap = attrs.map { it.key to it.value }.toMap()
+//        val firstName = attrMap[AuthUserAttributeKey.givenName()]
+//        val lastName = attrMap[AuthUserAttributeKey.familyName()]
+//        val email = attrMap[AuthUserAttributeKey.email()]
+//
+//        // TODO: check if login for first time
+//
+//        val interests = mutableListOf<Int>()
+//        interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
+//
+//        val user = User.builder()
+//            .id(Amplify.Auth.currentUser.userId)
+//            .firstName(firstName)
+//            .lastName(lastName)
+//            .interests(interests)
+//            .email(email)
+//            .build()
+//
+//        Amplify.API.mutate(
+//            ModelMutation.create(user),
+//            { Log.i(TAG, "CREATE user succeeded: $it") },
+//            { Log.e(TAG, "CREATE user failed", it) }
+//        )
+//    }
 
     private fun onError(error: AuthException) {
         runOnUiThread {

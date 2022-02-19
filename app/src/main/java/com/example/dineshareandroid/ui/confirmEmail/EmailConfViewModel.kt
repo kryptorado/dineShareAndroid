@@ -71,7 +71,7 @@ class EmailConfViewModel: ViewModel() {
             .id(Amplify.Auth.currentUser.userId)
             .firstName(_firstName)
             .lastName(_lastName)
-            .interests(interests)
+//            .interests(interests)
             .email(_email)
             .build()
 

@@ -5,7 +5,6 @@ query GetUser($id: ID!) {
     firstName
     lastName
     email
-    interests
     createdAt
     updatedAt
     owner
@@ -22,7 +21,6 @@ query ListUsers(
       firstName
       lastName
       email
-      interests
       createdAt
       updatedAt
       owner

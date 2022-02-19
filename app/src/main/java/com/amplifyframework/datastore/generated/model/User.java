@@ -22,19 +22,20 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 /** This is an auto generated class representing the User type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "Users", authRules = {
-  @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE })
+  @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 public final class User implements Model {
   public static final QueryField ID = field("User", "id");
   public static final QueryField FIRST_NAME = field("User", "firstName");
   public static final QueryField LAST_NAME = field("User", "lastName");
   public static final QueryField EMAIL = field("User", "email");
-  public static final QueryField INTERESTS = field("User", "interests");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String") String firstName;
   private final @ModelField(targetType="String") String lastName;
-  private final @ModelField(targetType="String") String email;
-  private final @ModelField(targetType="Int") List<Integer> interests;
+  private final @ModelField(targetType="String", authRules = {
+    @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
+    @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.READ })
+  }) String email;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -53,10 +54,6 @@ public final class User implements Model {
       return email;
   }
   
-  public List<Integer> getInterests() {
-      return interests;
-  }
-  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -65,12 +62,11 @@ public final class User implements Model {
       return updatedAt;
   }
   
-  private User(String id, String firstName, String lastName, String email, List<Integer> interests) {
+  private User(String id, String firstName, String lastName, String email) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.interests = interests;
   }
   
   @Override
@@ -85,7 +81,6 @@ public final class User implements Model {
               ObjectsCompat.equals(getFirstName(), user.getFirstName()) &&
               ObjectsCompat.equals(getLastName(), user.getLastName()) &&
               ObjectsCompat.equals(getEmail(), user.getEmail()) &&
-              ObjectsCompat.equals(getInterests(), user.getInterests()) &&
               ObjectsCompat.equals(getCreatedAt(), user.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), user.getUpdatedAt());
       }
@@ -98,7 +93,6 @@ public final class User implements Model {
       .append(getFirstName())
       .append(getLastName())
       .append(getEmail())
-      .append(getInterests())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -113,7 +107,6 @@ public final class User implements Model {
       .append("firstName=" + String.valueOf(getFirstName()) + ", ")
       .append("lastName=" + String.valueOf(getLastName()) + ", ")
       .append("email=" + String.valueOf(getEmail()) + ", ")
-      .append("interests=" + String.valueOf(getInterests()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -137,7 +130,6 @@ public final class User implements Model {
       id,
       null,
       null,
-      null,
       null
     );
   }
@@ -146,8 +138,7 @@ public final class User implements Model {
     return new CopyOfBuilder(id,
       firstName,
       lastName,
-      email,
-      interests);
+      email);
   }
   public interface BuildStep {
     User build();
@@ -155,7 +146,6 @@ public final class User implements Model {
     BuildStep firstName(String firstName);
     BuildStep lastName(String lastName);
     BuildStep email(String email);
-    BuildStep interests(List<Integer> interests);
   }
   
 
@@ -164,7 +154,6 @@ public final class User implements Model {
     private String firstName;
     private String lastName;
     private String email;
-    private List<Integer> interests;
     @Override
      public User build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -173,8 +162,7 @@ public final class User implements Model {
           id,
           firstName,
           lastName,
-          email,
-          interests);
+          email);
     }
     
     @Override
@@ -195,12 +183,6 @@ public final class User implements Model {
         return this;
     }
     
-    @Override
-     public BuildStep interests(List<Integer> interests) {
-        this.interests = interests;
-        return this;
-    }
-    
     /** 
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -213,17 +195,11 @@ public final class User implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String firstName, String lastName, String email, List<Integer> interests) {
+    private CopyOfBuilder(String id, String firstName, String lastName, String email) {
       super.id(id);
-      super.interests(interests)
-        .firstName(firstName)
+      super.firstName(firstName)
         .lastName(lastName)
         .email(email);
-    }
-    
-    @Override
-     public CopyOfBuilder interests(List<Integer> interests) {
-      return (CopyOfBuilder) super.interests(interests);
     }
     
     @Override

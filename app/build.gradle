@@ -59,7 +59,13 @@ dependencies {
     // Material UI
     implementation 'com.google.android.material:material:1.5.0'
 
-    implementation 'com.google.android.material:material:1.1.0'
+    // HTTP Calls
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
