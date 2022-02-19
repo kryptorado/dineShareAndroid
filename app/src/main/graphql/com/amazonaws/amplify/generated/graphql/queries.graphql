@@ -1,10 +1,53 @@
 # this is an auto generated file. This will be overwritten
+query GetInterest($id: ID!) {
+  getInterest(id: $id) {
+    id
+    interestId
+    name
+    strength
+    users {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userInterestsId
+    owner
+  }
+}
+query ListInterests(
+  $filter: ModelInterestFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listInterests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      interestId
+      name
+      strength
+      createdAt
+      updatedAt
+      userInterestsId
+      owner
+    }
+    nextToken
+  }
+}
 query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     firstName
     lastName
     email
+    interests {
+      nextToken
+    }
     createdAt
     updatedAt
     owner

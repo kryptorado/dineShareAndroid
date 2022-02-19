@@ -8,6 +8,9 @@ mutation CreateUser(
     firstName
     lastName
     email
+    interests {
+      nextToken
+    }
     createdAt
     updatedAt
     owner
@@ -22,6 +25,9 @@ mutation UpdateUser(
     firstName
     lastName
     email
+    interests {
+      nextToken
+    }
     createdAt
     updatedAt
     owner
@@ -36,8 +42,83 @@ mutation DeleteUser(
     firstName
     lastName
     email
+    interests {
+      nextToken
+    }
     createdAt
     updatedAt
+    owner
+  }
+}
+mutation CreateInterest(
+  $input: CreateInterestInput!
+  $condition: ModelInterestConditionInput
+) {
+  createInterest(input: $input, condition: $condition) {
+    id
+    interestId
+    name
+    strength
+    users {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userInterestsId
+    owner
+  }
+}
+mutation UpdateInterest(
+  $input: UpdateInterestInput!
+  $condition: ModelInterestConditionInput
+) {
+  updateInterest(input: $input, condition: $condition) {
+    id
+    interestId
+    name
+    strength
+    users {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userInterestsId
+    owner
+  }
+}
+mutation DeleteInterest(
+  $input: DeleteInterestInput!
+  $condition: ModelInterestConditionInput
+) {
+  deleteInterest(input: $input, condition: $condition) {
+    id
+    interestId
+    name
+    strength
+    users {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userInterestsId
     owner
   }
 }

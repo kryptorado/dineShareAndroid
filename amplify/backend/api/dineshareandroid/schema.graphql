@@ -6,5 +6,16 @@ type User @model(subscriptions: { level: off }) @auth(rules: [{ allow: owner}]) 
   firstName: String
   lastName: String
   email: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
-  interests: [Int!]
+  interests: [Interest] @hasMany
+}
+
+type Interest
+@model
+@auth(rules: [ { allow: owner } ])
+{
+  id: ID!
+  interestId: Int
+  name: String!
+  strength: Int!
+  users: User @belongsTo
 }

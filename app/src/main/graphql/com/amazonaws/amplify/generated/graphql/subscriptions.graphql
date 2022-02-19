@@ -1,37 +1,64 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateUser($owner: String) {
-  onCreateUser(owner: $owner) {
+subscription OnCreateInterest($owner: String) {
+  onCreateInterest(owner: $owner) {
     id
-    firstName
-    lastName
-    email
-    interests
+    interestId
+    name
+    strength
+    users {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
     createdAt
     updatedAt
+    userInterestsId
     owner
   }
 }
-subscription OnUpdateUser($owner: String) {
-  onUpdateUser(owner: $owner) {
+subscription OnUpdateInterest($owner: String) {
+  onUpdateInterest(owner: $owner) {
     id
-    firstName
-    lastName
-    email
-    interests
+    interestId
+    name
+    strength
+    users {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
     createdAt
     updatedAt
+    userInterestsId
     owner
   }
 }
-subscription OnDeleteUser($owner: String) {
-  onDeleteUser(owner: $owner) {
+subscription OnDeleteInterest($owner: String) {
+  onDeleteInterest(owner: $owner) {
     id
-    firstName
-    lastName
-    email
-    interests
+    interestId
+    name
+    strength
+    users {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      updatedAt
+      owner
+    }
     createdAt
     updatedAt
+    userInterestsId
     owner
   }
 }
