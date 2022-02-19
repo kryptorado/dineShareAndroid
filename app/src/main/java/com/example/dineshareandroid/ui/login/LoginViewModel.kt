@@ -3,6 +3,7 @@ package com.example.dineshareandroid.ui.login
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidPasswordException
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException
@@ -15,6 +16,7 @@ import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.generated.model.User
 import com.example.dineshareandroid.backend.UserData.createDynamoUser
+import kotlinx.coroutines.launch
 
 
 class LoginViewModel: ViewModel()  {
@@ -42,6 +44,8 @@ class LoginViewModel: ViewModel()  {
 
     private fun checkSSOFirstTimeLogin (attrs: List<AuthUserAttribute>) {
         val attrMap = attrs.map { it.key to it.value }.toMap()
+        val firstName = attrMap[AuthUserAttributeKey.givenName()]
+        val lastName = attrMap[AuthUserAttributeKey.familyName()]
         val email = attrMap[AuthUserAttributeKey.email()]
 
         // Check if dynamo user already exists
@@ -50,8 +54,8 @@ class LoginViewModel: ViewModel()  {
             ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
             { user ->
                 val dynamoUserExists = user.data != null
-                if (dynamoUserExists) {
 
+                if (dynamoUserExists) {
                     // Proceed with login since this user already exists
                     isNewUser.postValue(false)
                     Log.i(TAG, "Query results = ${(user.data as User)}")
@@ -76,7 +80,11 @@ class LoginViewModel: ViewModel()  {
                                     isUniqueEmail.postValue(true)
 
                                     // Create new user
-                                    createDynamoUser(attrs)
+                                    viewModelScope.launch {
+                                        if (firstName !== null && lastName!= null && email!= null) {
+                                            createDynamoUser(firstName, lastName, email)
+                                        }
+                                    }
                                 }
                                 Log.i(TAG, "getDynamoUser = ${(response.data)}")
                             } else {

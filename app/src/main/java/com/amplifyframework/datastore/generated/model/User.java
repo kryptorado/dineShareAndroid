@@ -1,5 +1,6 @@
 package com.amplifyframework.datastore.generated.model;
 
+import com.amplifyframework.core.model.annotations.HasMany;
 import com.amplifyframework.core.model.temporal.Temporal;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public final class User implements Model {
     @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
     @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.READ })
   }) String email;
+  private final @ModelField(targetType="Interest") @HasMany(associatedWith = "users", type = Interest.class) List<Interest> interests = null;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -52,6 +54,10 @@ public final class User implements Model {
   
   public String getEmail() {
       return email;
+  }
+  
+  public List<Interest> getInterests() {
+      return interests;
   }
   
   public Temporal.DateTime getCreatedAt() {

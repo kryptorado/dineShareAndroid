@@ -3,12 +3,13 @@ package com.example.dineshareandroid.ui.confirmEmail
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amplifyframework.api.graphql.model.ModelMutation
+import androidx.lifecycle.viewModelScope
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.datastore.generated.model.User
+import com.example.dineshareandroid.backend.UserData.createDynamoUser
+import kotlinx.coroutines.launch
 
 class EmailConfViewModel: ViewModel() {
     private val TAG = "EmailConfViewModel"
@@ -53,8 +54,11 @@ class EmailConfViewModel: ViewModel() {
         )
     }
 
-    private fun onLoginSuccess(result: AuthSignInResult) {
-        writeUserToDB()
+    private fun onLoginSuccess(resutl: AuthSignInResult) {
+        viewModelScope.launch {
+            val isCreated = createDynamoUser(_firstName, _lastName, _email)
+            confirmSuccess.value = isCreated
+        }
     }
 
     private fun onLoginError(error: AuthException) {
@@ -62,32 +66,4 @@ class EmailConfViewModel: ViewModel() {
         confirmFailedMessage.postValue(error.message)
         Log.e(TAG, "onLoginError: auth exception $error")
     }
-
-    private fun writeUserToDB() {
-        val interests = mutableListOf<Int>()
-        interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
-
-        val user = User.builder()
-            .id(Amplify.Auth.currentUser.userId)
-            .firstName(_firstName)
-            .lastName(_lastName)
-//            .interests(interests)
-            .email(_email)
-            .build()
-
-        Amplify.API.mutate(
-            "dineshareandroid",
-            ModelMutation.create(user),
-            {
-                confirmSuccess.postValue(true)
-                Log.i(TAG, "CREATE user succeeded: $it")
-            },
-            {
-                confirmFailedMessage.postValue(it.message)
-                Log.e(TAG, "CREATE user failed", it)
-            }
-        )
-    }
-
-
 }

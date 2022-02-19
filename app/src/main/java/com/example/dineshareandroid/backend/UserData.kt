@@ -3,11 +3,10 @@ package com.example.dineshareandroid.backend
 import android.util.Log
 import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.api.graphql.model.ModelQuery
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.Interest
 import com.amplifyframework.datastore.generated.model.User
+import com.example.dineshareandroid.utils.Constants.interestNames
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -33,35 +32,48 @@ object UserData {
     }
 
 
-    fun createDynamoUser(attrs: List<AuthUserAttribute>) {
-        val attrMap = attrs.map { it.key to it.value }.toMap()
-        val firstName = attrMap[AuthUserAttributeKey.givenName()]
-        val lastName = attrMap[AuthUserAttributeKey.familyName()]
-        val email = attrMap[AuthUserAttributeKey.email()]
-//
+    suspend fun createDynamoUser(firstName: String, lastName: String, email: String): Boolean {
+        return suspendCoroutine { continuation ->
+            val user = User.builder()
+                .id(Amplify.Auth.currentUser.userId)
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .build()
 
-        val interests = mutableListOf<Int>()
-        interests.addAll(mutableListOf(1, 2, 3)) // TODO: don't hardcode all the interests
+            // Add default interests
+            var index = 1
+            for (name in interestNames) {
+                val interest = Interest.builder()
+                    .name(name)
+                    .strength(1)
+                    .interestId(index)
+                    .users(user)
+                    .build()
 
-        val user = User.builder()
-            .id(Amplify.Auth.currentUser.userId)
-            .firstName(firstName)
-            .lastName(lastName)
-//            .interests(interests)
-            .email(email)
-            .build()
+                Amplify.API.mutate(
+                    "dineshareandroid",
+                    ModelMutation.create(interest),
+                    {
+                        Log.i(TAG, "CREATE interest succeeded: $it")
+                    },
+                    { Log.e(TAG, "CREATE interest failed", it) }
+                )
+                index += 1
+            }
 
-        Amplify.API.mutate(
-            "dineshareandroid",
-            ModelMutation.create(user),
-            {
-                Log.i(TAG, "CREATE user succeeded: $it")
-            },
-            { Log.e(TAG, "CREATE user failed", it) }
-        )
-    }
-
-    private fun onFetchError(error: AuthException) {
-        Log.e(TAG, "auth exception $error")
+            Amplify.API.mutate(
+                "dineshareandroid",
+                ModelMutation.create(user),
+                {
+                    continuation.resume(true)
+                    Log.i(TAG, "CREATE user succeeded: $it")
+                },
+                {
+                    continuation.resume(false)
+                    Log.e(TAG, "CREATE user failed", it)
+                }
+            )
+        }
     }
 }
