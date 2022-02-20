@@ -47,7 +47,7 @@
             android:name=".ui.videoChat.VideoChatActivity"
             android:exported="false" />
         <activity
-            android:name=".InterestsActivity"
+            android:name=".ui.interests.InterestsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.loggedIn.LoggedInActivity"

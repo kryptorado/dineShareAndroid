@@ -31,7 +31,6 @@ object UserData {
         }
     }
 
-
     suspend fun createDynamoUser(firstName: String, lastName: String, email: String): Boolean {
         return suspendCoroutine { continuation ->
             val user = User.builder()
@@ -74,6 +73,58 @@ object UserData {
                     Log.e(TAG, "CREATE user failed", it)
                 }
             )
+        }
+    }
+
+    suspend fun getListOfInterests(): List<Interest> {
+        /*
+        * Returns them in the format ...
+        * */
+        val interestList = ArrayList<Interest>()
+
+        return suspendCoroutine { continuation ->
+            Amplify.API.query(
+                "dineshareandroid",
+                ModelQuery.list(Interest::class.java, Interest.USERS.eq(Amplify.Auth.currentUser.userId)),
+                { interests ->
+                    if (interests != null) {
+                        for (interest in interests.data) {
+                            interestList.add(interest)
+                            Log.i(TAG, "Interests are: $interest")
+
+                        }
+                        continuation.resume(interestList)
+//                        Log.i(TAG, "Queried")
+//                        Log.i(TAG, "response.data: ${user.data}")
+                    }
+
+                },
+                { error ->
+                    Log.e(TAG, "Interest fetch fail: ", error)
+                    continuation.resume(interestList)
+                }
+            )
+        }
+
+    }
+
+    suspend fun updateInterests(interests: MutableList<Interest>): Boolean {
+        return suspendCoroutine { continuation ->
+
+            for (interest in interests) {
+                Amplify.API.mutate(
+                    "dineshareandroid",
+                    ModelMutation.update(interest),
+                    {
+                        Log.i(TAG, "CREATE user succeeded: $it")
+                    },
+                    {
+                        continuation.resume(false)
+                        Log.e(TAG, "CREATE user failed", it)
+                    }
+                )
+            }
+            continuation.resume(true)
         }
     }
 }

@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import com.example.dineshareandroid.InterestsActivity
+import com.example.dineshareandroid.ui.interests.InterestsActivity
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.utils.CheckField
 import com.example.dineshareandroid.utils.LoadingDialog

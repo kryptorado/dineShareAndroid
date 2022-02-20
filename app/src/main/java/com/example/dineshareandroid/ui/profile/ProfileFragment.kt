@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.dineshareandroid.MainActivity
 import com.example.dineshareandroid.R
+import com.example.dineshareandroid.ui.interests.InterestsActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
@@ -31,6 +32,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         profile_button_logout.setOnClickListener {
           model.logoutUser()
+        }
+
+        profile_button_interests.setOnClickListener {
+            startActivity(Intent(activity, InterestsActivity::class.java))
         }
 
         model.logoutSuccess.observe(viewLifecycleOwner) {success ->

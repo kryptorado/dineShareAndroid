@@ -54,7 +54,7 @@ class EmailConfViewModel: ViewModel() {
         )
     }
 
-    private fun onLoginSuccess(resutl: AuthSignInResult) {
+    private fun onLoginSuccess(result: AuthSignInResult) {
         viewModelScope.launch {
             val isCreated = createDynamoUser(_firstName, _lastName, _email)
             confirmSuccess.value = isCreated

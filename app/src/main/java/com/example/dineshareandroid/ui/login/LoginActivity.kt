@@ -10,15 +10,13 @@ import androidx.core.widget.doOnTextChanged
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.AuthProvider
 import com.amplifyframework.core.Amplify
-import com.example.dineshareandroid.InterestsActivity
+import com.example.dineshareandroid.ui.interests.InterestsActivity
 import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
 import com.example.dineshareandroid.R
-import com.example.dineshareandroid.ui.confirmEmail.EmailConfirmationActivity
 import com.example.dineshareandroid.ui.signup.SignupActivity
 import com.example.dineshareandroid.utils.CheckField
 import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_signup.*
 
 
 class LoginActivity : AppCompatActivity() {
