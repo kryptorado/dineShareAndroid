@@ -15,10 +15,10 @@
 
         <ImageView
             android:id="@+id/interest_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBaseline_toTopOf="parent"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             android:id="@+id/interest_title"

@@ -3,7 +3,9 @@ package com.example.dineshareandroid.ui.interests
 import androidx.lifecycle.*
 import com.amplifyframework.datastore.generated.model.Interest
 import com.example.dineshareandroid.backend.UserData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class InterestsViewModel: ViewModel() {
     val updateSuccess = MutableLiveData<Boolean>()
@@ -14,8 +16,10 @@ class InterestsViewModel: ViewModel() {
     }
 
     fun updateInterests(interests: MutableList<Interest>) {
-        viewModelScope.launch {
-            val isSuccess = UserData.updateInterests(interests)
+        viewModelScope.launch  {
+            val isSuccess = withContext(Dispatchers.IO) {
+                UserData.updateInterests(interests)
+            }
             updateSuccess.value = isSuccess
         }
     }

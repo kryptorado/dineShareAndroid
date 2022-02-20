@@ -34,7 +34,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
           model.logoutUser()
         }
 
-        profile_button_interests.setOnClickListener {
+        profile_button_edit_profile.setOnClickListener {
             startActivity(Intent(activity, InterestsActivity::class.java))
         }
 

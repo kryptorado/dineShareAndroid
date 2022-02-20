@@ -94,8 +94,6 @@ object UserData {
 
                         }
                         continuation.resume(interestList)
-//                        Log.i(TAG, "Queried")
-//                        Log.i(TAG, "response.data: ${user.data}")
                     }
 
                 },

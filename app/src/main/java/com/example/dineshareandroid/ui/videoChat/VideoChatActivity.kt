@@ -242,10 +242,12 @@ class VideoChatActivity : AppCompatActivity() {
         // same channel successfully using the same app id.
         // 2. One token is only valid for the channel name that
         // you use to generate this token.
-        var token: String? = getString(R.string.agora_access_token)
-        if (token!!.isEmpty()) {
-            token = null
-        }
+        var token: String? = intent.getStringExtra("token")
+
+//        var token: String? = getString(R.string.agora_access_token)
+//        if (token!!.isEmpty()) {
+//            token = null
+//        }
 
         // TODO: MATCHING LOGIC
         // call our node backend server here with the user id and interests
@@ -256,7 +258,8 @@ class VideoChatActivity : AppCompatActivity() {
         // the created channel name and token created and sent back here will be set for the pair matched
         // the person the user was matched with will be added to the call log using graphQL
         // a chat session will become available
-        mRtcEngine!!.joinChannel(token, "test", "Extra Optional Data", 0) // if you do not specify the uid, we will generate the uid for you
+        val channelName = intent.getStringExtra("channelName")
+        mRtcEngine!!.joinChannel(token, channelName, "Extra Optional Data", 0) // if you do not specify the uid, we will generate the uid for you
     }
 
     private fun setupRemoteVideo(uid: Int) {

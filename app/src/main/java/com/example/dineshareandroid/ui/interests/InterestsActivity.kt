@@ -11,17 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amplifyframework.datastore.generated.model.Interest
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
-import com.example.dineshareandroid.ui.signup.SignupActivity
+import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_interests.*
 
 
 class InterestsActivity : AppCompatActivity() {
     private val TAG = "InterestsActivity"
     private var adapter = RecyclerAdapter(mutableListOf(), listOf())
+    lateinit var loader: LoadingDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_interests)
+        loader = LoadingDialog(this)
 
         val model: InterestsViewModel by viewModels()
         model.interests.observe(this) { interests ->
@@ -31,6 +34,7 @@ class InterestsActivity : AppCompatActivity() {
 
         model.updateSuccess.observe(this) {isSuccess ->
             if (isSuccess) {
+//                loader.dismiss()
                 Toast.makeText(applicationContext, "Updated successfully", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, LoggedInActivity::class.java))
                 finish()
@@ -41,6 +45,7 @@ class InterestsActivity : AppCompatActivity() {
         }
 
         interests_save_button.setOnClickListener {
+//            loader.show()
             for (interest in adapter.interests) {
                 model.updateInterests(adapter.interests)
                 Log.d(TAG, "New adapter strengths: ${interest.strength}")
