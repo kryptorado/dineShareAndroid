@@ -1,18 +1,8 @@
 package com.example.dineshareandroid.ui.loggedIn
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.amplifyframework.api.graphql.model.ModelMutation
-import com.amplifyframework.auth.AuthException
-import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
-import com.amplifyframework.core.Amplify
-import com.amplifyframework.datastore.generated.model.User
-import com.example.dineshareandroid.MainActivity
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.callLog.CallLogFragment
 import com.example.dineshareandroid.ui.conversations.ConversationsFragment
@@ -24,6 +14,9 @@ import com.google.android.material.navigation.NavigationBarView
 
 class LoggedInActivity : AppCompatActivity() {
     private val TAG = "LoggedInActivity"
+    // TODO::: CHECK HERE IF THIS USER IS STILL IN MATCHING QUEUE AND IF SO CALL CLEANUP
+    // this will prevent them from leaving the matching server in the bad state
+    // they could've remained in the queue if they force quit the app
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

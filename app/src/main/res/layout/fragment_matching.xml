@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_green_light">
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/top"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Matching Fragment"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/matching_video_chat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Video chat"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.405"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731" />
+        <TextView
+            android:id="@+id/matching_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="Get Matched"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/matching_enter_queue_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="enter queue"
-        app:layout_constraintBottom_toTopOf="@+id/matching_video_chat_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/matching_button_start_call"
+            style="@style/RoundedButton"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="64dp"
+            android:backgroundTint="#000000"
+            android:text="Start a Call"
+            android:textColor="#FFFFFF"
+            app:iconTint="#FFFEFE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/matching_text_instructions"
+            app:layout_constraintVertical_bias="0.32999998"
+            app:rippleColor="#C8C8C8"
+            app:strokeColor="#FFFFFF" />
 
-    <Button
-        android:id="@+id/matching_poll_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Poll Queue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
+        <TextView
+            android:id="@+id/matching_text_instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum porta fringilla. Suspendisse nec nisi sed ante sagittis porta sed sit amet nisi. Cras fringilla viverra dui id molestie. Sed quis gravida orci. Proin quam augue, lobortis eget consectetur nec, vehicula nec mi. Curabitur imperdiet nisl a purus auctor, a rutrum sem congue. Phasellus id suscipit neque. Nulla convallis, arcu eu tristique condimentum, neque purus lobortis tortor, vitae vestibulum"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/matching_button_start_call"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/matching_text_title" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
