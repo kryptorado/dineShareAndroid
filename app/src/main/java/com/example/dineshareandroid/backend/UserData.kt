@@ -4,6 +4,7 @@ import android.util.Log
 import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.amplifyframework.datastore.generated.model.Interest
 import com.amplifyframework.datastore.generated.model.User
 import com.example.dineshareandroid.utils.Constants.interestNames
@@ -77,9 +78,6 @@ object UserData {
     }
 
     suspend fun getListOfInterests(): List<Interest> {
-        /*
-        * Returns them in the format ...
-        * */
         val interestList = ArrayList<Interest>()
 
         return suspendCoroutine { continuation ->
@@ -87,14 +85,12 @@ object UserData {
                 "dineshareandroid",
                 ModelQuery.list(Interest::class.java, Interest.USERS.eq(Amplify.Auth.currentUser.userId)),
                 { interests ->
-                    if (interests != null) {
-                        for (interest in interests.data) {
-                            interestList.add(interest)
-                            Log.i(TAG, "Interests are: $interest")
+                    for (interest in interests.data) {
+                        interestList.add(interest)
+                        Log.i(TAG, "Interests are: $interest")
 
-                        }
-                        continuation.resume(interestList)
                     }
+                    continuation.resume(interestList)
 
                 },
                 { error ->
@@ -103,7 +99,6 @@ object UserData {
                 }
             )
         }
-
     }
 
     suspend fun updateInterests(interests: MutableList<Interest>): Boolean {
@@ -123,6 +118,30 @@ object UserData {
                 )
             }
             continuation.resume(true)
+        }
+    }
+
+    suspend fun getChatRooms(): List<ChatRoom> {
+        val chatRoomList = ArrayList<ChatRoom>()
+
+        return suspendCoroutine { continuation ->
+            Amplify.API.query(
+                "dineshareandroid",
+                ModelQuery.list(ChatRoom::class.java, ChatRoom.USER_ID.eq(Amplify.Auth.currentUser.userId)),
+                { chatRooms ->
+                    for (chatRoom in chatRooms.data) {
+                        chatRoomList.add(chatRoom)
+                        Log.i(TAG, "chatRooms are: $chatRooms")
+
+                    }
+                    continuation.resume(chatRoomList)
+
+                },
+                { error ->
+                    Log.e(TAG, "chatRooms fetch fail: ", error)
+                    continuation.resume(chatRoomList)
+                }
+            )
         }
     }
 }

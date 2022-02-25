@@ -5,8 +5,11 @@ type User @model(subscriptions: { level: off }) @auth(rules: [{ allow: owner}]) 
   id: ID!
   firstName: String
   lastName: String
+  rtmToken: String
   email: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
   interests: [Interest] @hasMany
+  chatRooms: [ChatRoom] @hasMany
+  callLogs: [CallLog] @hasMany
 }
 
 type Interest
@@ -18,4 +21,30 @@ type Interest
   name: String!
   strength: Int!
   users: User @belongsTo
+}
+
+type ChatRoom
+@model
+@auth(rules: [{ allow: owner }])
+{
+  id: ID!
+  otherUserId: String
+  otherUserName: String
+  userID: ID
+  chatRoomId: String
+}
+
+type ChatData @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  message: String
+  createdAt: AWSDateTime
+  chatRoomId: String
+  senderId: String
+}
+
+type CallLog @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  createdAt: AWSDateTime
+  duration: String
+  calleeName: String
 }

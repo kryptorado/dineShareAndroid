@@ -31,7 +31,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         profile_button_logout.setOnClickListener {
-          model.logoutUser()
+            // TODO: check and handle if error occurs
+            model.logoutUser()
         }
 
         profile_button_edit_profile.setOnClickListener {
