@@ -14,7 +14,7 @@ import com.example.dineshareandroid.backend.UserData
 class ProfileViewModel: ViewModel() {
     private val TAG = "ProfileViewModel"
     val user: LiveData<User?> = liveData {
-        val user = UserData.getProfile()
+        val user = UserData.getDynamoUser()
         emit(user)
     }
     val logoutSuccess = MutableLiveData<Boolean>()

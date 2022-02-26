@@ -74,7 +74,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="20"
-                android:onClick="onEncCallClicked"
+                android:onClick="onEndCallClicked"
                 android:scaleType="centerInside"
                 android:src="@drawable/btn_end_call" />
 

@@ -56,6 +56,7 @@ class ConnectActivity : AppCompatActivity() {
                     val intent = Intent(this, VideoChatActivity::class.java)
                     intent.putExtra("channelName", result.channelName)
                     intent.putExtra("token", result.token)
+                    intent.putExtra("otherUser", result.otherUser)
                     startActivity(intent)
                     finish()
                 } else {

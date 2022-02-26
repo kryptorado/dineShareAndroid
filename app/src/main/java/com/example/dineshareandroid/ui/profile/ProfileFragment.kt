@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.dineshareandroid.MainActivity
@@ -31,7 +32,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         profile_button_logout.setOnClickListener {
-            // TODO: check and handle if error occurs
             model.logoutUser()
         }
 
@@ -43,6 +43,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             if (success) {
                 startActivity(Intent(activity, MainActivity::class.java))
                 activity?.finish()
+            } else {
+                Toast.makeText(context, "Couldn't log out", Toast.LENGTH_SHORT).show()
             }
         }
     }

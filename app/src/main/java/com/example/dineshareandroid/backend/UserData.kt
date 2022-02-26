@@ -4,6 +4,7 @@ import android.util.Log
 import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.CallLog
 import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.amplifyframework.datastore.generated.model.Interest
 import com.amplifyframework.datastore.generated.model.User
@@ -14,11 +15,30 @@ import kotlin.coroutines.suspendCoroutine
 object UserData {
     private val TAG = "UserData"
 
-    suspend fun getProfile() : User? {
+    suspend fun getDynamoUser() : User? {
         return suspendCoroutine { continuation ->
             Amplify.API.query(
                 "dineshareandroid",
                 ModelQuery.get(User::class.java, Amplify.Auth.currentUser.userId),
+                { user ->
+                    continuation.resume(user.data)
+                    Log.i(TAG, "Queried")
+                    Log.i(TAG, "response.data: ${user.data}")
+                },
+                { error ->
+                    Log.e("UserDataBackend", "Query failure:", error)
+                    continuation.resume(null)
+                }
+            )
+        }
+    }
+
+
+    suspend fun getDynamoUserById(userId: String): User? {
+        return suspendCoroutine { continuation ->
+            Amplify.API.query(
+                "dineshareandroidPublic",
+                ModelQuery.get(User::class.java, userId),
                 { user ->
                     continuation.resume(user.data)
                     Log.i(TAG, "Queried")
@@ -140,6 +160,51 @@ object UserData {
                 { error ->
                     Log.e(TAG, "chatRooms fetch fail: ", error)
                     continuation.resume(chatRoomList)
+                }
+            )
+        }
+    }
+
+    suspend fun createCallLog(user: User?, callLength: String, calleeName: String): Boolean {
+        return suspendCoroutine { continuation ->
+
+            val callLog = CallLog.builder()
+                .duration(callLength)
+                .calleeName(calleeName)
+                .users(user)
+                .build()
+
+             Amplify.API.mutate(
+            "dineshareandroid",
+            ModelMutation.create(callLog),
+            {
+                continuation.resume(true)
+                Log.i(TAG, "CREATE interest succeeded: $it")
+            },
+            {
+                continuation.resume(false)
+                Log.e(TAG, "CREATE interest failed", it)
+            })
+        }
+    }
+
+    suspend fun getCallLog(): List<CallLog> {
+        val callLogList = ArrayList<CallLog>()
+
+        return suspendCoroutine { continuation ->
+            Amplify.API.query(
+                "dineshareandroid",
+                ModelQuery.list(CallLog::class.java, CallLog.USERS.eq(Amplify.Auth.currentUser.userId)),
+                { callLogs ->
+                    for (callLog in callLogs.data) {
+                        callLogList.add(callLog)
+                        Log.i(TAG, "callLog: $callLog")
+                    }
+                    continuation.resume(callLogList)
+                },
+                { error ->
+                    Log.e(TAG, "chatRooms fetch fail: ", error)
+                    continuation.resume(callLogList)
                 }
             )
         }

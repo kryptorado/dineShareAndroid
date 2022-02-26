@@ -178,9 +178,6 @@ class ConnectViewModel: ViewModel() {
                         notEnoughUsers.postValue(true)
                     }
 
-                    // TODO: if state is "not enough users" for more than a minute, tell the user and cancel the search
-
-//                    Log.d(TAG, "responseBody:  ${body}")
                 } else {
                    // TODO: handle this error
                 }

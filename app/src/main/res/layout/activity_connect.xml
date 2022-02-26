@@ -18,29 +18,35 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/connect_image"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView
         android:id="@+id/connect_image"
         android:layout_width="match_parent"
         android:layout_height="376dp"
+        android:src="@drawable/friends_eating"
         app:layout_constraintBottom_toTopOf="@+id/connect_progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connect_text_title"
-        app:srcCompat="@drawable/friends_eating" />
+        app:layout_constraintTop_toBottomOf="@+id/connect_text_title" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/connect_progressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="42dp"
         android:layout_marginEnd="24dp"
         android:indeterminate="true"
+        android:visibility="visible"
         app:indicatorColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/connect_image"
         app:trackColor="#FFFFFF"
