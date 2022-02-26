@@ -29,6 +29,9 @@
         android:theme="@style/Theme.DineShareAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.postCall.PostCallActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.connecting.ConnectActivity"
             android:exported="false" />
         <activity
