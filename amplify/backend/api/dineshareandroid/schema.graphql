@@ -3,8 +3,8 @@
 
 type User @model(subscriptions: { level: off }) @auth(rules: [{ allow: owner}]) {
   id: ID!
-  firstName: String
-  lastName: String
+  firstName: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
+  lastName: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
   rtmToken: String
   email: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
   interests: [Interest] @hasMany
@@ -44,7 +44,7 @@ type ChatData @model @auth(rules: [{allow: owner}]) {
 
 type CallLog @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  createdAt: AWSDateTime
   duration: String
   calleeName: String
+  users: User @belongsTo
 }

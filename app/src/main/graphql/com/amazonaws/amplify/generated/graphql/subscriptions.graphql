@@ -9,6 +9,7 @@ subscription OnCreateInterest($owner: String) {
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt
@@ -30,6 +31,7 @@ subscription OnUpdateInterest($owner: String) {
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt
@@ -51,6 +53,7 @@ subscription OnDeleteInterest($owner: String) {
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt
@@ -59,6 +62,141 @@ subscription OnDeleteInterest($owner: String) {
     createdAt
     updatedAt
     userInterestsId
+    owner
+  }
+}
+subscription OnCreateChatRoom($owner: String) {
+  onCreateChatRoom(owner: $owner) {
+    id
+    otherUserId
+    otherUserName
+    userID
+    chatRoomId
+    createdAt
+    updatedAt
+    userChatRoomsId
+    owner
+  }
+}
+subscription OnUpdateChatRoom($owner: String) {
+  onUpdateChatRoom(owner: $owner) {
+    id
+    otherUserId
+    otherUserName
+    userID
+    chatRoomId
+    createdAt
+    updatedAt
+    userChatRoomsId
+    owner
+  }
+}
+subscription OnDeleteChatRoom($owner: String) {
+  onDeleteChatRoom(owner: $owner) {
+    id
+    otherUserId
+    otherUserName
+    userID
+    chatRoomId
+    createdAt
+    updatedAt
+    userChatRoomsId
+    owner
+  }
+}
+subscription OnCreateChatData($owner: String) {
+  onCreateChatData(owner: $owner) {
+    id
+    message
+    createdAt
+    chatRoomId
+    senderId
+    updatedAt
+    owner
+  }
+}
+subscription OnUpdateChatData($owner: String) {
+  onUpdateChatData(owner: $owner) {
+    id
+    message
+    createdAt
+    chatRoomId
+    senderId
+    updatedAt
+    owner
+  }
+}
+subscription OnDeleteChatData($owner: String) {
+  onDeleteChatData(owner: $owner) {
+    id
+    message
+    createdAt
+    chatRoomId
+    senderId
+    updatedAt
+    owner
+  }
+}
+subscription OnCreateCallLog($owner: String) {
+  onCreateCallLog(owner: $owner) {
+    id
+    duration
+    calleeName
+    users {
+      id
+      firstName
+      lastName
+      rtmToken
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userCallLogsId
+    owner
+  }
+}
+subscription OnUpdateCallLog($owner: String) {
+  onUpdateCallLog(owner: $owner) {
+    id
+    duration
+    calleeName
+    users {
+      id
+      firstName
+      lastName
+      rtmToken
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userCallLogsId
+    owner
+  }
+}
+subscription OnDeleteCallLog($owner: String) {
+  onDeleteCallLog(owner: $owner) {
+    id
+    duration
+    calleeName
+    users {
+      id
+      firstName
+      lastName
+      rtmToken
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userCallLogsId
     owner
   }
 }

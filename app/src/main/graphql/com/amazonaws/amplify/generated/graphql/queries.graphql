@@ -9,6 +9,7 @@ query GetInterest($id: ID!) {
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt
@@ -39,13 +40,121 @@ query ListInterests(
     nextToken
   }
 }
+query GetChatRoom($id: ID!) {
+  getChatRoom(id: $id) {
+    id
+    otherUserId
+    otherUserName
+    userID
+    chatRoomId
+    createdAt
+    updatedAt
+    userChatRoomsId
+    owner
+  }
+}
+query ListChatRooms(
+  $filter: ModelChatRoomFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      otherUserId
+      otherUserName
+      userID
+      chatRoomId
+      createdAt
+      updatedAt
+      userChatRoomsId
+      owner
+    }
+    nextToken
+  }
+}
+query GetChatData($id: ID!) {
+  getChatData(id: $id) {
+    id
+    message
+    createdAt
+    chatRoomId
+    senderId
+    updatedAt
+    owner
+  }
+}
+query ListChatData(
+  $filter: ModelChatDataFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChatData(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      message
+      createdAt
+      chatRoomId
+      senderId
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetCallLog($id: ID!) {
+  getCallLog(id: $id) {
+    id
+    duration
+    calleeName
+    users {
+      id
+      firstName
+      lastName
+      rtmToken
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userCallLogsId
+    owner
+  }
+}
+query ListCallLogs(
+  $filter: ModelCallLogFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCallLogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      duration
+      calleeName
+      createdAt
+      updatedAt
+      userCallLogsId
+      owner
+    }
+    nextToken
+  }
+}
 query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     firstName
     lastName
+    rtmToken
     email
     interests {
+      nextToken
+    }
+    chatRooms {
+      nextToken
+    }
+    callLogs {
       nextToken
     }
     createdAt
@@ -63,6 +172,7 @@ query ListUsers(
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt

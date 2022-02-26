@@ -7,8 +7,15 @@ mutation CreateUser(
     id
     firstName
     lastName
+    rtmToken
     email
     interests {
+      nextToken
+    }
+    chatRooms {
+      nextToken
+    }
+    callLogs {
       nextToken
     }
     createdAt
@@ -24,8 +31,15 @@ mutation UpdateUser(
     id
     firstName
     lastName
+    rtmToken
     email
     interests {
+      nextToken
+    }
+    chatRooms {
+      nextToken
+    }
+    callLogs {
       nextToken
     }
     createdAt
@@ -41,8 +55,15 @@ mutation DeleteUser(
     id
     firstName
     lastName
+    rtmToken
     email
     interests {
+      nextToken
+    }
+    chatRooms {
+      nextToken
+    }
+    callLogs {
       nextToken
     }
     createdAt
@@ -63,6 +84,7 @@ mutation CreateInterest(
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt
@@ -87,6 +109,7 @@ mutation UpdateInterest(
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt
@@ -111,6 +134,7 @@ mutation DeleteInterest(
       id
       firstName
       lastName
+      rtmToken
       email
       createdAt
       updatedAt
@@ -119,6 +143,168 @@ mutation DeleteInterest(
     createdAt
     updatedAt
     userInterestsId
+    owner
+  }
+}
+mutation CreateChatRoom(
+  $input: CreateChatRoomInput!
+  $condition: ModelChatRoomConditionInput
+) {
+  createChatRoom(input: $input, condition: $condition) {
+    id
+    otherUserId
+    otherUserName
+    userID
+    chatRoomId
+    createdAt
+    updatedAt
+    userChatRoomsId
+    owner
+  }
+}
+mutation UpdateChatRoom(
+  $input: UpdateChatRoomInput!
+  $condition: ModelChatRoomConditionInput
+) {
+  updateChatRoom(input: $input, condition: $condition) {
+    id
+    otherUserId
+    otherUserName
+    userID
+    chatRoomId
+    createdAt
+    updatedAt
+    userChatRoomsId
+    owner
+  }
+}
+mutation DeleteChatRoom(
+  $input: DeleteChatRoomInput!
+  $condition: ModelChatRoomConditionInput
+) {
+  deleteChatRoom(input: $input, condition: $condition) {
+    id
+    otherUserId
+    otherUserName
+    userID
+    chatRoomId
+    createdAt
+    updatedAt
+    userChatRoomsId
+    owner
+  }
+}
+mutation CreateChatData(
+  $input: CreateChatDataInput!
+  $condition: ModelChatDataConditionInput
+) {
+  createChatData(input: $input, condition: $condition) {
+    id
+    message
+    createdAt
+    chatRoomId
+    senderId
+    updatedAt
+    owner
+  }
+}
+mutation UpdateChatData(
+  $input: UpdateChatDataInput!
+  $condition: ModelChatDataConditionInput
+) {
+  updateChatData(input: $input, condition: $condition) {
+    id
+    message
+    createdAt
+    chatRoomId
+    senderId
+    updatedAt
+    owner
+  }
+}
+mutation DeleteChatData(
+  $input: DeleteChatDataInput!
+  $condition: ModelChatDataConditionInput
+) {
+  deleteChatData(input: $input, condition: $condition) {
+    id
+    message
+    createdAt
+    chatRoomId
+    senderId
+    updatedAt
+    owner
+  }
+}
+mutation CreateCallLog(
+  $input: CreateCallLogInput!
+  $condition: ModelCallLogConditionInput
+) {
+  createCallLog(input: $input, condition: $condition) {
+    id
+    duration
+    calleeName
+    users {
+      id
+      firstName
+      lastName
+      rtmToken
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userCallLogsId
+    owner
+  }
+}
+mutation UpdateCallLog(
+  $input: UpdateCallLogInput!
+  $condition: ModelCallLogConditionInput
+) {
+  updateCallLog(input: $input, condition: $condition) {
+    id
+    duration
+    calleeName
+    users {
+      id
+      firstName
+      lastName
+      rtmToken
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userCallLogsId
+    owner
+  }
+}
+mutation DeleteCallLog(
+  $input: DeleteCallLogInput!
+  $condition: ModelCallLogConditionInput
+) {
+  deleteCallLog(input: $input, condition: $condition) {
+    id
+    duration
+    calleeName
+    users {
+      id
+      firstName
+      lastName
+      rtmToken
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+    createdAt
+    updatedAt
+    userCallLogsId
     owner
   }
 }
