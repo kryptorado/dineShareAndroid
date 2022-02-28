@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/interest_card_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:cardBackgroundColor="#FFFFFF"
     app:contentPadding="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/interest_card_view_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/interest_card_view_layout">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/interest_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBaseline_toTopOf="parent"/>
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             android:id="@+id/interest_title"
@@ -39,11 +39,13 @@
             style="@android:style/Widget.Material.SeekBar.Discrete"
             android:layout_width="289dp"
             android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:max="5"
-            android:progressTint="@color/purple_500"
-            android:progressBackgroundTint="@color/purple_500"
 
             android:progress="1"
+            android:progressBackgroundTint="@color/purple_500"
+            android:progressTint="@color/purple_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/interest_icon"

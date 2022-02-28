@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_below="@+id/top"
     android:fillViewport="true">
 
@@ -11,19 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:id="@+id/view3"
+            android:layout_width="689dp"
+            android:layout_height="140dp"
+            android:background="@drawable/ic_wave3"
+            android:translationZ="-1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.541"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/matching_text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/comfortaa"
             android:text="Get Matched"
-            android:textColor="#000000"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,35 +45,32 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="64dp"
-            android:backgroundTint="#000000"
+            android:layout_marginBottom="84dp"
+            android:backgroundTint="@android:color/holo_green_dark"
             android:text="Start a Call"
-            android:textColor="#FFFFFF"
+            android:textColor="?android:attr/colorBackground"
+            android:translationZ="5dp"
             app:iconTint="#FFFEFE"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/matching_text_instructions"
-            app:layout_constraintVertical_bias="0.32999998"
             app:rippleColor="#C8C8C8"
-            app:strokeColor="#FFFFFF" />
+            app:strokeColor="?attr/colorOnPrimary" />
 
         <TextView
             android:id="@+id/matching_text_instructions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
             android:fontFamily="@font/comfortaa"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum porta fringilla. Suspendisse nec nisi sed ante sagittis porta sed sit amet nisi. Cras fringilla viverra dui id molestie. Sed quis gravida orci. Proin quam augue, lobortis eget consectetur nec, vehicula nec mi. Curabitur imperdiet nisl a purus auctor, a rutrum sem congue. Phasellus id suscipit neque. Nulla convallis, arcu eu tristique condimentum, neque purus lobortis tortor, vitae vestibulum"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum porta fringilla. Suspendisse nec nisi sed ante sagittis porta sed sit amet nisi. Cras fringilla viverra dui id molestie. Sed quis gravida orci. Proin quam augue, lobortis eget consectetur nec, vehicula nec mi. Curabitur imperdiet nisl a purus auctor, a rutrum sem congue. Phasellus id suscipit neque."
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/matching_button_start_call"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/matching_text_title" />
 

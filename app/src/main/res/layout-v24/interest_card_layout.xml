@@ -5,45 +5,63 @@
     android:id="@+id/interest_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#FFFFFF"
+    app:cardBackgroundColor="?android:attr/windowBackground"
     app:contentPadding="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/interest_card_view_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/interest_card_view_layout">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/interest_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             app:layout_constraintBaseline_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
             android:id="@+id/interest_title"
-            android:layout_width="236dp"
-            android:layout_height="39dp"
+            android:layout_width="251dp"
+            android:layout_height="36dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/comfortaa"
+            android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintBaseline_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.305"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toEndOf="@+id/interest_icon"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/interest_title2"
+            android:layout_width="251dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/comfortaa"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toEndOf="@+id/interest_icon"
             tools:layout_editor_absoluteY="0dp" />
 
         <SeekBar
             android:id="@+id/interest_strength"
             style="@android:style/Widget.Material.SeekBar.Discrete"
-            android:layout_width="289dp"
+            android:layout_width="0dp"
             android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:max="5"
-            android:progress="1"
-            android:thumbTint="@color/purple_500"
+            android:progress="0"
             android:progressBackgroundTint="@color/purple_500"
             android:progressTint="@color/purple_500"
+            android:thumbTint="@color/purple_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/interest_icon"

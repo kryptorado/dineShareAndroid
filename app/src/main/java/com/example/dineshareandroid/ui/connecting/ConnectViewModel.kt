@@ -173,13 +173,13 @@ class ConnectViewModel: ViewModel() {
                         notEnoughUsersCounter += 1
                     }
 
-                        // every few seconds let the user know that there aren't many users now to get matched
+                    // every few seconds let the user know that there aren't many users now to get matched
                     if (notEnoughUsersCounter % 5 == 0) {
                         notEnoughUsers.postValue(true)
                     }
 
                 } else {
-                   // TODO: handle this error
+                    // TODO: handle this error
                 }
             }
             override fun onFailure(call: Call, e: IOException) {

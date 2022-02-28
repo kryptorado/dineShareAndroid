@@ -2,6 +2,7 @@ package com.example.dineshareandroid.ui.profile
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,8 @@ import com.example.dineshareandroid.MainActivity
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.interests.InterestsActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
+import android.widget.ImageView
+import com.amulyakhare.textdrawable.TextDrawable
 
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -23,9 +26,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         model.user.observe(viewLifecycleOwner) { user ->
             if (user != null) {
-                profile_text_greeting_name.text = user.firstName.replaceFirstChar { it.titlecase() }
-                profile_text_first_name_text.text = user.firstName.replaceFirstChar { it.titlecase() }
-                profile_text_last_name_text.text = user.lastName.replaceFirstChar { it.titlecase() }
+                var name = user.firstName + user.lastName
+                profile_text_name_text.text = name
                 profile_text_email_text.text = user.email
                 Log.d(TAG, "got user! $user")
             }
@@ -47,5 +49,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 Toast.makeText(context, "Couldn't log out", Toast.LENGTH_SHORT).show()
             }
         }
+
+        val drawable = TextDrawable.builder()
+            .buildRect("A", Color.GREEN)
+
+        val image: ImageView = view.findViewById(R.id.shapeableImageView)
+        image.setImageDrawable(drawable)
     }
 }

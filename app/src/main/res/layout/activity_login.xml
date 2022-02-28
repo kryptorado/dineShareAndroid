@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa"
         android:text="Login"
-        android:textColor="#000000"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -164,7 +164,9 @@
             android:id="@+id/login_edit_text_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="Email"
+            android:textColor="?attr/colorOnPrimary"
+            android:textColorHint="?attr/colorOnPrimary" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -189,7 +191,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="?attr/colorOnPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

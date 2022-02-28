@@ -174,17 +174,17 @@ object UserData {
                 .users(user)
                 .build()
 
-             Amplify.API.mutate(
-            "dineshareandroid",
-            ModelMutation.create(callLog),
-            {
-                continuation.resume(true)
-                Log.i(TAG, "CREATE interest succeeded: $it")
-            },
-            {
-                continuation.resume(false)
-                Log.e(TAG, "CREATE interest failed", it)
-            })
+            Amplify.API.mutate(
+                "dineshareandroid",
+                ModelMutation.create(callLog),
+                {
+                    continuation.resume(true)
+                    Log.i(TAG, "CREATE interest succeeded: $it")
+                },
+                {
+                    continuation.resume(false)
+                    Log.e(TAG, "CREATE interest failed", it)
+                })
         }
     }
 

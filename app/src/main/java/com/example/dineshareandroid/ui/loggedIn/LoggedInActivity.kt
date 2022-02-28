@@ -33,7 +33,7 @@ class LoggedInActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_profile -> selectedFragment = ProfileFragment()
                 R.id.nav_messages -> selectedFragment = ConversationsFragment()
-                R.id.nav_call_log -> selectedFragment = CallLogFragment()
+                //R.id.nav_call_log -> selectedFragment = CallLogFragment()
                 R.id.nav_matching -> selectedFragment = MatchingFragment()
             }
             if (selectedFragment != null) {
