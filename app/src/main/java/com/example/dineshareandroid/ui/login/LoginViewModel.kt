@@ -1,9 +1,7 @@
 package com.example.dineshareandroid.ui.login
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.services.cognitoidentityprovider.model.InvalidPasswordException
 import com.amazonaws.services.cognitoidentityprovider.model.UserNotConfirmedException
@@ -15,8 +13,11 @@ import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.generated.model.User
+import com.example.dineshareandroid.backend.UserData
 import com.example.dineshareandroid.backend.UserData.createDynamoUser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class LoginViewModel: ViewModel()  {
@@ -79,12 +80,23 @@ class LoginViewModel: ViewModel()  {
                                     // Otherwise the email is unique
                                     isUniqueEmail.postValue(true)
 
-                                    // Create new user
+
                                     viewModelScope.launch {
-                                        if (firstName !== null && lastName!= null && email!= null) {
-                                            createDynamoUser(firstName, lastName, email)
+                                        val rtmToken = withContext(Dispatchers.IO) {
+                                            UserData.getUserRtmToken()
+                                        }
+                                        if (firstName !== null && lastName!= null && email!= null && rtmToken != null) {
+                                            createDynamoUser(firstName, lastName, email, rtmToken)
                                         }
                                     }
+
+
+//                                    // Create new user
+//                                    viewModelScope.launch {
+//                                        if (firstName !== null && lastName!= null && email!= null) {
+//                                            createDynamoUser(firstName, lastName, email)
+//                                        }
+//                                    }
                                 }
                                 Log.i(TAG, "getDynamoUser = ${(response.data)}")
                             } else {

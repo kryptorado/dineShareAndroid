@@ -8,7 +8,11 @@ import com.amplifyframework.datastore.generated.model.CallLog
 import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.amplifyframework.datastore.generated.model.Interest
 import com.amplifyframework.datastore.generated.model.User
+import com.beust.klaxon.Klaxon
+import com.example.dineshareandroid.ui.connecting.ConnectViewModel
 import com.example.dineshareandroid.utils.Constants.interestNames
+import okhttp3.*
+import okio.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -52,13 +56,14 @@ object UserData {
         }
     }
 
-    suspend fun createDynamoUser(firstName: String, lastName: String, email: String): Boolean {
+    suspend fun createDynamoUser(firstName: String, lastName: String, email: String, rtmToken: String): Boolean {
         return suspendCoroutine { continuation ->
             val user = User.builder()
                 .id(Amplify.Auth.currentUser.userId)
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)
+                .rtmToken(rtmToken)
                 .build()
 
             // Add default interests
@@ -207,6 +212,30 @@ object UserData {
                     continuation.resume(callLogList)
                 }
             )
+        }
+    }
+
+    suspend fun getUserRtmToken(): String? {
+        return suspendCoroutine { continuation ->
+
+            val url = "https://calm-castle-22371.herokuapp.com/rtm/${Amplify.Auth.currentUser.username}"
+            val request = Request.Builder().url(url).build()
+
+            val client = OkHttpClient()
+            client.newCall(request).enqueue(object: Callback {
+                override fun onResponse(call: Call, response: Response) {
+                    if (response.code == 200) {
+                        val body = Klaxon().parse<RTM_TOKEN>(response.body!!.string())
+                        continuation.resume(body?.rtmToken)
+                    } else {
+                        continuation.resume(null)
+                    }
+                }
+                override fun onFailure(call: Call, e: IOException) {
+                    continuation.resume(null)
+                    Log.e(TAG, "RTM Token fetch FAIL $e")
+                }
+            })
         }
     }
 }

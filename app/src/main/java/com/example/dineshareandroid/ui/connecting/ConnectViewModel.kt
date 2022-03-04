@@ -8,6 +8,7 @@ import androidx.lifecycle.liveData
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.generated.model.Interest
 import com.beust.klaxon.Klaxon
+import com.example.dineshareandroid.backend.MATCHING_RESULT
 import com.example.dineshareandroid.backend.UserData
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -148,12 +149,6 @@ class ConnectViewModel: ViewModel() {
         })
     }
 
-    data class MATCHING_RESULT(
-        val state: String,
-        val channelName: String = "",
-        val token: String="",
-        val otherUser: String=""
-    )
 
     fun pollQueue() {
         val url = POLL_QUEUE_URL
@@ -162,7 +157,6 @@ class ConnectViewModel: ViewModel() {
         client.newCall(request).enqueue(object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 if (response.code == 200) {
-//                    val body = response.body?.string()
                     val body = Klaxon().parse<MATCHING_RESULT>(response.body!!.string())
 
                     if (body?.state.equals("FOUND_MATCH")) {

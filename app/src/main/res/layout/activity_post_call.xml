@@ -22,18 +22,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="24dp"
-        android:text="Go to messages"
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="408dp"
+        android:layout_height="278dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_call_text_title"
-        app:layout_constraintVertical_bias="0.255" />
+        app:srcCompat="@drawable/dineshare_illustration3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
