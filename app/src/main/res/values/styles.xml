@@ -5,9 +5,9 @@
         <item name="boxStrokeColor">@drawable/text_input_black_stroke</item>
         <item name="boxStrokeWidth">2dp</item>
         <!-- The color of the label when it is collapsed and the text field is active -->
-        <item name="hintTextColor">@color/black</item>
+        <item name="hintTextColor">@color/material_on_primary_emphasis_high_type</item>
         <!-- The color of the label in all other text field states (such as resting and disabled) -->
-        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textColorHint">@color/material_on_primary_emphasis_high_type</item>
     </style>
 
     <style name="RoundedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
