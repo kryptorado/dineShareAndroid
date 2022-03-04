@@ -13,7 +13,9 @@ import com.amplifyframework.core.Amplify
 import com.example.dineshareandroid.ui.interests.InterestsActivity
 import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
 import com.example.dineshareandroid.R
+import com.example.dineshareandroid.ui.resetPassword.ResetPasswordActivity
 import com.example.dineshareandroid.ui.signup.SignupActivity
+import com.example.dineshareandroid.ui.termsConditions.TermsConditionsActivity
 import com.example.dineshareandroid.utils.CheckField
 import com.example.dineshareandroid.utils.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*
@@ -113,6 +115,14 @@ class LoginActivity : AppCompatActivity() {
 
         login_button_register.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
+        }
+
+        login_terms_conditions.setOnClickListener {
+            startActivity(Intent(this, TermsConditionsActivity::class.java))
+        }
+
+        login_text_forgot_password.setOnClickListener {
+            startActivity(Intent(this, ResetPasswordActivity::class.java))
         }
     }
 

@@ -29,6 +29,12 @@
         android:theme="@style/Theme.DineShareAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.resetPassword.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.termsConditions.TermsConditionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.starting.StartingActivity"
             android:exported="false" />
         <activity

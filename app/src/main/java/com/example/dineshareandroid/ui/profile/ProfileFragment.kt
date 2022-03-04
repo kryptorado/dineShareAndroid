@@ -26,8 +26,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         model.user.observe(viewLifecycleOwner) { user ->
             if (user != null) {
-                val name = user.firstName + " " + user.lastName
-                val initials = "${user.firstName.first()}.${user.lastName.first()}"
+                val formattedFirstName = user.firstName.replaceFirstChar { it.titlecase() }
+                val formattedLastName = user.lastName.replaceFirstChar { it.titlecase() }
+                val name = "$formattedFirstName $formattedLastName"
+                val initials = "${formattedFirstName.first()}.${formattedLastName.first()}"
                 profile_text_name_text.text = name
                 profile_text_email_text.text = user.email
 
