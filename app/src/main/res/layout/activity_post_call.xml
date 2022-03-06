@@ -7,18 +7,74 @@
     tools:context=".ui.postCall.PostCallActivity">
 
     <TextView
-        android:id="@+id/post_call_text_title"
-        android:layout_width="match_parent"
+        android:id="@+id/login_text_forgot_password2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:fontFamily="@font/comfortaa"
+        android:text="Report user"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/login_button_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/post_call_button_match"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/post_call_button_messages"
+        style="@style/RoundedButton"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="24dp"
+        android:backgroundTint="#000000"
+        android:text="Message"
+        android:textColor="#FFFFFF"
+        app:iconTint="#FFFEFE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/post_call_text_title"
+        app:rippleColor="#C8C8C8"
+        app:strokeColor="#FFFFFF" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/post_call_button_match"
+        style="@style/RoundedButton"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#000000"
+        android:text="Find another match"
+        android:textColor="#FFFFFF"
+        app:iconTint="#FFFEFE"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/post_call_button_messages"
+        app:layout_constraintVertical_bias="0.081"
+        app:rippleColor="#C8C8C8"
+        app:strokeColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/post_call_text_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="@font/comfortaa"
         android:text="Connect with"
-        android:textColor="#000000"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

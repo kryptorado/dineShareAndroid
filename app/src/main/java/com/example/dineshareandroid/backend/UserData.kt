@@ -184,11 +184,11 @@ object UserData {
                 ModelMutation.create(callLog),
                 {
                     continuation.resume(true)
-                    Log.i(TAG, "CREATE interest succeeded: $it")
+                    Log.i(TAG, "CREATE call log succeeded: $it")
                 },
                 {
                     continuation.resume(false)
-                    Log.e(TAG, "CREATE interest failed", it)
+                    Log.e(TAG, "CREATE call log failed", it)
                 })
         }
     }
@@ -236,6 +236,30 @@ object UserData {
                     Log.e(TAG, "RTM Token fetch FAIL $e")
                 }
             })
+        }
+    }
+
+    suspend fun createChatRoom(channelName: String, remoteUserName: String, remoteUserId: String): Boolean {
+        return suspendCoroutine { continuation ->
+            val chatRoom = ChatRoom.builder()
+                .otherUserId(remoteUserId)
+                .otherUserName(remoteUserName)
+                .chatRoomId(channelName)
+                .userId(Amplify.Auth.currentUser.userId)
+                .userChatRoomsId(Amplify.Auth.currentUser.userId)
+                .build()
+
+            Amplify.API.mutate(
+                "dineshareandroid",
+                ModelMutation.create(chatRoom),
+                {
+                    continuation.resume(true)
+                    Log.i(TAG, "CREATE chatroom succeeded: $it")
+                },
+                {
+                    continuation.resume(false)
+                    Log.e(TAG, "CREATE chatroom failed", it)
+                })
         }
     }
 }

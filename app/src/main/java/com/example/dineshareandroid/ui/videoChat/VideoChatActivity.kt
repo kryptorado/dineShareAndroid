@@ -1,7 +1,5 @@
 package com.example.dineshareandroid.ui.videoChat
 
-import androidx.appcompat.app.AppCompatActivity
-
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,19 +10,18 @@ import android.view.SurfaceView
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.dineshareandroid.R
-import com.example.dineshareandroid.ui.confirmEmail.EmailConfViewModel
 import com.example.dineshareandroid.ui.postCall.PostCallActivity
-
 import io.agora.rtc.IRtcEngineEventHandler
 import io.agora.rtc.RtcEngine
 import io.agora.rtc.video.VideoCanvas
 import io.agora.rtc.video.VideoEncoderConfiguration
+import kotlinx.android.synthetic.main.activity_video_chat.*
 
 class VideoChatActivity : AppCompatActivity() {
     private val model: VideoChatViewModel by viewModels()
@@ -115,10 +112,6 @@ class VideoChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_chat)
         model.getRemoteUserName(getOtherUserId())
-
-        model.otherUserName.observe(this, { name ->
-            Toast.makeText(applicationContext, "Say hello to $name", Toast.LENGTH_LONG).show()
-        })
 
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO, PERMISSION_REQ_ID_RECORD_AUDIO) && checkSelfPermission(Manifest.permission.CAMERA, PERMISSION_REQ_ID_CAMERA)) {
             initAgoraEngineAndJoinChannel()
@@ -227,19 +220,7 @@ class VideoChatActivity : AppCompatActivity() {
     }
 
     fun onEndCallClicked(view: View) {
-        model.endCallTimer()
-        model.otherUserName.observe(this, { name ->
-            model.createCallLog(name)
-        })
-
-        model.logCreateSuccess.observe(this, { success ->
-            if (!success) {
-                Toast.makeText(this, "Couldn't save call to call logs", Toast.LENGTH_SHORT).show()
-            }
-            val intent = Intent(this, PostCallActivity::class.java)
-            startActivity(intent)
-            finish()
-        })
+        endCallBoth()
     }
 
     private fun initializeAgoraEngine() {
@@ -261,7 +242,7 @@ class VideoChatActivity : AppCompatActivity() {
 
         // Please go to this page for detailed explanation
         // https://docs.agora.io/en/Video/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_rtc_engine.html#af5f4de754e2c1f493096641c5c5c1d8f
-        mRtcEngine!!.setVideoEncoderConfiguration(VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x360,
+        mRtcEngine!!.setVideoEncoderConfiguration(VideoEncoderConfiguration(VideoEncoderConfiguration.VD_1280x720,
             VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_30,
             VideoEncoderConfiguration.STANDARD_BITRATE,
             VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE))
@@ -288,6 +269,12 @@ class VideoChatActivity : AppCompatActivity() {
         model.startCallTimer()
         val token: String = getAgoraToken()
         val channelName = getChannelName()
+        model.otherUserName.observe(this, { name ->
+            runOnUiThread {
+                video_chat_text_remote_name.text = "Say hello to $name"
+            }
+        })
+
         mRtcEngine!!.joinChannel(token, channelName, "Extra Optional Data", 0) // if uid is not specified, it will be generated
     }
 
@@ -314,8 +301,6 @@ class VideoChatActivity : AppCompatActivity() {
         mRtcEngine!!.setupRemoteVideo(VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_FIT, uid))
 
         surfaceView.tag = uid // for mark purpose
-        val tipMsg = findViewById<TextView>(R.id.quick_tips_when_use_agora_sdk) // optional UI
-        tipMsg.visibility = View.GONE
     }
 
     private fun leaveChannel() {
@@ -323,11 +308,7 @@ class VideoChatActivity : AppCompatActivity() {
     }
 
     private fun onRemoteUserLeft() {
-        val container = findViewById<FrameLayout>(R.id.remote_video_view_container)
-        container.removeAllViews()
-
-        val tipMsg = findViewById<TextView>(R.id.quick_tips_when_use_agora_sdk) // optional UI
-        tipMsg.visibility = View.VISIBLE
+        endCallBoth()
     }
 
     private fun onRemoteUserVideoMuted(uid: Int, muted: Boolean) {
@@ -339,6 +320,21 @@ class VideoChatActivity : AppCompatActivity() {
         if (tag != null && tag as Int == uid) {
             surfaceView.visibility = if (muted) View.GONE else View.VISIBLE
         }
+    }
+
+    private fun endCallBoth() {
+        model.endCallTimer()
+        val intent = Intent(this, PostCallActivity::class.java)
+
+        intent.putExtra("callLength", model.getCallLength())
+        intent.putExtra("channelName", getChannelName())
+        intent.putExtra("remoteUserId", getOtherUserId())
+
+        model.otherUserName.observe(this, { name ->
+            intent.putExtra("remoteUserName", name)
+        })
+        startActivity(intent)
+        finish()
     }
 
     companion object {

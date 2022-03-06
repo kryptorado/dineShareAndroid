@@ -102,7 +102,7 @@ class ConnectViewModel: ViewModel() {
                     // TODO: handle exception
                 }
             }
-        }, 0, 2000)
+        }, 1000, 4000)
     }
 
     private fun cancelPollQueueTimer() {
@@ -154,6 +154,8 @@ class ConnectViewModel: ViewModel() {
         val url = POLL_QUEUE_URL
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
+//        Log.e(TAG, ".......................................................................")
+
         client.newCall(request).enqueue(object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 if (response.code == 200) {

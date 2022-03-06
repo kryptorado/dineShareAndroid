@@ -7,9 +7,9 @@ import com.example.dineshareandroid.backend.UserData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class VideoChatViewModel: ViewModel() {
-    val logCreateSuccess = MutableLiveData<Boolean>()
     val otherUserName = MutableLiveData<String>()
     private var startTime: Long = 0
     var callLength: Long = 0
@@ -22,19 +22,8 @@ class VideoChatViewModel: ViewModel() {
         callLength = System.currentTimeMillis() - startTime
     }
 
-    fun createCallLog(otherUserName: String) {
-        val callLengthFormatted = getFormattedTime(callLength)
-
-        viewModelScope.launch {
-            val user = withContext(Dispatchers.IO) {
-                UserData.getDynamoUser()
-            }
-            val isSuccess = withContext(Dispatchers.IO) {
-                UserData.createCallLog(user, callLengthFormatted, otherUserName)
-            }
-
-            logCreateSuccess.value = isSuccess
-        }
+    fun getCallLength(): String {
+        return getFormattedTime(callLength)
     }
 
     fun getRemoteUserName(remoteUserId: String) {
@@ -42,7 +31,7 @@ class VideoChatViewModel: ViewModel() {
             val otherUser = withContext(Dispatchers.IO) {
                 UserData.getDynamoUserById(remoteUserId)
             }
-            otherUserName.value = otherUser?.firstName
+            otherUserName.value = otherUser?.firstName?.capitalize(Locale.ROOT)
         }
     }
 
@@ -53,5 +42,4 @@ class VideoChatViewModel: ViewModel() {
 
         return("$hours hours, $minutes minutes and $seconds seconds.")
     }
-
 }

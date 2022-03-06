@@ -1,8 +1,37 @@
 package com.example.dineshareandroid.ui.postCall
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.dineshareandroid.backend.UserData
+import kotlinx.coroutines.*
 
 class PostCallViewModel: ViewModel() {
+    private val TAG = "PostCallViewModel"
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+    val logCreateSuccess = MutableLiveData<Boolean>()
 
+    fun createCallLog(otherUserName: String, callLengthFormatted: String) {
+        viewModelScope.launch {
+            val user = withContext(defaultDispatcher) {
+                UserData.getDynamoUser()
+            }
+            val isSuccess = withContext(defaultDispatcher + NonCancellable) {
+                UserData.createCallLog(user, callLengthFormatted, otherUserName)
+            }
+            Log.d(TAG, "callLog creation success: $isSuccess")
+            logCreateSuccess.value = true
+        }
+    }
+
+    fun createChatRoom(channelName: String, remoteUserName: String, remoteUserId: String) {
+        // get channel name sent by video activity
+        viewModelScope.launch {
+            val isSuccess = withContext(defaultDispatcher + NonCancellable) {
+                UserData.createChatRoom(channelName, remoteUserName, remoteUserId)
+            }
+        }
+    }
 
 }
