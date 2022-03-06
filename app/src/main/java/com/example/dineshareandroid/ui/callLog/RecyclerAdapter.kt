@@ -4,17 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.SeekBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.amplifyframework.datastore.generated.model.Interest
+import com.amplifyframework.datastore.generated.model.CallLog
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.utils.Constants
 
-class RecyclerAdapter(_interests: MutableList<Interest>, _icons: List<Int>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(_callLog: MutableList<CallLog>, _icons: List<Int>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     val TAG = "RecyclerAdapter"
     private var icons = _icons.toIntArray()
-    var interests = _interests
+    var callLog = _callLog
 
 
     init {
@@ -27,9 +26,9 @@ class RecyclerAdapter(_interests: MutableList<Interest>, _icons: List<Int>): Rec
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
-        holder.interestTitle.text = interests[position].name
-        holder.interestStrength.text = interests[position].strength.toString()
-        holder.interestIcon.setImageResource(icons[position])
+        //holder.callerIcon.setImageResource = callLog[position].name
+        holder.callerName.text = callLog[position].calleeName
+        holder.callerDetails.text = callLog[position].duration
     }
 
     override fun getItemCount(): Int {
@@ -37,8 +36,8 @@ class RecyclerAdapter(_interests: MutableList<Interest>, _icons: List<Int>): Rec
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var interestIcon: ImageView = itemView.findViewById(R.id.caller_icon) as ImageView
-        var interestTitle: TextView = itemView.findViewById(R.id.caller_name) as TextView
-        var interestStrength: TextView = itemView.findViewById(R.id.caller_details) as TextView
+        //var callerIcon: ImageView = itemView.findViewById(R.id.caller_icon) as ImageView
+        var callerName: TextView = itemView.findViewById(R.id.caller_name) as TextView
+        var callerDetails: TextView = itemView.findViewById(R.id.caller_details) as TextView
     }
 }

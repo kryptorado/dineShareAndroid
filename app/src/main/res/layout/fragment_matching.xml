@@ -67,7 +67,7 @@
             android:layout_marginTop="64dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/comfortaa"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum porta fringilla. Suspendisse nec nisi sed ante sagittis porta sed sit amet nisi. Cras fringilla viverra dui id molestie. Sed quis gravida orci. Proin quam augue, lobortis eget consectetur nec, vehicula nec mi. Curabitur imperdiet nisl a purus auctor, a rutrum sem congue. Phasellus id suscipit neque."
+            android:text="When you are ready to chat, we will match you with someone who shares some interests with you. Please click “Start a call” to initiate the matchmaking"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

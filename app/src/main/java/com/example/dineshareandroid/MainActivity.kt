@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
 
         if (currentUser == null) {
             // go to login screen
-            startActivity(Intent(this, StartingActivity::class.java))
+            startActivity(Intent(this, LaunchScreenActivity::class.java))
+            //startActivity(Intent(this, StartingActivity::class.java))
             finish()
         } else {
             // go to logged in screen
