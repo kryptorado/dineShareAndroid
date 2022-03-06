@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/caller_log_card_view"
+    android:id="@+id/conversation_preview"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,18 +11,18 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/caller_name"
+            android:id="@+id/contact_name"
             android:layout_width="251dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/comfortaa"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/caller_icon"
+            app:layout_constraintStart_toEndOf="@+id/contact_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/caller_details"
+            android:id="@+id/last_message"
             android:layout_width="111dp"
             android:layout_height="17dp"
             android:layout_marginStart="20dp"
@@ -30,10 +30,10 @@
             android:fontFamily="@font/comfortaa"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caller_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/contact_icon" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/caller_icon"
+            android:id="@+id/contact_icon"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_margin="10dp"

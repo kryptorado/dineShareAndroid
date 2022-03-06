@@ -21,6 +21,8 @@
         android:id="@+id/view3"
         android:layout_width="689dp"
         android:layout_height="140dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
         android:background="@drawable/ic_wave2"
         android:translationZ="-1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +49,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/callLogs"
         android:layout_width="match_parent"
         android:layout_height="589dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="141dp" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
