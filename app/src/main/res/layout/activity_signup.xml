@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/comfortaa"
             android:text="Register"
-            android:textColor="#000000"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="34sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

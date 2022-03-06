@@ -19,7 +19,6 @@
         </intent>
     </queries>
 
-
     <application
         android:name=".AmplifyApp"
         android:allowBackup="true"
@@ -29,6 +28,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DineShareAndroid"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.resetPassword.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.termsConditions.TermsConditionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.starting.StartingActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.postCall.PostCallActivity"
             android:exported="false"
@@ -44,7 +52,7 @@
         <activity
             android:name="com.amplifyframework.auth.cognito.activities.HostedUIRedirectActivity"
             android:exported="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

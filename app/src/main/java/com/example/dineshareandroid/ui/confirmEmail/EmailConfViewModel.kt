@@ -8,8 +8,11 @@ import com.amplifyframework.auth.AuthException
 import com.amplifyframework.auth.result.AuthSignInResult
 import com.amplifyframework.auth.result.AuthSignUpResult
 import com.amplifyframework.core.Amplify
+import com.example.dineshareandroid.backend.UserData
 import com.example.dineshareandroid.backend.UserData.createDynamoUser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EmailConfViewModel: ViewModel() {
     private val TAG = "EmailConfViewModel"
@@ -56,7 +59,12 @@ class EmailConfViewModel: ViewModel() {
 
     private fun onLoginSuccess(result: AuthSignInResult) {
         viewModelScope.launch {
-            val isCreated = createDynamoUser(_firstName, _lastName, _email)
+            val rtmToken = withContext(Dispatchers.IO) {
+                UserData.getUserRtmToken()
+            }
+            val isCreated = withContext(Dispatchers.IO) {
+                createDynamoUser(_firstName, _lastName, _email, rtmToken!!)
+            }
             confirmSuccess.value = isCreated
         }
     }

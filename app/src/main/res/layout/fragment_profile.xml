@@ -34,12 +34,12 @@
             android:id="@+id/profile_text_name_text"
             android:layout_width="257dp"
             android:layout_height="36dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="64dp"
             android:fontFamily="@font/comfortaa"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.669"
+            app:layout_constraintHorizontal_bias="0.668"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
 
@@ -62,7 +62,8 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_text_email_text"
             app:layout_constraintVertical_chainStyle="packed"
             app:rippleColor="#C8C8C8"
-            app:strokeColor="#000000" />
+            app:strokeColor="#000000"
+            app:strokeWidth="2dp" />
 
         <View
             android:id="@+id/view"
@@ -71,7 +72,6 @@
             android:background="@drawable/ic_wave"
             android:translationZ="-1dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,24 +79,23 @@
             android:id="@+id/profile_text_email_text"
             android:layout_width="257dp"
             android:layout_height="35dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/comfortaa"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.669"
+            app:layout_constraintHorizontal_bias="0.668"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_text_name_text" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/shapeableImageView"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_margin="10dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="196dp"
+            android:layout_height="187dp"
+            android:layout_marginTop="45dp"
             android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"

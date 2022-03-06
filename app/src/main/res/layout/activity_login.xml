@@ -7,6 +7,23 @@
     android:backgroundTint="#FFFFFF"
     tools:context=".ui.login.LoginActivity">
 
+    <TextView
+        android:id="@+id/login_terms_conditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:fontFamily="@font/comfortaa"
+        android:gravity="center"
+        android:text="Terms and Conditions"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/facebook_login_button"
+        app:layout_constraintVertical_bias="1.0" />
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="@style/Base.Widget.AppCompat.ProgressBar"
@@ -14,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:visibility="gone"
         android:translationZ="2dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="24dp"
         android:backgroundTint="#000000"
         android:text="Login"
@@ -199,14 +216,18 @@
         android:id="@+id/login_text_forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:fontFamily="@font/comfortaa"
         android:text="Forgot password?"
-        android:textSize="15sp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/login_button_login"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facebook_login_button" />
+        app:layout_constraintTop_toBottomOf="@+id/login_edit_text_password_layout"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
