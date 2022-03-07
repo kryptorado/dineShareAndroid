@@ -2,9 +2,12 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/caller_log_card_view"
+    android:id="@+id/conversation_preview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,35 +15,44 @@
 
         <TextView
             android:id="@+id/caller_name"
-            android:layout_width="251dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/comfortaa"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/caller_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toEndOf="@+id/contact_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/caller_details"
-            android:layout_width="111dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/comfortaa"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caller_icon" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.338"
+            app:layout_constraintStart_toEndOf="@+id/contact_icon"
+            app:layout_constraintTop_toBottomOf="@+id/caller_name" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/caller_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:id="@+id/contact_icon"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_margin="10dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:padding="5dp"
             app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/contact_name"
+            android:id="@+id/caller_name"
             android:layout_width="251dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/last_message"
+            android:id="@+id/caller_details"
             android:layout_width="111dp"
             android:layout_height="17dp"
             android:layout_marginStart="20dp"

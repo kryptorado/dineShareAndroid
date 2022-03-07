@@ -245,7 +245,7 @@ class VideoChatActivity : AppCompatActivity() {
         mRtcEngine!!.setVideoEncoderConfiguration(VideoEncoderConfiguration(VideoEncoderConfiguration.VD_1280x720,
             VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_30,
             VideoEncoderConfiguration.STANDARD_BITRATE,
-            VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE))
+            VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT))
     }
 
     private fun setupLocalVideo() {

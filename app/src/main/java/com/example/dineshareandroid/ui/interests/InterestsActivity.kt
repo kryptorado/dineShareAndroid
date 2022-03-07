@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_interests.*
 
 class InterestsActivity : AppCompatActivity() {
     private val TAG = "InterestsActivity"
-    private var adapter = RecyclerAdapter(mutableListOf(), listOf())
+    private var adapter = InterestsRecyclerAdapter(mutableListOf(), listOf())
     lateinit var loader: LoadingDialog
 
 
@@ -75,7 +75,7 @@ class InterestsActivity : AppCompatActivity() {
             }
         }
 
-        adapter = RecyclerAdapter(interests as MutableList<Interest>, iconList)
+        adapter = InterestsRecyclerAdapter(interests as MutableList<Interest>, iconList)
         recyclerView.adapter = adapter
     }
 }

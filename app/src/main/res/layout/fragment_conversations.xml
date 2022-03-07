@@ -21,21 +21,19 @@
 
     <TextView
         android:id="@+id/conversations_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:fontFamily="@font/comfortaa"
         android:text="Conversations"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="34sp"
-        android:translationZ="5dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.287" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/conversations"

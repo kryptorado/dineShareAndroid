@@ -11,22 +11,17 @@ import com.amplifyframework.datastore.generated.model.Interest
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.utils.Constants
 
-class RecyclerAdapter(_interests: MutableList<Interest>, _icons: List<Int>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class InterestsRecyclerAdapter(_interests: MutableList<Interest>, _icons: List<Int>): RecyclerView.Adapter<InterestsRecyclerAdapter.ViewHolder>() {
     val TAG = "RecyclerAdapter"
     private var icons = _icons.toIntArray()
     var interests = _interests
 
-
-    init {
-        // map icons to correct order
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InterestsRecyclerAdapter.ViewHolder {
        val v = LayoutInflater.from(parent.context).inflate(R.layout.interest_card_layout, parent, false)
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: InterestsRecyclerAdapter.ViewHolder, position: Int) {
         holder.interestTitle.text = interests[position].name
         holder.interestStrength.progress = interests[position].strength
         holder.interestIcon.setImageResource(icons[position])
