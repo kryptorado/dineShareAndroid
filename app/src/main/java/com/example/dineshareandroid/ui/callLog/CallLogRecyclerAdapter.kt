@@ -14,6 +14,10 @@ import com.example.dineshareandroid.R
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 import androidx.lifecycle.ViewModelProvider
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import java.util.regex.Pattern
 
 
 class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemClickListener: ItemClickListener): RecyclerView.Adapter<CallLogRecyclerAdapter.ViewHolder>() {
@@ -36,7 +40,14 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemCli
     override fun onBindViewHolder(holder: CallLogRecyclerAdapter.ViewHolder, position: Int) {
         //holder.callerIcon.setImageResource = callLog[position].name
         holder.callerName.text = callLog[position].calleeName
-        holder.callerDetails.text = callLog[position].duration
+
+        var formattedDuration = callLog[position].duration.replace("hours,", "h")
+                                                        .replace("minutes and", "m")
+                                                        .replace("seconds.", "s");
+        var date = callLog[position].updatedAt.toString().replace("Temporal.DateTime{offsetDateTime='", "")
+                                                        .replace("Z'}", "")
+                                                        .take(10)
+        holder.callerDetails.text = formattedDuration + " • " + date;
 
         val generator = ColorGenerator.MATERIAL
         //val color = generator.getColor(user.email)
@@ -52,6 +63,7 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemCli
             itemClickListener.onItemClick(position)
             callLog.removeAt(position) // remove the item from list
             notifyItemRemoved(position) // notify the adapter about the removed item
+            notifyDataSetChanged()
         })
     }
 

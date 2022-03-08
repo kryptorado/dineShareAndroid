@@ -30,7 +30,7 @@ class CallLogFragment : Fragment(R.layout.fragment_call_log) {
         model.getCallLog()
 
         model.callLogList.observe(this) { callLog ->
-            showCallLogList(callLog)
+            showCallLogList(ArrayList<CallLog>(callLog))
         }
 
         deleteAllLogs.setOnClickListener(View.OnClickListener {
