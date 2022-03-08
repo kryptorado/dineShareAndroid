@@ -242,7 +242,8 @@ object UserData {
                         callLogList.add(callLog)
                         Log.i(TAG, "callLog: $callLog")
                     }
-                    continuation.resume(callLogList)
+                    val sortedCallLog = callLogList.sortedByDescending { it.updatedAt }
+                    continuation.resume(sortedCallLog)
                 },
                 { error ->
                     Log.e(TAG, "chatRooms fetch fail: ", error)

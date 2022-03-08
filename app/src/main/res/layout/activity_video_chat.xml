@@ -36,10 +36,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#AAA7A7"
-            android:backgroundTint="#99757575"
+            android:backgroundTint="#AD21007C"
             android:gravity="center_horizontal"
             android:text="TextView"
-            android:textSize="16sp" />
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
