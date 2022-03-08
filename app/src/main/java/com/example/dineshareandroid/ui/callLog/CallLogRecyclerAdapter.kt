@@ -3,10 +3,15 @@ package com.example.dineshareandroid.ui.callLog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.amplifyframework.datastore.generated.model.CallLog
+import com.amulyakhare.textdrawable.TextDrawable
+import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.example.dineshareandroid.R
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>): RecyclerView.Adapter<CallLogRecyclerAdapter.ViewHolder>() {
     val TAG = "CallLogRecyclerAdapter"
@@ -22,15 +27,37 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>): RecyclerView.Adapt
         //holder.callerIcon.setImageResource = callLog[position].name
         holder.callerName.text = callLog[position].calleeName
         holder.callerDetails.text = callLog[position].duration
+
+        val generator = ColorGenerator.MATERIAL
+        //val color = generator.getColor(user.email)
+        val drawable = TextDrawable.builder()
+            .buildRect(callLog[position].calleeName.first().toString(), 6)
+
+        val image: ImageView = holder.callerIcon
+        image.setImageDrawable(drawable)
+
+        holder.callerDelete.setOnClickListener(View.OnClickListener {
+            //val theRemovedItem = callLog[position]
+            //////////////////////////////////
+            /*code here to delete from database*/
+            //////////////////////////////////
+            callLog.removeAt(position) // remove the item from list
+            notifyItemRemoved(position) // notify the adapter about the removed item
+        })
     }
 
     override fun getItemCount(): Int {
         return callLog.size
     }
 
+    fun removeItem(position: Int) {
+        callLog.removeAt(position)
+    }
+
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        //var callerIcon: ImageView = itemView.findViewById(R.id.caller_icon) as ImageView
+        var callerIcon: ImageView = itemView.findViewById(R.id.contact_icon) as ImageView
         var callerName: TextView = itemView.findViewById(R.id.caller_name) as TextView
         var callerDetails: TextView = itemView.findViewById(R.id.caller_details) as TextView
+        var callerDelete: ImageButton = itemView.findViewById(R.id.deleteLog) as ImageButton
     }
 }
