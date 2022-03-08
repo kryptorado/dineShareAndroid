@@ -26,6 +26,12 @@ class CallLogFragment : Fragment(R.layout.fragment_call_log) {
         model.callLogList.observe(this) { callLog ->
             showCallLogList(callLog)
         }
+
+        deleteAllLogs.setOnClickListener(View.OnClickListener {
+            for (i in adapter.itemCount - 1 downTo 0) {
+                adapter.removeItem(i)
+            }
+        })
     }
 
     private fun showCallLogList(callLog: List<CallLog>) {

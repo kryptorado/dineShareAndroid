@@ -1,10 +1,14 @@
 package com.example.dineshareandroid.ui.postCall
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dineshareandroid.R
+import com.example.dineshareandroid.ui.login.LoginActivity
+import com.example.dineshareandroid.ui.report.ReportActivity
+import kotlinx.android.synthetic.main.activity_launch_screen.*
 import kotlinx.android.synthetic.main.activity_post_call.*
 
 class PostCallActivity : AppCompatActivity() {
@@ -44,7 +48,9 @@ class PostCallActivity : AppCompatActivity() {
 //        model.createCallLog(remoteUserName, callLength)
         model.createChatRoom(channelName, remoteUserName, remoteUserId)
 
-
+        report_user.setOnClickListener {
+            startActivity(Intent(this, ReportActivity::class.java))
+        }
 
     }
 }
