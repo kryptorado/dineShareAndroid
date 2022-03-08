@@ -15,6 +15,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.amplifyframework.datastore.generated.model.User
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.postCall.PostCallActivity
 import io.agora.rtc.IRtcEngineEventHandler
@@ -25,6 +26,8 @@ import kotlinx.android.synthetic.main.activity_video_chat.*
 
 class VideoChatActivity : AppCompatActivity() {
     private val model: VideoChatViewModel by viewModels()
+    private var otherUser: User? = null
+
     private var mRtcEngine: RtcEngine? = null
     private val mRtcEventHandler = object : IRtcEngineEventHandler() {
         /**
@@ -269,11 +272,13 @@ class VideoChatActivity : AppCompatActivity() {
         model.startCallTimer()
         val token: String = getAgoraToken()
         val channelName = getChannelName()
-        model.otherUserName.observe(this, { name ->
+        model.otherUser.observe(this, { user ->
             runOnUiThread {
-                video_chat_text_remote_name.text = "Say hello to $name"
+                video_chat_text_remote_name.text = "Say hello to ${user.firstName}"
             }
         })
+
+        mRtcEngine?.setAudioProfile(4, 3)
 
         mRtcEngine!!.joinChannel(token, channelName, "Extra Optional Data", 0) // if uid is not specified, it will be generated
     }
@@ -330,9 +335,11 @@ class VideoChatActivity : AppCompatActivity() {
         intent.putExtra("channelName", getChannelName())
         intent.putExtra("remoteUserId", getOtherUserId())
 
-        model.otherUserName.observe(this, { name ->
-            intent.putExtra("remoteUserName", name)
+        model.otherUser.observe(this, { user ->
+            intent.putExtra("remoteUserFirstName", user.firstName)
+            intent.putExtra("remoteUserLastName", user.lastName)
         })
+
         startActivity(intent)
         finish()
     }

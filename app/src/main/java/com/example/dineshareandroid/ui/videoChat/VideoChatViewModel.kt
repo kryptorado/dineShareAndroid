@@ -3,6 +3,7 @@ package com.example.dineshareandroid.ui.videoChat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amplifyframework.datastore.generated.model.User
 import com.example.dineshareandroid.backend.UserData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -10,7 +11,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class VideoChatViewModel: ViewModel() {
-    val otherUserName = MutableLiveData<String>()
+    val otherUser = MutableLiveData<User>()
     private var startTime: Long = 0
     var callLength: Long = 0
 
@@ -28,10 +29,11 @@ class VideoChatViewModel: ViewModel() {
 
     fun getRemoteUserName(remoteUserId: String) {
         viewModelScope.launch {
-            val otherUser = withContext(Dispatchers.IO) {
+            val otherUserObj = withContext(Dispatchers.IO) {
                 UserData.getDynamoUserById(remoteUserId)
             }
-            otherUserName.value = otherUser?.firstName?.capitalize(Locale.ROOT)
+//            otherUserName.value = otherUser?.firstName?.capitalize(Locale.ROOT)
+            otherUser.value = otherUserObj!!
         }
     }
 
