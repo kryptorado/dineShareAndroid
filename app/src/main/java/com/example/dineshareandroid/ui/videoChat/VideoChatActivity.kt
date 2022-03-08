@@ -278,6 +278,8 @@ class VideoChatActivity : AppCompatActivity() {
             }
         })
 
+        mRtcEngine?.setAudioProfile(4, 3)
+
         mRtcEngine!!.joinChannel(token, channelName, "Extra Optional Data", 0) // if uid is not specified, it will be generated
     }
 
