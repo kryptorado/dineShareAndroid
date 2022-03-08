@@ -102,6 +102,44 @@ object UserData {
         }
     }
 
+    suspend fun deleteCallLog(callLog: CallLog) : Boolean {
+        return suspendCoroutine { continuation ->
+            Amplify.API.mutate(
+                "dineshareandroid",
+                ModelMutation.delete(callLog), //callLog id is 2nd paramter
+                { user ->
+                    continuation.resume(true)
+                    Log.i(TAG, "Queried")
+                    Log.i(TAG, "response.data: ${user.data}")
+                },
+                { error ->
+                    Log.e("UserDataBackend", "Query failure:", error)
+                    continuation.resume(false)
+                }
+            )
+        }
+    }
+
+    suspend fun updateCallLog(callLogS: MutableList<CallLog>): Boolean {
+        return suspendCoroutine { continuation ->
+
+            for (callLog in callLogS) {
+                Amplify.API.mutate(
+                    "dineshareandroid",
+                    ModelMutation.update(callLog),
+                    {
+                        Log.i(TAG, "CREATE user succeeded: $it")
+                    },
+                    {
+                        continuation.resume(false)
+                        Log.e(TAG, "CREATE user failed", it)
+                    }
+                )
+            }
+            continuation.resume(true)
+        }
+    }
+
     suspend fun getListOfInterests(): List<Interest> {
         val interestList = ArrayList<Interest>()
 

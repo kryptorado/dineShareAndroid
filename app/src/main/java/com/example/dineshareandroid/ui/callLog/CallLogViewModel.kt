@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amplifyframework.datastore.generated.model.CallLog
+import com.amplifyframework.datastore.generated.model.Interest
 import com.example.dineshareandroid.backend.UserData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +34,22 @@ class CallLogViewModel: ViewModel() {
                 UserData.getCallLog()
             }
             callLogList.value = callLog
+        }
+    }
+
+    fun deleteCallLog(callLog: CallLog) {
+        viewModelScope.launch  {
+            val callLog = withContext(Dispatchers.IO) {
+                UserData.deleteCallLog(callLog)
+            }
+        }
+    }
+
+    fun updateCallLog(callLog: MutableList<CallLog>) {
+        viewModelScope.launch  {
+            val isSuccess = withContext(Dispatchers.IO) {
+                UserData.updateCallLog(callLog)
+            }
         }
     }
 }
