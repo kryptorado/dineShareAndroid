@@ -5,6 +5,7 @@
     android:id="@+id/conversation_preview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
     app:contentPadding="4dp">

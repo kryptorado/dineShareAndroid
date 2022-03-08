@@ -12,13 +12,14 @@ class PostCallViewModel: ViewModel() {
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
     val logCreateSuccess = MutableLiveData<Boolean>()
 
-    fun createCallLog(otherUserName: String, callLengthFormatted: String) {
+    fun createCallLog(remoteUserFirstName: String, remoteUserLastName:String, callLengthFormatted: String) {
+
         viewModelScope.launch {
             val user = withContext(defaultDispatcher) {
                 UserData.getDynamoUser()
             }
             val isSuccess = withContext(defaultDispatcher + NonCancellable) {
-                UserData.createCallLog(user, callLengthFormatted, otherUserName)
+                UserData.createCallLog(user, callLengthFormatted, "$remoteUserFirstName $remoteUserLastName")
             }
             Log.d(TAG, "callLog creation success: $isSuccess")
             logCreateSuccess.value = true

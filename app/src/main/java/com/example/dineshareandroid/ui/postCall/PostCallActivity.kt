@@ -6,9 +6,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dineshareandroid.R
-import com.example.dineshareandroid.ui.login.LoginActivity
 import com.example.dineshareandroid.ui.report.ReportActivity
-import kotlinx.android.synthetic.main.activity_launch_screen.*
 import kotlinx.android.synthetic.main.activity_post_call.*
 
 class PostCallActivity : AppCompatActivity() {
@@ -19,7 +17,8 @@ class PostCallActivity : AppCompatActivity() {
         setContentView(R.layout.activity_post_call)
 
         var callLength = intent.getStringExtra("channelName").toString()
-        var remoteUserName = intent.getStringExtra("remoteUserName").toString()
+        var remoteUserFirstName = intent.getStringExtra("remoteUserFirstName").toString()
+        var remoteUserLastName = intent.getStringExtra("remoteUserLastName").toString()
         var channelName = intent.getStringExtra("channelName").toString()
         var remoteUserId = intent.getStringExtra("remoteUserId").toString()
 
@@ -28,11 +27,16 @@ class PostCallActivity : AppCompatActivity() {
 //            Toast.makeText(this, callLength, Toast.LENGTH_SHORT).show()
         }
 
-        if (remoteUserName != "") {
-            remoteUserName = intent.getStringExtra("remoteUserName").toString()
-            post_call_text_title.text = "Connect with ${remoteUserName!!.replaceFirstChar { it.titlecase() }}"
-            post_call_button_messages.text = "Message ${remoteUserName!!.replaceFirstChar { it.titlecase() }}"
-            Toast.makeText(this, remoteUserName, Toast.LENGTH_SHORT).show()
+        if (remoteUserFirstName != "") {
+            remoteUserFirstName = intent.getStringExtra("remoteUserFirstName").toString().replaceFirstChar { it.titlecase() }
+            post_call_text_title.text = "Connect with $remoteUserFirstName"
+            post_call_button_messages.text = "Message $remoteUserFirstName"
+            Toast.makeText(this, remoteUserFirstName, Toast.LENGTH_SHORT).show()
+        }
+
+        if (remoteUserLastName != "") {
+            remoteUserLastName = intent.getStringExtra("remoteUserLastName").toString().replaceFirstChar { it.titlecase() }
+            Toast.makeText(this, remoteUserLastName, Toast.LENGTH_SHORT).show()
         }
 
         if (remoteUserId != "") {
@@ -45,8 +49,8 @@ class PostCallActivity : AppCompatActivity() {
             Toast.makeText(this, channelName, Toast.LENGTH_SHORT).show()
         }
 
-//        model.createCallLog(remoteUserName, callLength)
-        model.createChatRoom(channelName, remoteUserName, remoteUserId)
+        model.createCallLog(remoteUserFirstName, remoteUserLastName, callLength)
+        model.createChatRoom(channelName, remoteUserFirstName, remoteUserId)
 
         report_user.setOnClickListener {
             startActivity(Intent(this, ReportActivity::class.java))

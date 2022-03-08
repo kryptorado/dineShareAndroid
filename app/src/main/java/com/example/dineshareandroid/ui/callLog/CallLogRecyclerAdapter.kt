@@ -11,9 +11,6 @@ import com.amplifyframework.datastore.generated.model.CallLog
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.example.dineshareandroid.R
-import kotlinx.android.synthetic.main.fragment_profile.*
-
-import androidx.lifecycle.ViewModelProvider
 
 
 class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemClickListener: ItemClickListener): RecyclerView.Adapter<CallLogRecyclerAdapter.ViewHolder>() {

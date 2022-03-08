@@ -9,7 +9,6 @@ import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.amplifyframework.datastore.generated.model.Interest
 import com.amplifyframework.datastore.generated.model.User
 import com.beust.klaxon.Klaxon
-import com.example.dineshareandroid.ui.connecting.ConnectViewModel
 import com.example.dineshareandroid.utils.Constants.interestNames
 import okhttp3.*
 import okio.IOException
@@ -109,11 +108,11 @@ object UserData {
                 ModelMutation.delete(callLog), //callLog id is 2nd paramter
                 { user ->
                     continuation.resume(true)
-                    Log.i(TAG, "Queried")
+                    Log.i(TAG, "Deleted call log successfully")
                     Log.i(TAG, "response.data: ${user.data}")
                 },
                 { error ->
-                    Log.e("UserDataBackend", "Query failure:", error)
+                    Log.e(TAG, "Call log deletion failure:", error)
                     continuation.resume(false)
                 }
             )
@@ -128,11 +127,11 @@ object UserData {
                     "dineshareandroid",
                     ModelMutation.update(callLog),
                     {
-                        Log.i(TAG, "CREATE user succeeded: $it")
+                        Log.i(TAG, "UPDATE call log succeeded: $it")
                     },
                     {
                         continuation.resume(false)
-                        Log.e(TAG, "CREATE user failed", it)
+                        Log.e(TAG, "UPDATE call log failed: ", it)
                     }
                 )
             }
@@ -208,12 +207,12 @@ object UserData {
         }
     }
 
-    suspend fun createCallLog(user: User?, callLength: String, calleeName: String): Boolean {
+    suspend fun createCallLog(user: User?, callLength: String, remoteUserName: String): Boolean {
         return suspendCoroutine { continuation ->
 
             val callLog = CallLog.builder()
                 .duration(callLength)
-                .calleeName(calleeName)
+                .calleeName(remoteUserName)
                 .users(user)
                 .build()
 
