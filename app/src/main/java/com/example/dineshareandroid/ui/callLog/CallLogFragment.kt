@@ -15,8 +15,14 @@ import kotlinx.android.synthetic.main.fragment_call_log.*
 
 class CallLogFragment : Fragment(R.layout.fragment_call_log) {
     private val TAG = "CallLogFragment"
-    private var adapter = CallLogRecyclerAdapter(mutableListOf())
     lateinit var loader: LoadingDialog
+    private val model: CallLogViewModel by activityViewModels()
+    private var adapter = CallLogRecyclerAdapter(mutableListOf(), object : CallLogRecyclerAdapter.ItemClickListener {
+        override fun onItemClick(position: Int) {
+            // this function will handle the item click on a provided position
+            deleteCallLog(position)
+        }
+    })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +35,7 @@ class CallLogFragment : Fragment(R.layout.fragment_call_log) {
 
         deleteAllLogs.setOnClickListener(View.OnClickListener {
             for (i in adapter.itemCount - 1 downTo 0) {
-                adapter.removeItem(i)
+                model.deleteCallLog(adapter.callLog[i])
             }
         })
     }
@@ -39,9 +45,18 @@ class CallLogFragment : Fragment(R.layout.fragment_call_log) {
         val layoutManager = LinearLayoutManager(activity)
         recyclerView?.layoutManager = layoutManager
 
-        adapter = CallLogRecyclerAdapter(callLog as MutableList<CallLog>)
+        adapter = CallLogRecyclerAdapter(callLog as MutableList<CallLog>, object : CallLogRecyclerAdapter.ItemClickListener {
+            override fun onItemClick(position: Int) {
+                // this function will handle the item click on a provided position
+                deleteCallLog(position)
+            }
+        })
         recyclerView?.adapter = adapter
         ViewCompat.setNestedScrollingEnabled(callLogs_recyclerview, false);
 
+    }
+
+    private fun deleteCallLog(position: Int) {
+        model.deleteCallLog(adapter.callLog[position])
     }
 }

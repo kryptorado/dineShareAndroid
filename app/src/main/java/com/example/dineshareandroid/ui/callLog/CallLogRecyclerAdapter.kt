@@ -13,13 +13,23 @@ import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.example.dineshareandroid.R
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>): RecyclerView.Adapter<CallLogRecyclerAdapter.ViewHolder>() {
+import androidx.lifecycle.ViewModelProvider
+
+
+class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemClickListener: ItemClickListener): RecyclerView.Adapter<CallLogRecyclerAdapter.ViewHolder>() {
     val TAG = "CallLogRecyclerAdapter"
 //    private var icons = _icons.toIntArray()
     var callLog = _callLog
 
+    interface ItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    //var modelLog = _modelLog
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CallLogRecyclerAdapter.ViewHolder {
-       val v = LayoutInflater.from(parent.context).inflate(R.layout.caller_log_layout, parent, false)
+        val v =
+            LayoutInflater.from(parent.context).inflate(R.layout.caller_log_layout, parent, false)
         return ViewHolder(v)
     }
 
@@ -30,17 +40,16 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>): RecyclerView.Adapt
 
         val generator = ColorGenerator.MATERIAL
         //val color = generator.getColor(user.email)
+        //String manipulation to get first letter of first name and last name
+        val color = generator.getColor(callLog[position].calleeName)
         val drawable = TextDrawable.builder()
-            .buildRect(callLog[position].calleeName.first().toString(), 6)
+            .buildRect(callLog[position].calleeName.first().toString(), color)
 
         val image: ImageView = holder.callerIcon
         image.setImageDrawable(drawable)
 
         holder.callerDelete.setOnClickListener(View.OnClickListener {
-            //val theRemovedItem = callLog[position]
-            //////////////////////////////////
-            /*code here to delete from database*/
-            //////////////////////////////////
+            itemClickListener.onItemClick(position)
             callLog.removeAt(position) // remove the item from list
             notifyItemRemoved(position) // notify the adapter about the removed item
         })
