@@ -12,9 +12,6 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.example.dineshareandroid.R
 import kotlinx.android.synthetic.main.fragment_profile.*
-import androidx.lifecycle.ViewModelProvider
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 

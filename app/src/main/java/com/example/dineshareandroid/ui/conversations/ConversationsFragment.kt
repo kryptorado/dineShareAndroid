@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.amplifyframework.datastore.generated.model.CallLog
 import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.utils.LoadingDialog
@@ -21,11 +22,9 @@ class ConversationsFragment : Fragment(R.layout.fragment_conversations) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val loggedInActivity = activity as LoggedInActivity
-//        val rtmClient = loggedInActivity.mRtmClient
 
         model.chatRooms.observe(viewLifecycleOwner) { chatRooms ->
-            showChatRooms(chatRooms)
+            showChatRooms(ArrayList<ChatRoom>(chatRooms))
             Log.d(TAG, "got chatRooms: $chatRooms")
         }
     }

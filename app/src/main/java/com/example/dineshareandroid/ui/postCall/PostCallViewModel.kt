@@ -26,12 +26,12 @@ class PostCallViewModel: ViewModel() {
         }
     }
 
-    fun createChatRoom(channelName: String, remoteUserName: String, remoteUserLastName: String,  remoteUserId: String) {
+    fun createChatRoom(channelName: String, remoteUserFirstName: String, remoteUserLastName: String,  remoteUserId: String) {
         // get channel name sent by video activity
         viewModelScope.launch {
 //            val isSuccess = withContext(defaultDispatcher + NonCancellable) {
             val isSuccess = withContext(defaultDispatcher) {
-                UserData.createChatRoom(channelName, remoteUserName, remoteUserId)
+                UserData.createChatRoom(channelName, "$remoteUserFirstName $remoteUserLastName", remoteUserId)
             }
         }
     }
