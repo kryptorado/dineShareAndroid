@@ -7,8 +7,10 @@ import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.example.dineshareandroid.backend.UserData
 
 class ConversationsViewModel: ViewModel() {
-    val conversations: LiveData<List<ChatRoom>> = liveData {
+    val chatRooms: LiveData<List<ChatRoom>> = liveData {
         val chatRooms = UserData.getChatRooms()
         emit(chatRooms)
     }
+
+
 }

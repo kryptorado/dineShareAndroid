@@ -50,7 +50,7 @@ class PostCallActivity : AppCompatActivity() {
         }
 
         model.createCallLog(remoteUserFirstName, remoteUserLastName, callLength)
-        model.createChatRoom(channelName, remoteUserFirstName, remoteUserId)
+        model.createChatRoom(channelName, remoteUserFirstName, remoteUserLastName, remoteUserId)
 
         report_user.setOnClickListener {
             startActivity(Intent(this, ReportActivity::class.java))

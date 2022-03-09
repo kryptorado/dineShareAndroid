@@ -13,12 +13,12 @@ class PostCallViewModel: ViewModel() {
     val logCreateSuccess = MutableLiveData<Boolean>()
 
     fun createCallLog(remoteUserFirstName: String, remoteUserLastName:String, callLengthFormatted: String) {
-
         viewModelScope.launch {
             val user = withContext(defaultDispatcher) {
                 UserData.getDynamoUser()
             }
-            val isSuccess = withContext(defaultDispatcher + NonCancellable) {
+//            val isSuccess = withContext(defaultDispatcher + NonCancellable) {
+            val isSuccess = withContext(defaultDispatcher) {
                 UserData.createCallLog(user, callLengthFormatted, "$remoteUserFirstName $remoteUserLastName")
             }
             Log.d(TAG, "callLog creation success: $isSuccess")
@@ -26,10 +26,11 @@ class PostCallViewModel: ViewModel() {
         }
     }
 
-    fun createChatRoom(channelName: String, remoteUserName: String, remoteUserId: String) {
+    fun createChatRoom(channelName: String, remoteUserName: String, remoteUserLastName: String,  remoteUserId: String) {
         // get channel name sent by video activity
         viewModelScope.launch {
-            val isSuccess = withContext(defaultDispatcher + NonCancellable) {
+//            val isSuccess = withContext(defaultDispatcher + NonCancellable) {
+            val isSuccess = withContext(defaultDispatcher) {
                 UserData.createChatRoom(channelName, remoteUserName, remoteUserId)
             }
         }
