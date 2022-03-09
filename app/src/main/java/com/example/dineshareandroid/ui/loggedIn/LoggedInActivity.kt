@@ -1,13 +1,22 @@
 package com.example.dineshareandroid.ui.loggedIn
 
+import android.os.Build
 import android.os.Bundle
+import android.service.carrier.CarrierMessagingService
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.User
+import com.example.dineshareandroid.AmplifyApp
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.ui.callLog.CallLogFragment
 import com.example.dineshareandroid.ui.conversations.ConversationsFragment
 import com.example.dineshareandroid.ui.matching.MatchingFragment
+import com.example.dineshareandroid.ui.postCall.PostCallViewModel
 import com.example.dineshareandroid.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -18,9 +27,7 @@ import java.lang.RuntimeException
 
 class LoggedInActivity : AppCompatActivity() {
     private val TAG = "LoggedInActivity"
-
-    // RTM client instance
-    var mRtmClient: RtmClient? = null
+    private val model: LoggedInViewModel by viewModels()
 
     // TODO::: CHECK HERE IF THIS USER IS STILL IN MATCHING QUEUE AND IF SO CALL CLEANUP
     // this will prevent them from leaving the matching server in the bad state
@@ -32,68 +39,48 @@ class LoggedInActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener(navListener)
-        bottomNav.selectedItemId = R.id.nav_profile;
+        bottomNav.selectedItemId = R.id.nav_profile
 
-        createRTMClient()  // for instant messaging
-    }
-
-    private fun createRTMClient() {
-        // Initialize the RTM client
-        try {
-            val AppID = this.getString(R.string.agora_app_id)
-            // Initialize the RTM client
-            mRtmClient = RtmClient.createInstance(
-                this, AppID,
-                object : RtmClientListener {
-                    override fun onConnectionStateChanged(state: Int, reason: Int) {
-                        val text = """
-                           Connection state changed to ${state}Reason: $reason
-                           
-                           """.trimIndent()
-                        Log.d(TAG, text)
-
-//                        writeToMessageHistory(text)
-                    }
-
-                    override fun onImageMessageReceivedFromPeer(
-                        rtmImageMessage: RtmImageMessage?,
-                        s: String?
-                    ) {
-                    }
-
-                    override fun onFileMessageReceivedFromPeer(
-                        rtmFileMessage: RtmFileMessage?,
-                        s: String?
-                    ) {
-                    }
-
-                    override fun onMediaUploadingProgress(
-                        rtmMediaOperationProgress: RtmMediaOperationProgress?,
-                        l: Long
-                    ) {
-                    }
-
-                    override fun onMediaDownloadingProgress(
-                        rtmMediaOperationProgress: RtmMediaOperationProgress?,
-                        l: Long
-                    ) {
-                    }
-
-                    override fun onTokenExpired() {
-                        // todo: call agora for new token and save to user
-                    }
-                    override fun onPeersOnlineStatusChanged(map: Map<String?, Int?>?) {}
-                    override fun onMessageReceived(rtmMessage: RtmMessage, peerId: String) {
-                        val text = """Message received from $peerId Message: ${rtmMessage.getText()}"""
-                        Log.d(TAG, text)
-
-//                        writeToMessageHistory(text)
-                    }
-                })
-        } catch (e: Exception) {
-            throw RuntimeException("RTM initialization failed!")
+        model.rtmToken.observe(this) { token ->
+                Log.d(TAG, "this shoud only run once")
+                Log.d(TAG, "userid: ${token!!}")
+                rtmLogin(token)
         }
     }
+
+    private fun rtmLogin(rtmToken: String) {
+        val app: AmplifyApp = applicationContext as AmplifyApp
+        val rtmClient = app.mRtmClient
+
+        val uid = Amplify.Auth.currentUser.userId
+        val token = rtmToken
+
+        // Log in to the RTM system
+        rtmClient?.login(token, uid, @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
+        object : CarrierMessagingService.ResultCallback<Void?>, io.agora.rtm.ResultCallback<Void> {
+            override fun onSuccess(responseInfo: Void?) {
+                runOnUiThread {
+                    val toast = Toast.makeText(applicationContext, "sucess logging in!", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+            }
+            override fun onFailure(errorInfo: ErrorInfo) {
+                val text: CharSequence =
+                    "User: " + uid + " failed to log in to the RTM system!" + errorInfo.toString()
+                val duration = Toast.LENGTH_SHORT
+                Log.e(TAG, errorInfo.toString())
+                runOnUiThread {
+                    val toast = Toast.makeText(applicationContext, text, duration)
+                    toast.show()
+                }
+            }
+
+            override fun onReceiveResult(p0: Void) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
 
     private val navListener =
         NavigationBarView.OnItemSelectedListener{ item ->

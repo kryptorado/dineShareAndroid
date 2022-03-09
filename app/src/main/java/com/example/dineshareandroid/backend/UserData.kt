@@ -256,7 +256,7 @@ object UserData {
     suspend fun getUserRtmToken(): String? {
         return suspendCoroutine { continuation ->
 
-            val url = "https://calm-castle-22371.herokuapp.com/rtm/${Amplify.Auth.currentUser.username}"
+            val url = "https://calm-castle-22371.herokuapp.com/rtm/${Amplify.Auth.currentUser.userId}"
             val request = Request.Builder().url(url).build()
 
             val client = OkHttpClient()

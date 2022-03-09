@@ -29,6 +29,9 @@
         android:theme="@style/Theme.DineShareAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.chat.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.resetPassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
