@@ -4,10 +4,7 @@ import android.util.Log
 import com.amplifyframework.api.graphql.model.ModelMutation
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.datastore.generated.model.CallLog
-import com.amplifyframework.datastore.generated.model.ChatRoom
-import com.amplifyframework.datastore.generated.model.Interest
-import com.amplifyframework.datastore.generated.model.User
+import com.amplifyframework.datastore.generated.model.*
 import com.beust.klaxon.Klaxon
 import com.example.dineshareandroid.utils.Constants.interestNames
 import okhttp3.*
@@ -301,4 +298,54 @@ object UserData {
                 })
         }
     }
+
+    suspend fun createChatData(chatData: ChatData): Boolean {
+        return suspendCoroutine { continuation ->
+//            val chatRoom = ChatRoom.builder()
+//                .otherUserId(remoteUserId)
+//                .otherUserName(remoteUserName)
+//                .chatRoomId(channelName)
+//                .userId(Amplify.Auth.currentUser.userId)
+//                .userChatRoomsId(Amplify.Auth.currentUser.userId)
+//                .build()
+
+            Amplify.API.mutate(
+                "dineshareandroid",
+                ModelMutation.create(chatData),
+                {
+                    continuation.resume(true)
+                    Log.i(TAG, "CREATE chat data succeeded: $it")
+                },
+                {
+                    continuation.resume(false)
+                    Log.e(TAG, "CREATE chat data failed", it)
+                })
+        }
+    }
+
+    suspend fun getChatData(chatRoomId: String): List<ChatData> {
+        val chatDataList = ArrayList<ChatData>()
+
+        return suspendCoroutine { continuation ->
+            Amplify.API.query(
+                "dineshareandroid",
+                ModelQuery.list(ChatData::class.java, ChatData.CHAT_ROOM_ID.eq(chatRoomId)),
+//                ModelQuery.list(User::class.java, ),
+//                ModelQuery.list(ChatData::class.java, ChatData.CHAT_ROOM_ID),
+                { chatData ->
+                    for (chat in chatData.data) {
+                        chatDataList.add(chat)
+                        Log.i(TAG, "chat data: $chatData")
+                    }
+                    val sortedCallLog = chatDataList.sortedByDescending { it.createdAt }
+                    continuation.resume(sortedCallLog)
+                },
+                { error ->
+                    Log.e(TAG, "chatRooms fetch fail: ", error)
+                    continuation.resume(chatDataList)
+                }
+            )
+        }
+    }
+
 }

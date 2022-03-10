@@ -33,6 +33,7 @@ class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>): RecyclerV
             val context: Context = holder.itemView.context
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra("channelName", chatRooms[position].chatRoomId)
+            intent.putExtra("otherUserName", chatRooms[position].otherUserName)
             context.startActivity(intent)
         }
     }
