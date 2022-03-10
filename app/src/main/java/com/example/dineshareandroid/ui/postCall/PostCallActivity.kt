@@ -5,16 +5,18 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dineshareandroid.R
+import com.example.dineshareandroid.ui.conversations.ConversationsFragment
+import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
 import com.example.dineshareandroid.ui.report.ReportActivity
 import kotlinx.android.synthetic.main.activity_post_call.*
+
 
 class PostCallActivity : AppCompatActivity() {
     private val model: PostCallViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_call)
+        setContentView(com.example.dineshareandroid.R.layout.activity_post_call)
 
         var callLength = intent.getStringExtra("channelName").toString()
         var remoteUserFirstName = intent.getStringExtra("remoteUserFirstName").toString()
@@ -54,6 +56,15 @@ class PostCallActivity : AppCompatActivity() {
 
         report_user.setOnClickListener {
             startActivity(Intent(this, ReportActivity::class.java))
+        }
+
+        post_call_button_messages.setOnClickListener {
+//            startActivity(Intent(this, LoggedInActivity::class.java))
+//            supportFragmentManager.beginTransaction().replace(
+//                com.example.dineshareandroid.R.id.fragment_container,
+//                ConversationsFragment()
+//            ).commit()
+            finish()
         }
 
     }

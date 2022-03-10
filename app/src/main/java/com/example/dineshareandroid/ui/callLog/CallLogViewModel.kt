@@ -45,6 +45,7 @@ class CallLogViewModel: ViewModel() {
         }
     }
 
+
     fun updateCallLog(callLog: MutableList<CallLog>) {
         viewModelScope.launch  {
             val isSuccess = withContext(Dispatchers.IO) {

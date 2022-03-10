@@ -37,6 +37,7 @@ class CallLogFragment : Fragment(R.layout.fragment_call_log) {
             for (i in adapter.itemCount - 1 downTo 0) {
                 model.deleteCallLog(adapter.callLog[i])
             }
+            adapter.clearAll()
         })
     }
 

@@ -55,6 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/matching_text_instructions"
             app:rippleColor="#C8C8C8"
             app:strokeColor="?attr/colorOnPrimary" />
 
@@ -66,7 +67,7 @@
             android:layout_marginTop="54dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/comfortaa"
-            android:text="When you are ready to chat, we will match you with someone who shares some interests with you. Please click “Start a call” to initiate the matchmaking"
+            android:text="Hey there! 😀\nYou look like you could use some company. 👨‍👩‍👧‍👦\nMany people out there are eating alone right now. 🙄\nWhy not eat together? 💡\nHit Start and we’ll find you somebody similar to eat with. 👫\nAfter, you can proceed to texting if you’d like. 📝\n\nSo get comfortable, grab something to eat, and hit the button below! 🍕\n\nWe hope this makes your day a bit more sweet! 💜\n"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

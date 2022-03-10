@@ -7,6 +7,7 @@ type User @model(subscriptions: { level: off }) @auth(rules: [{ allow: owner}]) 
   lastName: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
   rtmToken: String
   email: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
+  reportedTimes: Int @auth(rules: [{ allow: owner}, { allow: public }])
   interests: [Interest] @hasMany
   chatRooms: [ChatRoom] @hasMany
   callLogs: [CallLog] @hasMany
@@ -34,10 +35,17 @@ type ChatRoom
   chatRoomId: String
 }
 
-type ChatData @model @auth(rules: [{allow: owner}]) {
+type ChatData @model @auth(rules: [{allow: public}]) {
   id: ID!
   message: String
-  createdAt: AWSDateTime
+  chatRoomId: String
+  senderId: String
+}
+
+
+type ChatDataTwo @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  message: String
   chatRoomId: String
   senderId: String
 }

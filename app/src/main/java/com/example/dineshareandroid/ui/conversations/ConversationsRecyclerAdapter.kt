@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.example.dineshareandroid.R
 import android.content.Intent
+import android.widget.ImageView
+import com.amulyakhare.textdrawable.TextDrawable
+import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.example.dineshareandroid.ui.chat.ChatActivity
 
 
@@ -23,11 +26,23 @@ class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>): RecyclerV
 
     override fun onBindViewHolder(holder: ConversationsRecyclerAdapter.ViewHolder, position: Int) {
 //        holder.chatRoomId.text = chatRooms[position].chatRoomId
-        holder.chatRoomLatestText.text = "TODO: Get latest text"
+//        holder.chatRoomLatestText.text = "TODO: Get latest text"
         holder.chatRoomOtherUserName.text = chatRooms[position].otherUserName
         holder.chatRoomDate.text = chatRooms[position].createdAt.toString().replace("Temporal.DateTime{offsetDateTime='", "")
             .replace("Z'}", "")
             .take(10)
+
+        val generator = ColorGenerator.MATERIAL
+        //val color = generator.getColor(user.email)
+        //String manipulation to get first letter of first name and last name
+        val color = generator.getColor(chatRooms[position].otherUserName)
+        val drawable = TextDrawable.builder()
+            .buildRect(chatRooms[position].otherUserName.first().toString(), color)
+
+        val image: ImageView = holder.chatRoomIcon
+        image.setImageDrawable(drawable)
+
+
 
         holder.itemView.setOnClickListener {
             val context: Context = holder.itemView.context
@@ -43,8 +58,10 @@ class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>): RecyclerV
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var chatRoomLatestText: TextView = itemView.findViewById(R.id.chatroom_card_latest_text) as TextView
+//        var chatRoomLatestText: TextView = itemView.findViewById(R.id.chatroom_card_latest_text) as TextView
         var chatRoomOtherUserName: TextView = itemView.findViewById(R.id.chatroom_card_otherUserName) as TextView
         var chatRoomDate: TextView = itemView.findViewById(R.id.chatroom_card_date) as TextView
+        var chatRoomIcon: ImageView = itemView.findViewById(R.id.chatroom_image_otherUser) as ImageView
+
     }
 }

@@ -193,7 +193,7 @@ object UserData {
                         Log.i(TAG, "chatRooms are: $chatRooms")
 
                     }
-                    val sortedChatRoom = chatRoomList.sortedByDescending { it.createdAt }.reversed()
+                    val sortedChatRoom = chatRoomList.sortedByDescending { it.createdAt }
                     continuation.resume(sortedChatRoom)
 
                 },

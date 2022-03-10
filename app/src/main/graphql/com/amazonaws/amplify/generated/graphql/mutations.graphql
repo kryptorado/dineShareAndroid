@@ -1,54 +1,4 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateUser(
-  $input: CreateUserInput!
-  $condition: ModelUserConditionInput
-) {
-  createUser(input: $input, condition: $condition) {
-    id
-    firstName
-    lastName
-    rtmToken
-    email
-    reportedTimes
-    interests {
-      nextToken
-    }
-    chatRooms {
-      nextToken
-    }
-    callLogs {
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
-mutation UpdateUser(
-  $input: UpdateUserInput!
-  $condition: ModelUserConditionInput
-) {
-  updateUser(input: $input, condition: $condition) {
-    id
-    firstName
-    lastName
-    rtmToken
-    email
-    reportedTimes
-    interests {
-      nextToken
-    }
-    chatRooms {
-      nextToken
-    }
-    callLogs {
-      nextToken
-    }
-    createdAt
-    updatedAt
-    owner
-  }
-}
 mutation DeleteUser(
   $input: DeleteUserInput!
   $condition: ModelUserConditionInput
@@ -272,6 +222,56 @@ mutation DeleteCallLog(
     createdAt
     updatedAt
     userCallLogsId
+    owner
+  }
+}
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    rtmToken
+    email
+    reportedTimes
+    interests {
+      nextToken
+    }
+    chatRooms {
+      nextToken
+    }
+    callLogs {
+      nextToken
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    rtmToken
+    email
+    reportedTimes
+    interests {
+      nextToken
+    }
+    chatRooms {
+      nextToken
+    }
+    callLogs {
+      nextToken
+    }
+    createdAt
+    updatedAt
     owner
   }
 }

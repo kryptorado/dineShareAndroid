@@ -46,7 +46,10 @@ public final class User implements Model {
     @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
     @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.READ })
   }) String email;
-  private final @ModelField(targetType="Int") Integer reportedTimes;
+  private final @ModelField(targetType="Int", authRules = {
+    @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
+    @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
+  }) Integer reportedTimes;
   private final @ModelField(targetType="Interest") @HasMany(associatedWith = "users", type = Interest.class) List<Interest> interests = null;
   private final @ModelField(targetType="ChatRoom") @HasMany(associatedWith = "userChatRoomsId", type = ChatRoom.class) List<ChatRoom> chatRooms = null;
   private final @ModelField(targetType="CallLog") @HasMany(associatedWith = "users", type = CallLog.class) List<CallLog> callLogs = null;

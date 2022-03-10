@@ -66,8 +66,14 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemCli
         return callLog.size
     }
 
+    fun clearAll() {
+        callLog.clear()
+        notifyDataSetChanged()
+    }
+
     fun removeItem(position: Int) {
         callLog.removeAt(position)
+//        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
