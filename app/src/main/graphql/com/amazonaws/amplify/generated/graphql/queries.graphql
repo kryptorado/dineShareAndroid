@@ -11,6 +11,7 @@ query GetInterest($id: ID!) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -73,35 +74,6 @@ query ListChatRooms(
     nextToken
   }
 }
-query GetChatData($id: ID!) {
-  getChatData(id: $id) {
-    id
-    message
-    createdAt
-    chatRoomId
-    senderId
-    updatedAt
-    owner
-  }
-}
-query ListChatData(
-  $filter: ModelChatDataFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listChatData(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      message
-      createdAt
-      chatRoomId
-      senderId
-      updatedAt
-      owner
-    }
-    nextToken
-  }
-}
 query GetCallLog($id: ID!) {
   getCallLog(id: $id) {
     id
@@ -113,6 +85,7 @@ query GetCallLog($id: ID!) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -148,6 +121,7 @@ query GetUser($id: ID!) {
     lastName
     rtmToken
     email
+    reportedTimes
     interests {
       nextToken
     }
@@ -174,9 +148,64 @@ query ListUsers(
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
+    }
+    nextToken
+  }
+}
+query GetChatData($id: ID!) {
+  getChatData(id: $id) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+query ListChatData(
+  $filter: ModelChatDataFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChatData(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      message
+      chatRoomId
+      senderId
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetChatDataTwo($id: ID!) {
+  getChatDataTwo(id: $id) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+query ListChatDataTwos(
+  $filter: ModelChatDataTwoFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChatDataTwos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      message
+      chatRoomId
+      senderId
+      createdAt
+      updatedAt
     }
     nextToken
   }

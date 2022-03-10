@@ -19,16 +19,16 @@ import com.amplifyframework.core.model.query.predicate.QueryField;
 
 import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
-/** This is an auto generated class representing the ChatData type in your schema. */
+/** This is an auto generated class representing the ChatDataTwo type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "ChatData", authRules = {
+@ModelConfig(pluralName = "ChatDataTwos", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
-public final class ChatData implements Model {
-  public static final QueryField ID = field("ChatData", "id");
-  public static final QueryField MESSAGE = field("ChatData", "message");
-  public static final QueryField CHAT_ROOM_ID = field("ChatData", "chatRoomId");
-  public static final QueryField SENDER_ID = field("ChatData", "senderId");
+public final class ChatDataTwo implements Model {
+  public static final QueryField ID = field("ChatDataTwo", "id");
+  public static final QueryField MESSAGE = field("ChatDataTwo", "message");
+  public static final QueryField CHAT_ROOM_ID = field("ChatDataTwo", "chatRoomId");
+  public static final QueryField SENDER_ID = field("ChatDataTwo", "senderId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String") String message;
   private final @ModelField(targetType="String") String chatRoomId;
@@ -59,7 +59,7 @@ public final class ChatData implements Model {
       return updatedAt;
   }
   
-  private ChatData(String id, String message, String chatRoomId, String senderId) {
+  private ChatDataTwo(String id, String message, String chatRoomId, String senderId) {
     this.id = id;
     this.message = message;
     this.chatRoomId = chatRoomId;
@@ -73,13 +73,13 @@ public final class ChatData implements Model {
       } else if(obj == null || getClass() != obj.getClass()) {
         return false;
       } else {
-      ChatData chatData = (ChatData) obj;
-      return ObjectsCompat.equals(getId(), chatData.getId()) &&
-              ObjectsCompat.equals(getMessage(), chatData.getMessage()) &&
-              ObjectsCompat.equals(getChatRoomId(), chatData.getChatRoomId()) &&
-              ObjectsCompat.equals(getSenderId(), chatData.getSenderId()) &&
-              ObjectsCompat.equals(getCreatedAt(), chatData.getCreatedAt()) &&
-              ObjectsCompat.equals(getUpdatedAt(), chatData.getUpdatedAt());
+      ChatDataTwo chatDataTwo = (ChatDataTwo) obj;
+      return ObjectsCompat.equals(getId(), chatDataTwo.getId()) &&
+              ObjectsCompat.equals(getMessage(), chatDataTwo.getMessage()) &&
+              ObjectsCompat.equals(getChatRoomId(), chatDataTwo.getChatRoomId()) &&
+              ObjectsCompat.equals(getSenderId(), chatDataTwo.getSenderId()) &&
+              ObjectsCompat.equals(getCreatedAt(), chatDataTwo.getCreatedAt()) &&
+              ObjectsCompat.equals(getUpdatedAt(), chatDataTwo.getUpdatedAt());
       }
   }
   
@@ -99,7 +99,7 @@ public final class ChatData implements Model {
   @Override
    public String toString() {
     return new StringBuilder()
-      .append("ChatData {")
+      .append("ChatDataTwo {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("message=" + String.valueOf(getMessage()) + ", ")
       .append("chatRoomId=" + String.valueOf(getChatRoomId()) + ", ")
@@ -122,8 +122,8 @@ public final class ChatData implements Model {
    * @param id the id of the existing item this instance will represent
    * @return an instance of this model with only ID populated
    */
-  public static ChatData justId(String id) {
-    return new ChatData(
+  public static ChatDataTwo justId(String id) {
+    return new ChatDataTwo(
       id,
       null,
       null,
@@ -138,7 +138,7 @@ public final class ChatData implements Model {
       senderId);
   }
   public interface BuildStep {
-    ChatData build();
+    ChatDataTwo build();
     BuildStep id(String id);
     BuildStep message(String message);
     BuildStep chatRoomId(String chatRoomId);
@@ -152,10 +152,10 @@ public final class ChatData implements Model {
     private String chatRoomId;
     private String senderId;
     @Override
-     public ChatData build() {
+     public ChatDataTwo build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
-        return new ChatData(
+        return new ChatDataTwo(
           id,
           message,
           chatRoomId,

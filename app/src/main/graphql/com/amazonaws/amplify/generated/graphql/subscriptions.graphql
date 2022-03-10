@@ -11,6 +11,7 @@ subscription OnCreateInterest($owner: String) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -33,6 +34,7 @@ subscription OnUpdateInterest($owner: String) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -55,6 +57,7 @@ subscription OnDeleteInterest($owner: String) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -104,39 +107,6 @@ subscription OnDeleteChatRoom($owner: String) {
     owner
   }
 }
-subscription OnCreateChatData($owner: String) {
-  onCreateChatData(owner: $owner) {
-    id
-    message
-    createdAt
-    chatRoomId
-    senderId
-    updatedAt
-    owner
-  }
-}
-subscription OnUpdateChatData($owner: String) {
-  onUpdateChatData(owner: $owner) {
-    id
-    message
-    createdAt
-    chatRoomId
-    senderId
-    updatedAt
-    owner
-  }
-}
-subscription OnDeleteChatData($owner: String) {
-  onDeleteChatData(owner: $owner) {
-    id
-    message
-    createdAt
-    chatRoomId
-    senderId
-    updatedAt
-    owner
-  }
-}
 subscription OnCreateCallLog($owner: String) {
   onCreateCallLog(owner: $owner) {
     id
@@ -148,6 +118,7 @@ subscription OnCreateCallLog($owner: String) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -169,6 +140,7 @@ subscription OnUpdateCallLog($owner: String) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -190,6 +162,7 @@ subscription OnDeleteCallLog($owner: String) {
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -198,5 +171,65 @@ subscription OnDeleteCallLog($owner: String) {
     updatedAt
     userCallLogsId
     owner
+  }
+}
+subscription OnCreateChatData {
+  onCreateChatData {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateChatData {
+  onUpdateChatData {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteChatData {
+  onDeleteChatData {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateChatDataTwo {
+  onCreateChatDataTwo {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateChatDataTwo {
+  onUpdateChatDataTwo {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteChatDataTwo {
+  onDeleteChatDataTwo {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
   }
 }

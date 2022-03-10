@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.datastore.generated.model.ChatData
+import com.amplifyframework.datastore.generated.model.ChatDataTwo
 import com.example.dineshareandroid.R
 import java.util.*
 
@@ -16,7 +16,7 @@ class MessageAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewH
     private val VIEW_TYPE_USER_MESSAGE_ME = 10
     private val VIEW_TYPE_USER_MESSAGE_OTHER = 11
 
-    private var messages: MutableList<ChatData>
+    private var messages: MutableList<ChatDataTwo>
     private var context: Context
 
     init {
@@ -24,12 +24,12 @@ class MessageAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewH
         this.context = context
     }
 
-    fun loadMessages(messages: MutableList<ChatData>) {
+    fun loadMessages(messages: MutableList<ChatDataTwo>) {
         this.messages = messages
         notifyDataSetChanged()
     }
 
-    fun addFirst(message: ChatData) {
+    fun addFirst(message: ChatDataTwo) {
         this.messages.add(0, message)
         Log.d(TAG, "new messages size: ${messages.size}")
 

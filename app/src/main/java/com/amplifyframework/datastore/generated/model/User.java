@@ -31,6 +31,7 @@ public final class User implements Model {
   public static final QueryField LAST_NAME = field("User", "lastName");
   public static final QueryField RTM_TOKEN = field("User", "rtmToken");
   public static final QueryField EMAIL = field("User", "email");
+  public static final QueryField REPORTED_TIMES = field("User", "reportedTimes");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", authRules = {
     @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
@@ -45,6 +46,7 @@ public final class User implements Model {
     @AuthRule(allow = AuthStrategy.OWNER, ownerField = "owner", identityClaim = "cognito:username", provider = "userPools", operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
     @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.READ })
   }) String email;
+  private final @ModelField(targetType="Int") Integer reportedTimes;
   private final @ModelField(targetType="Interest") @HasMany(associatedWith = "users", type = Interest.class) List<Interest> interests = null;
   private final @ModelField(targetType="ChatRoom") @HasMany(associatedWith = "userChatRoomsId", type = ChatRoom.class) List<ChatRoom> chatRooms = null;
   private final @ModelField(targetType="CallLog") @HasMany(associatedWith = "users", type = CallLog.class) List<CallLog> callLogs = null;
@@ -70,6 +72,10 @@ public final class User implements Model {
       return email;
   }
   
+  public Integer getReportedTimes() {
+      return reportedTimes;
+  }
+  
   public List<Interest> getInterests() {
       return interests;
   }
@@ -90,12 +96,13 @@ public final class User implements Model {
       return updatedAt;
   }
   
-  private User(String id, String firstName, String lastName, String rtmToken, String email) {
+  private User(String id, String firstName, String lastName, String rtmToken, String email, Integer reportedTimes) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.rtmToken = rtmToken;
     this.email = email;
+    this.reportedTimes = reportedTimes;
   }
   
   @Override
@@ -111,6 +118,7 @@ public final class User implements Model {
               ObjectsCompat.equals(getLastName(), user.getLastName()) &&
               ObjectsCompat.equals(getRtmToken(), user.getRtmToken()) &&
               ObjectsCompat.equals(getEmail(), user.getEmail()) &&
+              ObjectsCompat.equals(getReportedTimes(), user.getReportedTimes()) &&
               ObjectsCompat.equals(getCreatedAt(), user.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), user.getUpdatedAt());
       }
@@ -124,6 +132,7 @@ public final class User implements Model {
       .append(getLastName())
       .append(getRtmToken())
       .append(getEmail())
+      .append(getReportedTimes())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -139,6 +148,7 @@ public final class User implements Model {
       .append("lastName=" + String.valueOf(getLastName()) + ", ")
       .append("rtmToken=" + String.valueOf(getRtmToken()) + ", ")
       .append("email=" + String.valueOf(getEmail()) + ", ")
+      .append("reportedTimes=" + String.valueOf(getReportedTimes()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -163,6 +173,7 @@ public final class User implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -172,7 +183,8 @@ public final class User implements Model {
       firstName,
       lastName,
       rtmToken,
-      email);
+      email,
+      reportedTimes);
   }
   public interface BuildStep {
     User build();
@@ -181,6 +193,7 @@ public final class User implements Model {
     BuildStep lastName(String lastName);
     BuildStep rtmToken(String rtmToken);
     BuildStep email(String email);
+    BuildStep reportedTimes(Integer reportedTimes);
   }
   
 
@@ -190,6 +203,7 @@ public final class User implements Model {
     private String lastName;
     private String rtmToken;
     private String email;
+    private Integer reportedTimes;
     @Override
      public User build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -199,7 +213,8 @@ public final class User implements Model {
           firstName,
           lastName,
           rtmToken,
-          email);
+          email,
+          reportedTimes);
     }
     
     @Override
@@ -226,6 +241,12 @@ public final class User implements Model {
         return this;
     }
     
+    @Override
+     public BuildStep reportedTimes(Integer reportedTimes) {
+        this.reportedTimes = reportedTimes;
+        return this;
+    }
+    
     /** 
      * @param id id
      * @return Current Builder instance, for fluent method chaining
@@ -238,12 +259,13 @@ public final class User implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String firstName, String lastName, String rtmToken, String email) {
+    private CopyOfBuilder(String id, String firstName, String lastName, String rtmToken, String email, Integer reportedTimes) {
       super.id(id);
       super.firstName(firstName)
         .lastName(lastName)
         .rtmToken(rtmToken)
-        .email(email);
+        .email(email)
+        .reportedTimes(reportedTimes);
     }
     
     @Override
@@ -264,6 +286,11 @@ public final class User implements Model {
     @Override
      public CopyOfBuilder email(String email) {
       return (CopyOfBuilder) super.email(email);
+    }
+    
+    @Override
+     public CopyOfBuilder reportedTimes(Integer reportedTimes) {
+      return (CopyOfBuilder) super.reportedTimes(reportedTimes);
     }
   }
   

@@ -8,16 +8,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.amplifyframework.core.Amplify
-import com.amplifyframework.datastore.generated.model.CallLog
-import com.amplifyframework.datastore.generated.model.ChatData
+import com.amplifyframework.datastore.generated.model.ChatDataTwo
 import com.example.dineshareandroid.AmplifyApp
 import com.example.dineshareandroid.R
-import com.example.dineshareandroid.ui.callLog.CallLogViewModel
 import io.agora.rtm.*
 import kotlinx.android.synthetic.main.activity_chat.*
 
@@ -26,12 +22,8 @@ class ChatActivity : AppCompatActivity() {
     private val TAG = "ChatActivity"
     private var mRtmChannel: RtmChannel? = null
     lateinit var recyclerView: RecyclerView
-    lateinit var layoutManager: LinearLayoutManager
     lateinit var adapter: MessageAdapter
-
     private val model: ChatViewModel by viewModels()
-
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -61,50 +53,14 @@ class ChatActivity : AppCompatActivity() {
 
 
     private fun getMessages(adapter: MessageAdapter) {
-//        val adapter = MessageAdapter(this)
-        val exampleChat1 = ChatData.builder()
-            .message("omg why this message")
-            .chatRoomId("123444")
-            .senderId("3445555")
-            .build()
-
-        val exampleChat2 = ChatData.builder()
-            .message("lopoooollll")
-            .chatRoomId("123444")
-            .senderId("4233455")
-            .build()
-        adapter.loadMessages(mutableListOf(exampleChat1, exampleChat2))
-
-//        model.getChatData(getChannelName())
-//        model.chatDataList.observe(this) { chatDataList ->
-//            adapter.loadMessages(chatDataList)
-//        }
-
-
-//        recyclerView.scrollToPosition(0)
-//        val previousMessageListQuery = groupChannel.createPreviousMessageListQuery()
-//
-//        previousMessageListQuery.load(
-//            100,
-//            true,
-//            object : PreviousMessageListQuery.MessageListQueryResult {
-//                override fun onResult(
-//                    messages: MutableList<BaseMessage>?,
-//                    e: SendBirdException?
-//                ) {
-//                    if (e != null) {
-//                        Log.e("Error", e.message)
-//                    }
-//                    adapter.loadMessages(messages!!)
-//                }
-//            })
-
+        model.getChatData(getChannelName())
+        model.chatDataList.observe(this) { chatDataList ->
+            adapter.loadMessages(chatDataList)
+        }
     }
 
 
-
     private fun setUpRecyclerView() {
-
         adapter = MessageAdapter(this)
         recyclerView = recycler_gchat
         recyclerView.adapter = adapter
@@ -119,8 +75,6 @@ class ChatActivity : AppCompatActivity() {
                 recyclerView.smoothScrollToPosition(0)
             }
         })
-
-
     }
 
 
@@ -137,14 +91,15 @@ class ChatActivity : AppCompatActivity() {
         mRtmChannel?.sendMessage(message, @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
         object : CarrierMessagingService.ResultCallback<Void?>, io.agora.rtm.ResultCallback<Void> {
             override fun onSuccess(aVoid: Void?) {
-                val chatData = ChatData.builder()
+                val chatData = ChatDataTwo.builder()
                     .message(message?.text.toString())
                     .chatRoomId(getChannelName())
                     .senderId(Amplify.Auth.currentUser.userId)
                     .build()
+
+                model.createChatData(chatData)
                 adapter.addFirst(chatData)
                 recyclerView.smoothScrollToPosition(0)
-                model.createChatData(chatData)
             }
 
             override fun onFailure(errorInfo: ErrorInfo) {
@@ -188,7 +143,7 @@ class ChatActivity : AppCompatActivity() {
             override fun onAttributesUpdated(list: List<RtmChannelAttribute?>?) {}
             override fun onMessageReceived(message: RtmMessage, fromMember: RtmChannelMember) {
                 val fromUser: String = fromMember.getUserId()
-                val chatData = ChatData.builder()
+                val chatData = ChatDataTwo.builder()
                     .message(message.text.toString())
                     .chatRoomId(getChannelName())
                     .senderId(fromUser)

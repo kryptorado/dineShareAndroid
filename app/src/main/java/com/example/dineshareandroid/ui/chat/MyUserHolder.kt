@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.amplifyframework.datastore.generated.model.ChatData
+import com.amplifyframework.datastore.generated.model.ChatDataTwo
 import kotlinx.android.synthetic.main.item_chat_me.view.*
+import java.time.LocalDateTime
 
 class MyUserHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -12,14 +14,15 @@ class MyUserHolder(view: View) : RecyclerView.ViewHolder(view) {
     val date = view.text_gchat_date_me
     val messageDate = view.text_gchat_timestamp_me
 
-    fun bindView(context: Context, message: ChatData) {
-
+    fun bindView(context: Context, message: ChatDataTwo) {
         messageText.text = message.message
-//        messageDate.text = DateUtil.formatTime(message.createdAt)
-        messageDate.text = "TODO: Date"
 
-        date.visibility = View.VISIBLE
-//        date.text = DateUtil.formatDate(message.createdAt)
-        date.text = "TODO: DATE"
+        if (message.createdAt != null) {
+            messageDate.text = DateUtil.formatTime(message.createdAt.toDate().time)
+            date.text = DateUtil.formatDate(message.createdAt.toDate().time)
+        } else {
+            messageDate.text = DateUtil.formatTime(System.currentTimeMillis())
+            date.text = DateUtil.formatDate(System.currentTimeMillis())
+        }
     }
 }

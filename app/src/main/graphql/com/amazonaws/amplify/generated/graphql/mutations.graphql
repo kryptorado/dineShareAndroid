@@ -9,6 +9,7 @@ mutation CreateUser(
     lastName
     rtmToken
     email
+    reportedTimes
     interests {
       nextToken
     }
@@ -33,6 +34,7 @@ mutation UpdateUser(
     lastName
     rtmToken
     email
+    reportedTimes
     interests {
       nextToken
     }
@@ -57,6 +59,7 @@ mutation DeleteUser(
     lastName
     rtmToken
     email
+    reportedTimes
     interests {
       nextToken
     }
@@ -86,6 +89,7 @@ mutation CreateInterest(
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -111,6 +115,7 @@ mutation UpdateInterest(
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -136,6 +141,7 @@ mutation DeleteInterest(
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -194,48 +200,6 @@ mutation DeleteChatRoom(
     owner
   }
 }
-mutation CreateChatData(
-  $input: CreateChatDataInput!
-  $condition: ModelChatDataConditionInput
-) {
-  createChatData(input: $input, condition: $condition) {
-    id
-    message
-    createdAt
-    chatRoomId
-    senderId
-    updatedAt
-    owner
-  }
-}
-mutation UpdateChatData(
-  $input: UpdateChatDataInput!
-  $condition: ModelChatDataConditionInput
-) {
-  updateChatData(input: $input, condition: $condition) {
-    id
-    message
-    createdAt
-    chatRoomId
-    senderId
-    updatedAt
-    owner
-  }
-}
-mutation DeleteChatData(
-  $input: DeleteChatDataInput!
-  $condition: ModelChatDataConditionInput
-) {
-  deleteChatData(input: $input, condition: $condition) {
-    id
-    message
-    createdAt
-    chatRoomId
-    senderId
-    updatedAt
-    owner
-  }
-}
 mutation CreateCallLog(
   $input: CreateCallLogInput!
   $condition: ModelCallLogConditionInput
@@ -250,6 +214,7 @@ mutation CreateCallLog(
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -274,6 +239,7 @@ mutation UpdateCallLog(
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -298,6 +264,7 @@ mutation DeleteCallLog(
       lastName
       rtmToken
       email
+      reportedTimes
       createdAt
       updatedAt
       owner
@@ -306,5 +273,83 @@ mutation DeleteCallLog(
     updatedAt
     userCallLogsId
     owner
+  }
+}
+mutation CreateChatData(
+  $input: CreateChatDataInput!
+  $condition: ModelChatDataConditionInput
+) {
+  createChatData(input: $input, condition: $condition) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateChatData(
+  $input: UpdateChatDataInput!
+  $condition: ModelChatDataConditionInput
+) {
+  updateChatData(input: $input, condition: $condition) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteChatData(
+  $input: DeleteChatDataInput!
+  $condition: ModelChatDataConditionInput
+) {
+  deleteChatData(input: $input, condition: $condition) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateChatDataTwo(
+  $input: CreateChatDataTwoInput!
+  $condition: ModelChatDataTwoConditionInput
+) {
+  createChatDataTwo(input: $input, condition: $condition) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateChatDataTwo(
+  $input: UpdateChatDataTwoInput!
+  $condition: ModelChatDataTwoConditionInput
+) {
+  updateChatDataTwo(input: $input, condition: $condition) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteChatDataTwo(
+  $input: DeleteChatDataTwoInput!
+  $condition: ModelChatDataTwoConditionInput
+) {
+  deleteChatDataTwo(input: $input, condition: $condition) {
+    id
+    message
+    chatRoomId
+    senderId
+    createdAt
+    updatedAt
   }
 }

@@ -1,20 +1,16 @@
 package com.example.dineshareandroid.ui.chat
 
-import androidx.lifecycle.*
-import com.amplifyframework.datastore.generated.model.CallLog
-import com.amplifyframework.datastore.generated.model.ChatData
-import com.amplifyframework.datastore.generated.model.User
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.amplifyframework.datastore.generated.model.ChatDataTwo
 import com.example.dineshareandroid.backend.UserData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ChatViewModel: ViewModel() {
-    val chatDataList = MutableLiveData<MutableList<ChatData>>()
-//    val chatDataList: LiveData<List<ChatData>> = liveData {
-//        val user = UserData.getChatData()
-//        emit(user)
-//    }
+    val chatDataList = MutableLiveData<MutableList<ChatDataTwo>>()
 
     fun getChatData(chatRoomId: String) {
         viewModelScope.launch  {
@@ -25,13 +21,11 @@ class ChatViewModel: ViewModel() {
         }
     }
 
-    fun createChatData(chatData: ChatData) {
+    fun createChatData(chatData: ChatDataTwo) {
         viewModelScope.launch  {
             val isSuccess = withContext(Dispatchers.IO) {
                 UserData.createChatData(chatData)
             }
-//            chatDataList.value = chatData
         }
     }
-
 }
