@@ -59,20 +59,20 @@ class LoggedInActivity : AppCompatActivity() {
         rtmClient?.login(token, uid, @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
         object : CarrierMessagingService.ResultCallback<Void?>, io.agora.rtm.ResultCallback<Void> {
             override fun onSuccess(responseInfo: Void?) {
-                runOnUiThread {
-                    val toast = Toast.makeText(applicationContext, "sucess logging in!", Toast.LENGTH_LONG)
-                    toast.show()
-                }
+//                runOnUiThread {
+//                    val toast = Toast.makeText(applicationContext, "sucess logging in!", Toast.LENGTH_LONG)
+//                    toast.show()
+//                }
             }
             override fun onFailure(errorInfo: ErrorInfo) {
                 val text: CharSequence =
                     "User: " + uid + " failed to log in to the RTM system!" + errorInfo.toString()
                 val duration = Toast.LENGTH_SHORT
                 Log.e(TAG, errorInfo.toString())
-                runOnUiThread {
-                    val toast = Toast.makeText(applicationContext, text, duration)
-                    toast.show()
-                }
+//                runOnUiThread {
+//                    val toast = Toast.makeText(applicationContext, text, duration)
+//                    toast.show()
+//                }
             }
 
             override fun onReceiveResult(p0: Void) {

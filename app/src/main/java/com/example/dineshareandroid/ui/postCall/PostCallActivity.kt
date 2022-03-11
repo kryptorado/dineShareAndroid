@@ -33,22 +33,22 @@ class PostCallActivity : AppCompatActivity() {
             remoteUserFirstName = intent.getStringExtra("remoteUserFirstName").toString().replaceFirstChar { it.titlecase() }
             post_call_text_title.text = "Connect with $remoteUserFirstName"
             post_call_button_messages.text = "Message $remoteUserFirstName"
-            Toast.makeText(this, remoteUserFirstName, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, remoteUserFirstName, Toast.LENGTH_SHORT).show()
         }
 
         if (remoteUserLastName != "") {
             remoteUserLastName = intent.getStringExtra("remoteUserLastName").toString().replaceFirstChar { it.titlecase() }
-            Toast.makeText(this, remoteUserLastName, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, remoteUserLastName, Toast.LENGTH_SHORT).show()
         }
 
         if (remoteUserId != "") {
             remoteUserId = intent.getStringExtra("remoteUserId").toString()
-            Toast.makeText(this, remoteUserId, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, remoteUserId, Toast.LENGTH_SHORT).show()
         }
 
         if (channelName != "") {
             channelName = intent.getStringExtra("channelName").toString()
-            Toast.makeText(this, channelName, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, channelName, Toast.LENGTH_SHORT).show()
         }
 
         model.createCallLog(remoteUserFirstName, remoteUserLastName, callLength)

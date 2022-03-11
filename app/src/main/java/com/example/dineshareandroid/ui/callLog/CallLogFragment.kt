@@ -38,10 +38,26 @@ class CallLogFragment : Fragment(R.layout.fragment_call_log) {
                 model.deleteCallLog(adapter.callLog[i])
             }
             adapter.clearAll()
+            if (adapter.callLog.isEmpty()) {
+                call_log_is_empty.visibility = View.VISIBLE
+                deleteAllLogs.visibility = View.GONE
+            } else {
+                call_log_is_empty.visibility = View.GONE
+                deleteAllLogs.visibility = View.VISIBLE
+            }
         })
     }
 
     private fun showCallLogList(callLog: List<CallLog>) {
+        if (callLog.isEmpty()) {
+            call_log_is_empty.visibility = View.VISIBLE
+            deleteAllLogs.visibility = View.GONE
+        } else {
+            call_log_is_empty.visibility = View.GONE
+            deleteAllLogs.visibility = View.VISIBLE
+        }
+
+
         val recyclerView = view?.findViewById<RecyclerView>(R.id.callLogs_recyclerview)
         val layoutManager = LinearLayoutManager(activity)
         recyclerView?.layoutManager = layoutManager

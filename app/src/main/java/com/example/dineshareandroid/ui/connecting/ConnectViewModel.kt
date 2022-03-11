@@ -20,7 +20,7 @@ import java.util.*
 
 class ConnectViewModel: ViewModel() {
     private val TAG = "ConnectViewModel"
-    private val BACKEND_BASE_URL = "http://192.168.0.37:3000/matching" // TODO: replace with deployed URL
+    private val BACKEND_BASE_URL = "http://192.168.0.47:3000/matching" // TODO: replace with deployed URL
     private val ENTER_QUEUE_URL = "${BACKEND_BASE_URL}/enterQueue"
     private val POLL_QUEUE_URL = "${BACKEND_BASE_URL}/pollQueue/${Amplify.Auth.currentUser.userId}"
     private val EXIT_QUEUE_URL = "${BACKEND_BASE_URL}/doneCall/${Amplify.Auth.currentUser.userId}"

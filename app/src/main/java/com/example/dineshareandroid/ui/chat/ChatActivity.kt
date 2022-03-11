@@ -167,13 +167,13 @@ class ChatActivity : AppCompatActivity() {
             override fun onMemberJoined(member: RtmChannelMember?) {
                 runOnUiThread {
                     val toast = Toast.makeText(applicationContext, "member $member joined!", Toast.LENGTH_SHORT)
-                    toast.show()
+//                    toast.show()
                 }
             }
             override fun onMemberLeft(member: RtmChannelMember?) {
                 runOnUiThread {
                     val toast = Toast.makeText(applicationContext, "member $member left!", Toast.LENGTH_SHORT)
-                    toast.show()
+//                    toast.show()
                 }
             }
         }
@@ -188,7 +188,7 @@ class ChatActivity : AppCompatActivity() {
             override fun onSuccess(responseInfo: Void?) {
                 runOnUiThread {
                     val toast = Toast.makeText(applicationContext, "joined channel $channelName", Toast.LENGTH_LONG)
-                    toast.show()
+//                    toast.show()
                 }
 
             }
@@ -198,7 +198,7 @@ class ChatActivity : AppCompatActivity() {
                 val duration = Toast.LENGTH_SHORT
                 runOnUiThread {
                     val toast = Toast.makeText(applicationContext, text, duration)
-                    toast.show()
+//                    toast.show()
                 }
             }
 

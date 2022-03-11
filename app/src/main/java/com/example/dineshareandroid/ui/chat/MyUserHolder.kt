@@ -3,10 +3,8 @@ package com.example.dineshareandroid.ui.chat
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.amplifyframework.datastore.generated.model.ChatData
 import com.amplifyframework.datastore.generated.model.ChatDataTwo
 import kotlinx.android.synthetic.main.item_chat_me.view.*
-import java.time.LocalDateTime
 
 class MyUserHolder(view: View) : RecyclerView.ViewHolder(view) {
 

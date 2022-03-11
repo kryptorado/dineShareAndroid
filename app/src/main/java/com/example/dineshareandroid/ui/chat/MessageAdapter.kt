@@ -76,6 +76,5 @@ class MessageAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewH
             }
             //Handle other types of messages FILE/ADMIN ETC
         }
-
     }
 }
