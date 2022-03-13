@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dineshareandroid.ui.connecting.ConnectActivity
 import com.example.dineshareandroid.ui.conversations.ConversationsFragment
 import com.example.dineshareandroid.ui.loggedIn.LoggedInActivity
 import com.example.dineshareandroid.ui.report.ReportActivity
@@ -55,15 +56,21 @@ class PostCallActivity : AppCompatActivity() {
         model.createChatRoom(channelName, remoteUserFirstName, remoteUserLastName, remoteUserId)
 
         report_user.setOnClickListener {
-            startActivity(Intent(this, ReportActivity::class.java))
+            // pass other user id to activity
+            val intent = Intent(this, ReportActivity::class.java)
+            intent.putExtra("remoteUserId", remoteUserId)
+            startActivity(intent)
         }
 
         post_call_button_messages.setOnClickListener {
-//            startActivity(Intent(this, LoggedInActivity::class.java))
-//            supportFragmentManager.beginTransaction().replace(
-//                com.example.dineshareandroid.R.id.fragment_container,
-//                ConversationsFragment()
-//            ).commit()
+            val intent = Intent(this, LoggedInActivity::class.java)
+            intent.putExtra("EXTRA", "openMessages");
+            startActivity(intent);
+            finish()
+        }
+
+        post_call_button_match.setOnClickListener {
+            startActivity(Intent(this, ConnectActivity::class.java))
             finish()
         }
 

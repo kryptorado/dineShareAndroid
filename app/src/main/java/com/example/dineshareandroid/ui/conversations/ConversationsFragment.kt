@@ -12,6 +12,8 @@ import com.amplifyframework.datastore.generated.model.CallLog
 import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.example.dineshareandroid.R
 import com.example.dineshareandroid.utils.LoadingDialog
+import kotlinx.android.synthetic.main.fragment_call_log.*
+import kotlinx.android.synthetic.main.fragment_conversations.*
 
 
 class ConversationsFragment : Fragment(R.layout.fragment_conversations) {
@@ -24,6 +26,12 @@ class ConversationsFragment : Fragment(R.layout.fragment_conversations) {
         super.onViewCreated(view, savedInstanceState)
 
         model.chatRooms.observe(viewLifecycleOwner) { chatRooms ->
+            if (chatRooms.isEmpty()) {
+                conversation_is_empty.visibility = View.VISIBLE
+            } else {
+                conversation_is_empty.visibility = View.GONE
+            }
+
             showChatRooms(ArrayList<ChatRoom>(chatRooms))
             Log.d(TAG, "got chatRooms: $chatRooms")
         }
@@ -35,5 +43,11 @@ class ConversationsFragment : Fragment(R.layout.fragment_conversations) {
         recyclerView?.layoutManager = layoutManager
         adapter = ConversationsRecyclerAdapter(chatRooms as MutableList<ChatRoom>)
         recyclerView?.adapter = adapter
+
+        if (adapter.chatRooms.isEmpty()) {
+            conversation_is_empty.visibility = View.VISIBLE
+        } else {
+            conversation_is_empty.visibility = View.GONE
+        }
     }
 }

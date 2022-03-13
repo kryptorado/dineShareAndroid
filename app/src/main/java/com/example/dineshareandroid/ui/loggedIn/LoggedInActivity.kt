@@ -25,6 +25,9 @@ import java.lang.Exception
 import java.lang.RuntimeException
 
 
+
+
+
 class LoggedInActivity : AppCompatActivity() {
     private val TAG = "LoggedInActivity"
     private val model: LoggedInViewModel by viewModels()
@@ -45,6 +48,13 @@ class LoggedInActivity : AppCompatActivity() {
                 Log.d(TAG, "this shoud only run once")
                 Log.d(TAG, "userid: ${token!!}")
                 rtmLogin(token)
+        }
+
+        when (intent.getStringExtra("EXTRA")) {
+            "openMessages" -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ConversationsFragment()).commit()
+            }
         }
     }
 

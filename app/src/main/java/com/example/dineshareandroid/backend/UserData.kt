@@ -60,6 +60,7 @@ object UserData {
                 .lastName(lastName)
                 .email(email)
                 .rtmToken(rtmToken)
+                .reportedTimes(0)
                 .build()
 
             // Add default interests
@@ -168,11 +169,11 @@ object UserData {
                     "dineshareandroid",
                     ModelMutation.update(interest),
                     {
-                        Log.i(TAG, "CREATE user succeeded: $it")
+                        Log.i(TAG, "UPDATE interest succeeded: $it")
                     },
                     {
                         continuation.resume(false)
-                        Log.e(TAG, "CREATE user failed", it)
+                        Log.e(TAG, "UPDATE interest failed", it)
                     }
                 )
             }
@@ -339,4 +340,66 @@ object UserData {
         }
     }
 
+
+    suspend fun getReport(userId: String): Reported? {
+        return suspendCoroutine { continuation ->
+            Amplify.API.query(
+                "dineshareandroidPublic",
+                ModelQuery.list(Reported::class.java, Reported.USER_ID.eq(userId)),
+                { reports ->
+                    var report: Reported? = null
+                    for (reportData in reports.data) {
+                        if (report?.userId == userId) {
+                            report = reportData
+                        }
+                    }
+                    continuation.resume(report)
+                    Log.i(TAG, "user report object: $reports")
+                },
+                { error ->
+                    Log.e(TAG, "user report fail: ", error)
+                    continuation.resume(null)
+                }
+            )
+        }
+    }
+
+
+    suspend fun reportUser(userId: String, report: Reported?): Boolean {
+        return suspendCoroutine { continuation ->
+            if (report != null) {
+                // update obj
+                val updatedReportTime = report.reportedTimes + 1
+                val updatedReport = report.copyOfBuilder().reportedTimes(updatedReportTime).build()
+
+                    Amplify.API.mutate(
+                        "dineshareandroidPublic",
+                        ModelMutation.update(updatedReport), ///////// create or update?
+                        {
+                            continuation.resume(true)
+                            Log.i(TAG, "UPDATE user reported time succeeded: $it")
+                        },
+                        {
+                            continuation.resume(false)
+                            Log.e(TAG, "UPDATE user reported time failed", it)
+                        })
+            } else {
+                val reportedUser = Reported.builder()
+                    .userId(userId)
+                    .reportedTimes(1)
+                    .build()
+                Amplify.API.mutate(
+                    "dineshareandroidPublic",
+                    ModelMutation.create(reportedUser), ///////// create or update?
+                        {
+                            continuation.resume(true)
+                            Log.i(TAG, "CREATE user reported time succeeded: $it")
+                        },
+                        {
+                            continuation.resume(false)
+                            Log.e(TAG, "CREATE user reported time failed", it)
+                        })
+            }
+        }
+    }
 }
