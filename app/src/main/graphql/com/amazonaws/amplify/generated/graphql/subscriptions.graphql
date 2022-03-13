@@ -233,3 +233,30 @@ subscription OnDeleteChatDataTwo {
     updatedAt
   }
 }
+subscription OnCreateReported {
+  onCreateReported {
+    id
+    userId
+    reportedTimes
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateReported {
+  onUpdateReported {
+    id
+    userId
+    reportedTimes
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteReported {
+  onDeleteReported {
+    id
+    userId
+    reportedTimes
+    createdAt
+    updatedAt
+  }
+}

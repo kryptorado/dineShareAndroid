@@ -7,7 +7,7 @@ type User @model(subscriptions: { level: off }) @auth(rules: [{ allow: owner}]) 
   lastName: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
   rtmToken: String
   email: String @auth(rules: [{ allow: owner}, { allow: public, operations: [read] }])
-  reportedTimes: Int @auth(rules: [{ allow: owner}, { allow: public }])
+  reportedTimes: Int @auth(rules: [{ allow: owner}, { allow: public }]) @default(value: "0")
   interests: [Interest] @hasMany
   chatRooms: [ChatRoom] @hasMany
   callLogs: [CallLog] @hasMany
@@ -55,4 +55,10 @@ type CallLog @model @auth(rules: [{allow: owner}]) {
   duration: String
   calleeName: String
   users: User @belongsTo
+}
+
+type Reported @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userId: String
+  reportedTimes: Int
 }

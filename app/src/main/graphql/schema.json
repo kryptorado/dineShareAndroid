@@ -434,6 +434,76 @@
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
+                    },
+                    {
+                        "name": "getReported",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "id",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "SCALAR",
+                                        "name": "ID",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Reported",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "listReporteds",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "filter",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReportedFilterInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "limit",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "Int",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "nextToken",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ModelReportedConnection",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
                     }
                 ],
                 "inputFields": null,
@@ -2778,6 +2848,211 @@
             },
             {
                 "kind": "OBJECT",
+                "name": "Reported",
+                "description": null,
+                "fields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "ID",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "userId",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "reportedTimes",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "createdAt",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "AWSDateTime",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "updatedAt",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "AWSDateTime",
+                                "ofType": null
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "ModelReportedFilterInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIDInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "userId",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "reportedTimes",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIntInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "and",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReportedFilterInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "or",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReportedFilterInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "not",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelReportedFilterInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "OBJECT",
+                "name": "ModelReportedConnection",
+                "description": null,
+                "fields": [
+                    {
+                        "name": "items",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "LIST",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "Reported",
+                                    "ofType": null
+                                }
+                            }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "nextToken",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
+                "inputFields": null,
+                "interfaces": [],
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "OBJECT",
                 "name": "Mutation",
                 "description": null,
                 "fields": [
@@ -3442,6 +3717,117 @@
                         "type": {
                             "kind": "OBJECT",
                             "name": "ChatDataTwo",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "createReported",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "input",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "CreateReportedInput",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "condition",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReportedConditionInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Reported",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "updateReported",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "input",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "UpdateReportedInput",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "condition",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReportedConditionInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Reported",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "deleteReported",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "input",
+                                "description": null,
+                                "type": {
+                                    "kind": "NON_NULL",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "DeleteReportedInput",
+                                        "ofType": null
+                                    }
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "condition",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelReportedConditionInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Reported",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -4872,6 +5258,186 @@
                 "possibleTypes": null
             },
             {
+                "kind": "INPUT_OBJECT",
+                "name": "CreateReportedInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "ID",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "userId",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "reportedTimes",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "ModelReportedConditionInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "userId",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "reportedTimes",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIntInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "and",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReportedConditionInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "or",
+                        "description": null,
+                        "type": {
+                            "kind": "LIST",
+                            "name": null,
+                            "ofType": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelReportedConditionInput",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "not",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelReportedConditionInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "UpdateReportedInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "ID",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "userId",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "String",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "reportedTimes",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "Int",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
+                "kind": "INPUT_OBJECT",
+                "name": "DeleteReportedInput",
+                "description": null,
+                "fields": null,
+                "inputFields": [
+                    {
+                        "name": "id",
+                        "description": null,
+                        "type": {
+                            "kind": "NON_NULL",
+                            "name": null,
+                            "ofType": {
+                                "kind": "SCALAR",
+                                "name": "ID",
+                                "ofType": null
+                            }
+                        },
+                        "defaultValue": null
+                    }
+                ],
+                "interfaces": null,
+                "enumValues": null,
+                "possibleTypes": null
+            },
+            {
                 "kind": "OBJECT",
                 "name": "Subscription",
                 "description": null,
@@ -5150,6 +5716,42 @@
                         "type": {
                             "kind": "OBJECT",
                             "name": "ChatDataTwo",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "onCreateReported",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Reported",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "onUpdateReported",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Reported",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "onDeleteReported",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "Reported",
                             "ofType": null
                         },
                         "isDeprecated": false,

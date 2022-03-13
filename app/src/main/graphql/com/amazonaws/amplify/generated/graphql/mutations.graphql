@@ -353,3 +353,39 @@ mutation DeleteChatDataTwo(
     updatedAt
   }
 }
+mutation CreateReported(
+  $input: CreateReportedInput!
+  $condition: ModelReportedConditionInput
+) {
+  createReported(input: $input, condition: $condition) {
+    id
+    userId
+    reportedTimes
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateReported(
+  $input: UpdateReportedInput!
+  $condition: ModelReportedConditionInput
+) {
+  updateReported(input: $input, condition: $condition) {
+    id
+    userId
+    reportedTimes
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteReported(
+  $input: DeleteReportedInput!
+  $condition: ModelReportedConditionInput
+) {
+  deleteReported(input: $input, condition: $condition) {
+    id
+    userId
+    reportedTimes
+    createdAt
+    updatedAt
+  }
+}

@@ -210,3 +210,28 @@ query ListChatDataTwos(
     nextToken
   }
 }
+query GetReported($id: ID!) {
+  getReported(id: $id) {
+    id
+    userId
+    reportedTimes
+    createdAt
+    updatedAt
+  }
+}
+query ListReporteds(
+  $filter: ModelReportedFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReporteds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userId
+      reportedTimes
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
