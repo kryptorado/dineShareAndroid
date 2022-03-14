@@ -24,4 +24,13 @@
     </style>
 
 
+    <style name="Slider" parent="Widget.MaterialComponents.Slider">
+        <item name="materialThemeOverlay">@style/SliderCustom</item>
+    </style>
+
+    <style name="SliderCustom" parent="">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/purple_500</item>
+        <item name="colorOnSurface">@color/purple_500</item>
+    </style>
 </resources>

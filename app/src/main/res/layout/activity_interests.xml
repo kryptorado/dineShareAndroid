@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/comfortaa"
         android:text="Select Interests"
@@ -41,25 +41,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:rippleColor="@color/black" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/interests_recyclerview"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="-90dp"
-        android:layout_marginBottom="16dp"
-        android:clipToPadding="false"
-        android:paddingTop="84dp"
-        android:scrollbars="vertical"
-        android:translationZ="-10dp"
-        app:layout_constraintBottom_toTopOf="@+id/interests_save_button"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:layout_constraintStart_toStartOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/interests_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="150dp"
+            android:clipToPadding="false"
+            android:paddingTop="0dp"
+            android:scrollbars="vertical"
+            android:translationZ="-10dp"
+            app:layout_constraintBottom_toTopOf="@+id/interests_save_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2"
+            app:layout_constraintVertical_bias="0.062" />
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 
     <View
         android:id="@+id/view2"
-        android:layout_width="689dp"
+        android:layout_width="0dp"
         android:layout_height="140dp"
         android:background="@drawable/ic_wave2"
         android:translationZ="-1dp"
