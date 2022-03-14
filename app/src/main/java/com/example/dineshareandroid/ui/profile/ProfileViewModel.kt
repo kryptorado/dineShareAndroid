@@ -27,6 +27,7 @@ class ProfileViewModel: ViewModel() {
     }
 
     private fun onError(error: AuthException) {
+        logoutSuccess.postValue(false)
         Log.e(TAG, "logout error: $error")
     }
 

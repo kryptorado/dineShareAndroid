@@ -79,6 +79,9 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoggedInActivity::class.java))
                 finish()
             } else {
+//                loader.dismiss()
+                Log.d(TAG, "Login error")
+
                 // TODO: check if user unverified error was thrown and if yes,
                 // go through flow to verify user
             }
@@ -108,8 +111,9 @@ class LoginActivity : AppCompatActivity() {
                 })
             } else {
                 loader.dismiss()
-                startActivity(Intent(this, LoggedInActivity::class.java))
-                finish()
+                model.isUserBanned()
+//                startActivity(Intent(this, LoggedInActivity::class.java))
+//                finish()
             }
         })
 

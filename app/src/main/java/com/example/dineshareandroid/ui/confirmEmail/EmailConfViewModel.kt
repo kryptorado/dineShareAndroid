@@ -59,11 +59,11 @@ class EmailConfViewModel: ViewModel() {
 
     private fun onLoginSuccess(result: AuthSignInResult) {
         viewModelScope.launch {
-            val rtmToken = withContext(Dispatchers.IO) {
-                UserData.getUserRtmToken()
-            }
+//            val rtmToken = withContext(Dispatchers.IO) {
+//                UserData.getUserRtmToken()
+//            }
             val isCreated = withContext(Dispatchers.IO) {
-                createDynamoUser(_firstName, _lastName, _email, rtmToken!!)
+                createDynamoUser(_firstName, _lastName, _email)
             }
             confirmSuccess.value = isCreated
         }

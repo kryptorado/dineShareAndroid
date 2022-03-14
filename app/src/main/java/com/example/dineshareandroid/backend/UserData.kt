@@ -52,14 +52,14 @@ object UserData {
         }
     }
 
-    suspend fun createDynamoUser(firstName: String, lastName: String, email: String, rtmToken: String): Boolean {
+    suspend fun createDynamoUser(firstName: String, lastName: String, email: String): Boolean {
         return suspendCoroutine { continuation ->
             val user = User.builder()
                 .id(Amplify.Auth.currentUser.userId)
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)
-                .rtmToken(rtmToken)
+//                .rtmToken(rtmToken)
                 .reportedTimes(0)
                 .build()
 
@@ -349,7 +349,7 @@ object UserData {
                 { reports ->
                     var report: Reported? = null
                     for (reportData in reports.data) {
-                        if (report?.userId == userId) {
+                        if (reportData.userId == userId) {
                             report = reportData
                         }
                     }

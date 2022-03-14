@@ -82,21 +82,13 @@ class LoginViewModel: ViewModel()  {
 
 
                                     viewModelScope.launch {
-                                        val rtmToken = withContext(Dispatchers.IO) {
-                                            UserData.getUserRtmToken()
-                                        }
-                                        if (firstName !== null && lastName!= null && email!= null && rtmToken != null) {
-                                            createDynamoUser(firstName, lastName, email, rtmToken)
+//                                        val rtmToken = withContext(Dispatchers.IO) {
+//                                            UserData.getUserRtmToken()
+//                                        }
+                                        if (firstName !== null && lastName!= null && email!= null ) {
+                                            createDynamoUser(firstName, lastName, email)
                                         }
                                     }
-
-
-//                                    // Create new user
-//                                    viewModelScope.launch {
-//                                        if (firstName !== null && lastName!= null && email!= null) {
-//                                            createDynamoUser(firstName, lastName, email)
-//                                        }
-//                                    }
                                 }
                                 Log.i(TAG, "getDynamoUser = ${(response.data)}")
                             } else {
@@ -120,12 +112,12 @@ class LoginViewModel: ViewModel()  {
         loginSuccess.postValue(false)
 
         when (error) {
-            is InvalidPasswordException -> Log.e("Demo", "Invalid password", error)
-            is UserNotFoundException -> Log.e("Demo", "User not found", error)
-            is UserNotConfirmedException -> Log.e("Demo", "User not confirmed", error)
+            is InvalidPasswordException -> Log.e(TAG, "Invalid password", error)
+            is UserNotFoundException -> Log.e(TAG, "User not found", error)
+            is UserNotConfirmedException -> Log.e(TAG, "User not confirmed", error)
             else -> {
                 // Handle additional AuthException subtypes
-                Log.w("Demo", "Unhandled error", error)
+                Log.w(TAG, "Unhandled error", error)
             }
         }
 
@@ -135,7 +127,24 @@ class LoginViewModel: ViewModel()  {
     }
 
     private fun onLoginSuccess(result: AuthSignInResult) {
-        loginSuccess.postValue(true)
-        Log.d(TAG, "Login success $result")
+        isUserBanned()
+    }
+
+    fun isUserBanned() {
+        viewModelScope.launch  {
+            val report = withContext(Dispatchers.IO) {
+                UserData.getReport(Amplify.Auth.currentUser.userId)
+            }
+            if (report != null && report?.reportedTimes!! >= 3) {
+                loginSuccess.postValue(false)
+                loginFailedMessage.postValue("You have been banned from this app.")
+            } else {
+                loginSuccess.postValue(true)
+            }
+//            updateSuccess.value = isSuccess
+        }
+//        loginSuccess.postValue(true)
+        Log.d(TAG, "Login success")
+//        TODO("Not yet implemented")
     }
 }
