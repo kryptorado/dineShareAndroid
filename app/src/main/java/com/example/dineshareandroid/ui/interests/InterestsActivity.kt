@@ -72,6 +72,36 @@ class InterestsActivity : AppCompatActivity() {
                 iconList.add(R.drawable.ic_baseline_brush_24)
             } else if ((interest.name.equals("cooking"))) {
                 iconList.add(R.drawable.ic_baseline_room_service_24)
+            } else if ((interest.name.equals("astrology"))) {
+                iconList.add(R.drawable.ic_baseline_star_rate_24)
+            } else if ((interest.name.equals("business"))) {
+                iconList.add(R.drawable.ic_baseline_attach_money_24)
+            } else if ((interest.name.equals("science"))) {
+                iconList.add(R.drawable.ic_baseline_science_24)
+            } else if ((interest.name.equals("food"))) {
+                iconList.add(R.drawable.ic_baseline_dinner_dining_24)
+            } else if ((interest.name.equals("nature"))) {
+                iconList.add(R.drawable.ic_baseline_grass_24)
+            } else if ((interest.name.equals("travelling"))) {
+                iconList.add(R.drawable.ic_baseline_flight_takeoff_24)
+            } else if ((interest.name.equals("history"))) {
+                iconList.add(R.drawable.ic_baseline_auto_stories_24)
+            } else if ((interest.name.equals("architecture"))) {
+                iconList.add(R.drawable.ic_baseline_architecture_24)
+            } else if ((interest.name.equals("fashion"))) {
+                iconList.add(R.drawable.ic_baseline_checkroom_24)
+            } else if ((interest.name.equals("shopping"))) {
+                iconList.add(R.drawable.ic_baseline_local_mall_24)
+            } else if ((interest.name.equals("TV shows"))) {
+                iconList.add(R.drawable.ic_baseline_tv_24)
+            } else if ((interest.name.equals("languages"))) {
+                iconList.add(R.drawable.ic_baseline_translate_24)
+            } else if ((interest.name.equals("weather"))) {
+                iconList.add(R.drawable.ic_baseline_umbrella_24)
+            } else if ((interest.name.equals("politics"))) {
+                iconList.add(R.drawable.ic_baseline_handshake_24)
+            } else if ((interest.name.equals("medicine"))) {
+                iconList.add(R.drawable.ic_baseline_local_hospital_24)
             }
         }
 
@@ -79,3 +109,5 @@ class InterestsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 }
+
+//val interestNames = listOf<String>("sports", "music", "cooking", "video games", "arts & crafts", "astrology", "business", "science", "food", "nature", "travelling", "history", "architecture", "fashion", "shopping", "TV shows", "languages", "weather", "politics", "medicine")
