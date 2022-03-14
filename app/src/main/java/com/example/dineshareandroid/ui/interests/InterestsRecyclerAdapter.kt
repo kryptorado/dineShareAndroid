@@ -22,7 +22,7 @@ class InterestsRecyclerAdapter(_interests: MutableList<Interest>, _icons: List<I
     }
 
     override fun onBindViewHolder(holder: InterestsRecyclerAdapter.ViewHolder, position: Int) {
-        holder.interestTitle.text = interests[position].name
+        holder.interestTitle.text = interests[position].name.toString().replaceFirstChar { it.titlecase() }
         holder.interestStrength.value = interests[position].strength.toFloat()
         holder.interestIcon.setImageResource(icons[position])
     }
