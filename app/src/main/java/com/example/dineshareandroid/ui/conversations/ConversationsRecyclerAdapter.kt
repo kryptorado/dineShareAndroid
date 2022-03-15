@@ -9,15 +9,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amplifyframework.datastore.generated.model.ChatRoom
 import com.example.dineshareandroid.R
 import android.content.Intent
+import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.fragment.app.viewModels
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
+import com.example.dineshareandroid.ui.callLog.CallLogRecyclerAdapter
 import com.example.dineshareandroid.ui.chat.ChatActivity
 
 
-class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>): RecyclerView.Adapter<ConversationsRecyclerAdapter.ViewHolder>() {
+class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>, private var itemClickListener: ConversationsRecyclerAdapter.ItemClickListener): RecyclerView.Adapter<ConversationsRecyclerAdapter.ViewHolder>() {
     val TAG = "ConvRecyclerAdapter"
     var chatRooms = _chatRooms
+
+
+    interface ItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun clearAll() {
+        chatRooms.clear()
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversationsRecyclerAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.chatroom_card_layout, parent, false)
@@ -33,8 +46,6 @@ class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>): RecyclerV
             .take(10)
 
         val generator = ColorGenerator.MATERIAL
-        //val color = generator.getColor(user.email)
-        //String manipulation to get first letter of first name and last name
         val color = generator.getColor(chatRooms[position].otherUserName)
         val drawable = TextDrawable.builder()
             .buildRect(chatRooms[position].otherUserName.first().toString(), color)
@@ -42,7 +53,11 @@ class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>): RecyclerV
         val image: ImageView = holder.chatRoomIcon
         image.setImageDrawable(drawable)
 
-
+        holder.chatRoomDelete.setOnClickListener{
+            itemClickListener.onItemClick(position)
+            chatRooms.removeAt(position)
+            notifyDataSetChanged()
+        }
 
         holder.itemView.setOnClickListener {
             val context: Context = holder.itemView.context
@@ -62,6 +77,6 @@ class ConversationsRecyclerAdapter(_chatRooms: MutableList<ChatRoom>): RecyclerV
         var chatRoomOtherUserName: TextView = itemView.findViewById(R.id.chatroom_card_otherUserName) as TextView
         var chatRoomDate: TextView = itemView.findViewById(R.id.chatroom_card_date) as TextView
         var chatRoomIcon: ImageView = itemView.findViewById(R.id.chatroom_image_otherUser) as ImageView
-
+        var chatRoomDelete: ImageButton = itemView.findViewById(R.id.chatroom_icon_deleteRoom) as ImageButton
     }
 }

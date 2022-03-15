@@ -19,8 +19,7 @@ class CallLogFragment : Fragment(R.layout.fragment_call_log) {
     private val model: CallLogViewModel by activityViewModels()
     private var adapter = CallLogRecyclerAdapter(mutableListOf(), object : CallLogRecyclerAdapter.ItemClickListener {
         override fun onItemClick(position: Int) {
-            // this function will handle the item click on a provided position
-            deleteCallLog(position)
+//            TODO("Not yet implemented")
         }
     })
 

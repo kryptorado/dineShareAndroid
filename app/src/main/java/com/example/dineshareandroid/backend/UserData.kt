@@ -206,6 +206,25 @@ object UserData {
         }
     }
 
+    suspend fun deleteChatRoom(chatRoom: ChatRoom) : Boolean {
+        return suspendCoroutine { continuation ->
+            Amplify.API.mutate(
+                "dineshareandroid",
+                ModelMutation.delete(chatRoom),
+                { mutation ->
+                    continuation.resume(true)
+                    Log.i(TAG, "Deleted chatroom successfully")
+                    Log.i(TAG, "response.data: ${mutation.data}")
+                },
+                { error ->
+                    Log.e(TAG, "Chat room deletion failure:", error)
+                    continuation.resume(false)
+                }
+            )
+        }
+    }
+
+
     suspend fun createCallLog(user: User?, callLength: String, remoteUserName: String): Boolean {
         return suspendCoroutine { continuation ->
 

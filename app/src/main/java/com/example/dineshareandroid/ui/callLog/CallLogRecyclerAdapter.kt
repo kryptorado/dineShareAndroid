@@ -59,7 +59,6 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemCli
         holder.callerDelete.setOnClickListener(View.OnClickListener {
             itemClickListener.onItemClick(position)
             callLog.removeAt(position) // remove the item from list
-            notifyItemRemoved(position) // notify the adapter about the removed item
             notifyDataSetChanged()
         })
     }
