@@ -12,6 +12,7 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.example.dineshareandroid.R
 import kotlinx.android.synthetic.main.fragment_profile.*
+import okhttp3.internal.format
 import java.util.*
 
 
@@ -42,7 +43,8 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemCli
         var date = callLog[position].updatedAt.toString().replace("Temporal.DateTime{offsetDateTime='", "")
                                                         .replace("Z'}", "")
                                                         .take(10)
-        holder.callerDetails.text = formattedDuration + " • " + date;
+        holder.callerDetails.text = date
+        holder.callDuration.text = formattedDuration
 
         val generator = ColorGenerator.MATERIAL
         //val color = generator.getColor(user.email)
@@ -78,8 +80,9 @@ class CallLogRecyclerAdapter(_callLog: MutableList<CallLog>, private var itemCli
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var callerIcon: ImageView = itemView.findViewById(R.id.contact_icon) as ImageView
-        var callerName: TextView = itemView.findViewById(R.id.caller_name) as TextView
-        var callerDetails: TextView = itemView.findViewById(R.id.caller_details) as TextView
+        var callerName: TextView = itemView.findViewById(R.id.call_log_text_name) as TextView
+        var callerDetails: TextView = itemView.findViewById(R.id.call_log_text_date) as TextView
+        var callDuration: TextView = itemView.findViewById(R.id.call_log_text_duration) as TextView
         var callerDelete: ImageButton = itemView.findViewById(R.id.deleteLog) as ImageButton
     }
 }

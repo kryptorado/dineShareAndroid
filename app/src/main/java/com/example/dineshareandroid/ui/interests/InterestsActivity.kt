@@ -40,16 +40,14 @@ class InterestsActivity : AppCompatActivity() {
                 finish()
 
             } else {
+//                loader.dismiss()
                 Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
 
         interests_save_button.setOnClickListener {
 //            loader.show()
-            for (interest in adapter.interests) {
-                model.updateInterests(adapter.interests)
-                Log.d(TAG, "New adapter strengths: ${interest.strength}")
-            }
+            model.updateInterests(adapter.interests)
         }
     }
 
